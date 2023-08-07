@@ -14,9 +14,6 @@ var _NEXT_DISPLAY;
 var _CURRENT_NUMBER;
 var _TASK_STRING_LENGTH;
 
-var _CORRECT_COLOR = [null, "green", "#87ff41"];
-var _INCORRECT_COLOR = [null, "red", "#ff3434"];
-
 var KEY = [
     "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=",
     "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+",
@@ -108,9 +105,9 @@ function refreshSpeedDisplay(typingCount, _timer) {
     var LETTER_PER_MINUTE = LETTER_PER_SECOND * 60;
     LETTER_PER_MINUTE = LETTER_PER_MINUTE.toFixed(0);
     speedDisplay.innerHTML = LETTER_PER_SECOND + "   letters/s<br>" + LETTER_PER_MINUTE + "   letters/min";
-    if(LETTER_PER_MINUTE == Infinity){
+    if (LETTER_PER_MINUTE == Infinity) {
         speedDisplay.style.display = "none";
-    }else{
+    } else {
         speedDisplay.style.display = "";
     }
     if (LETTER_PER_MINUTE <= 60) {
@@ -135,7 +132,7 @@ function refreshSpeedDisplay(typingCount, _timer) {
 }
 
 function getCurrentNumber() {
-    if(_SANDBOX_MODE == true){
+    if (_SANDBOX_MODE == true) {
         return NaN;
     }
     var tip = keyTipArray;
@@ -161,14 +158,14 @@ function getCurrentNumber() {
 function refreshProgressText() {
     _CURRENT_NUMBER = getCurrentNumber();
     var len = keyTipArray.length;
-    var rate = Math.round(_CURRENT_NUMBER/len*10000)/100;
-    progressCounter.innerHTML = "Progress: " + _CURRENT_NUMBER + " / " + len + " ("+rate+"%)";
+    var rate = Math.round(_CURRENT_NUMBER / len * 10000) / 100;
+    progressCounter.innerHTML = "Progress: " + _CURRENT_NUMBER + " / " + len + " (" + rate + "%)";
 }
 
-function setDone(){
-    if(_CURRENT_NUMBER == keyTipArray.length){
+function setDone() {
+    if (_CURRENT_NUMBER == keyTipArray.length) {
         done = true;
-    }else{
+    } else {
         done = false;
     }
 }
@@ -183,7 +180,7 @@ function refreshKeyTip() {
     if (!done) {
         keyTip.innerHTML = "Please press KEY: " + keyTipArray[idx];
     } else {
-        keyTip.innerHTML = "Nice Job!<br>You completed your task within "+ timer.totalTime/1000 +" seconds!<br>Press Control key to launch a new task!";
+        keyTip.innerHTML = "Nice Job!<br>You completed your task within " + timer.totalTime / 1000 + " seconds!<br>Press Control key to launch a new task!";
         timer.stop();
     }
 }
@@ -203,7 +200,7 @@ var typing = document.addEventListener('keydown', function (event) {
     }
     if (key == "Alt") {
         event.preventDefault();
-        timer.restart();
+        timer.restart();//重新计时
         return;
     }
     if (key == "F1") {
@@ -218,10 +215,10 @@ var typing = document.addEventListener('keydown', function (event) {
     }
     if (key == "F12") {
         event.preventDefault();
-        timer.toggle();
+        timer.toggle();//暂停或开始计时
         return;
     }
-    if(timer.intervalId==null && _SANDBOX_MODE==false){
+    if (timer.intervalId == null && _SANDBOX_MODE == false) {
         return;
     }
     if (key != "Backspace") {
@@ -241,7 +238,7 @@ var typing = document.addEventListener('keydown', function (event) {
     } else if (key == "Backspace") {
         backspaceCount += 1;
         //console.log(inputElement.firstChild.innerHTML);
-        if (inputElement.firstChild.innerHTML == __CURSOR_STRING) {
+        if (inputElement.firstChild.innerHTML == __CURSOR_STRING && inputElement.children.length == 1) {//3.2.2修复
             deleteCharacter(1);
             appendCharacter(__CURSOR_STRING);
         } else {
@@ -275,7 +272,7 @@ function refreshDisplayKeyMap(key, chara) {
 
 function launchTask(articleArray) {
     var aLength = articleArray.length;
-    var str = articleArray[getRandomInt(0,aLength)];
+    var str = articleArray[getRandomInt(0, aLength)];
     if (_SANDBOX_MODE == true) {
         inputModeSwitch();
     }
@@ -344,11 +341,9 @@ var windowScroller = document.addEventListener("keydown", function (event) {
     var _CURRENT_TO_LEFT = _NEXT_DISPLAY.offsetLeft;
     var _INNER_WIDTH = window.innerWidth;
     var _INNER_HEIGHT = window.innerHeight;
-    window.scrollTo({
-        left:_CURRENT_TO_LEFT - _INNER_WIDTH * 0.5,
-        top:_CURRENT_TO_TOP - _INNER_HEIGHT * 0.5,
-        behavior:"smooth"
-    });
+    var targetX = _CURRENT_TO_LEFT - _INNER_WIDTH * 0.5;
+    var targetY = _CURRENT_TO_TOP - _INNER_HEIGHT * 0.5;
+    window.scrollTo(targetX, targetY);
 })
 
 

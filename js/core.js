@@ -1,8 +1,8 @@
-var _VERSION = "v3.2.1";
+var _VERSION = "v3.2.3";
 var MIN_SKIN_ID = 1;
 var MAX_SKIN_ID = 2;
 var FILE_HEADER = "uu";//uu-<number>.css
-var __CURSOR_STRING = "_";
+var __CURSOR_STRING = "▮";
 var _SCORE = 0;
 
 var SKINLINK = document.getElementById("SKINLINK");
@@ -191,19 +191,19 @@ var timer = {
 
     writeInTimer: function () {
         var timerEle = timerElement;
-        var totalSec = this.totalTime/1000;
-        var _min = Math.floor(totalSec/60);
+        var totalSec = this.totalTime / 1000;
+        var _min = Math.floor(totalSec / 60);
         var _sec = Math.round(totalSec % 60);
         var isSingle = false;
-        if(_sec<10){
+        if (_sec < 10) {
             isSingle = true;
         }
-        if(isSingle){
-            timerEle.innerHTML = "Time: " + _min + ":0"+_sec;
-        }else{
-            timerEle.innerHTML = "Time: " + _min + ":"+_sec;
+        if (isSingle) {
+            timerEle.innerHTML = "Time: " + _min + ":0" + _sec;
+        } else {
+            timerEle.innerHTML = "Time: " + _min + ":" + _sec;
         }
-        timerEle.innerHTML += " ("+ round(totalSec,1)+"s)";
+        timerEle.innerHTML += " (" + round(totalSec, 1) + "s)";
     }
 };
 /**
@@ -245,7 +245,7 @@ setInterval(function () {
     centralizate(_author_);
     centralizate(_title_);
     centralizate(progressCounter);
-    progressCounter.style.top = _title_.offsetHeight + 5+ "px";
+    progressCounter.style.top = _title_.offsetHeight + 5 + "px";
 }, 100);
 setInterval(function () {
     timer.writeInTimer();

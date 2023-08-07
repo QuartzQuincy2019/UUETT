@@ -2,7 +2,7 @@ var skinId = [null, 1, 2];
 var skinPath = [null];
 
 for (var i = MIN_SKIN_ID; i <= MAX_SKIN_ID; i++) {
-    skinPath.push(".\\css\\"+ FILE_HEADER +"-" + skinId[i] + ".css");
+    skinPath.push(".\\css\\" + FILE_HEADER + "-" + skinId[i] + ".css");
 }
 
 /**
@@ -24,7 +24,7 @@ function getCurrentSkinPath() {
 }
 
 function getSkinId(path) {
-    var id = path.slice(9, -4);
+    var id = path.slice(7 + FILE_HEADER.length, -4);
     for (var i = MIN_SKIN_ID; i <= MAX_SKIN_ID; i++) {
         if ("" + skinId[i] == id) {
             return i;
@@ -37,10 +37,10 @@ function getCurrentSkinId() {
     return getSkinId(getCurrentSkinPath());
 }
 
-function refreshSkinButtonText(){
-    if(getCurrentSkinId()==1){
+function refreshSkinButtonText() {
+    if (getCurrentSkinId() == 1) {
         button_changeSkin.innerHTML = "Turn Off the Light [F10]";
-    }else{
+    } else {
         button_changeSkin.innerHTML = "Turn On the Light [F10]";
     }
 }
@@ -48,7 +48,7 @@ function refreshSkinButtonText(){
 function moveSkin() {
     var cur = getCurrentSkinId();
     //console.log("cur="+cur);
-    var target=cur;
+    var target = cur;
     if (cur + 1 > MAX_SKIN_ID) {
         target = MIN_SKIN_ID;
     } else {
