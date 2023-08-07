@@ -1,4 +1,4 @@
-var _VERSION = "v3.2.3";
+var _VERSION = "v3.3.0";
 var MIN_SKIN_ID = 1;
 var MAX_SKIN_ID = 2;
 var FILE_HEADER = "uu";//uu-<number>.css
@@ -15,6 +15,7 @@ var backspaceCounter = document.getElementById("backspaceCounter");
 var typingCounter = document.getElementById("typingCounter");
 var progressCounter = document.getElementById("progressCounter");
 var timerElement = document.getElementById("timer");
+var timerStatusDisplayer = document.getElementById("timerStatusDisplayer");
 var speedDisplayer = document.getElementById("speedDisplayer");
 var button_inputModeSwitch = document.getElementById("button_inputModeSwitch");
 var button_taskLauncher = document.getElementById("button_taskLauncher");
@@ -232,22 +233,36 @@ function extractValue(keyArray, valueArray, keyArrayValue) {
     return valueArray[indexInValueArray];
 }
 
+function refreshTimerStatusText(){
+    if(timer.intervalId){
+        timerStatusDisplayer.innerHTML = "Timer is running";
+    }else{
+        timerStatusDisplayer.innerHTML = "Timer stopped";
+    }
+}
+
 /**
  * 
  * @param {Element} element 要居中的元素
  */
-function centralizate(element) {
+function fixHorizontalPosition(element, rate) {
     var WINDOW_WIDTH = window.innerWidth;
     var ELEMENT_WIDTH = element.offsetWidth;
-    element.style.left = (WINDOW_WIDTH - ELEMENT_WIDTH) / 2 + "px";
+    var left = WINDOW_WIDTH*rate-ELEMENT_WIDTH/2;
+    element.style.left = Math.floor(left) + "px";
 }
+
 setInterval(function () {
-    centralizate(_author_);
-    centralizate(_title_);
-    centralizate(progressCounter);
+    fixHorizontalPosition(_author_, 0.5);
+    fixHorizontalPosition(_title_, 0.5);
+    fixHorizontalPosition(progressCounter, 0.5);
+    fixHorizontalPosition(timerStatusDisplayer, 0.5);
     progressCounter.style.top = _title_.offsetHeight + 5 + "px";
+    timerStatusDisplayer.style.top = _title_.offsetHeight + progressCounter.offsetHeight + 10 + "px";
 }, 100);
+
 setInterval(function () {
     timer.writeInTimer();
+    refreshTimerStatusText();
     refreshSpeedDisplay(typingCount, timer);
 }, 100);
