@@ -1,0 +1,115 @@
+/* general.css */
+/* 2023/8/5 */
+* {
+    margin: 0;
+    scroll-behavior: smooth;
+    /* v3.0.0 新增 */
+}
+
+#TYPINGAREA {
+    margin: 10px;
+}
+
+#TITLEAREA *,
+#BUTTONAREA *,
+#COUNTAREA *,
+#SPEEDAREA *,
+#AUTHORAREA * {
+    font-family: "Times New Roman";
+}
+
+a {
+    text-decoration: none;
+    color: #707070;
+}
+
+#TYPINGAREA {
+    width: auto;
+}
+
+#TYPINGAREA * {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+    white-space: nowrap;
+}
+
+#BUTTONAREA * {
+    display: block;
+}
+
+#BUTTONAREA {
+    margin-bottom: 50px;
+}
+
+#COUNTAREA * {
+    text-align: right;
+}
+
+#AUTHORAREA * {
+    position: fixed;
+    opacity: 0.2;
+    bottom: 0;
+}
+
+#TITLEAREA * {
+    position: fixed;
+    top: 0;
+}
+
+#progressCounter {
+    position: fixed;
+}
+
+.FunctionButton {
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 300ms;
+    transition-property: all;
+    font-size: 16px;
+    margin: 2px 2px;
+}
+
+.ioAreaPara {
+    font-size: 30px;
+}
+
+#displayKey {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.floating {
+    padding: 5px 8px;
+    margin: 6px;
+    display: block;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 5px;
+}
+
+#speedDisplayer {
+    text-shadow: 1px 1px 2px #000000;
+}
+
+#SPEEDAREA {
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+#COUNTAREA {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+#keyTip {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+#_author_,
+#_title_ {
+    display: inline-block;
+}

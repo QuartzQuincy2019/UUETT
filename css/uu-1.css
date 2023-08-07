@@ -1,0 +1,38 @@
+/* uu-1.css */
+body {
+    background-color: #fbe5b4;
+    color: #3d2a00;
+}
+
+.FunctionButton {
+    background-color: aliceblue;
+    border: 3px solid #000000;
+}
+
+.FunctionButton:hover {
+    box-shadow: 2px 2px 3px #a4a4a4;
+}
+
+.FunctionButton:active {
+    background-color: aqua;
+}
+
+#displayKey {
+    text-shadow: 2px 2px 3px #999999;
+}
+
+.floating {
+    background-color: #fff0cf;
+}
+
+div span.TTC_correct {
+    color: #009200;
+}
+
+div span.TTC_incorrect {
+    color: #ff2020;
+}
+
+div span.TTC_none {
+    color: #bbbbbb;
+}
