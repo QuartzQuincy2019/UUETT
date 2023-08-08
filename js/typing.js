@@ -117,6 +117,10 @@ function correct() {
 var _interval_correction = setInterval(correct, 100);
 
 function launchTask(articleArray) {
+    if(_SANDBOX_MODE == true){
+        return;
+    }
+    //抽取开始
     var aLength = articleArray.length;
     var randomNum = getRandomInt(0, aLength);
     while (randomNum == _CHOSEN_ARTICLE_NUMBER && aLength != 1) {//5.0.0修复
@@ -126,16 +130,11 @@ function launchTask(articleArray) {
         randomNum = 0;
     }
     _CHOSEN_ARTICLE_NUMBER = randomNum;
+    console.log(_CHOSEN_ARTICLE_NUMBER);
     refreshLoadingInfoText(_CHOSEN_ARTICLE_NUMBER);
     var str = articleArray[randomNum];
-    if (_SANDBOX_MODE == true) {
-        inputModeSwitch();
-    }
-    clearInputText();
-    done = false;
-    keydownCount = 0;
-    displayElement.innerHTML = "";
-    keyTipArray = [];
+    clearModeCache();
+    displayElement.innerHTML = "";//请勿忘记
     var _TASK_STRING = str.getTypingNewArray();//事先准备好新数组，减少运算次数
     _TASK_STRING_LENGTH = _TASK_STRING.length;//事先准备好数组长度，减少运算次数
     var each;

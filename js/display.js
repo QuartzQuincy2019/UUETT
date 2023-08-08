@@ -146,26 +146,28 @@ function refreshTelescope() {
             telescope.innerHTML += "<span id=\"TELESCOPE_" + i + "\">" + writeIn + "</span>";
         }
     }
-    var T_id = 0;
-    var I_id = 0;
-    var T_key = "";
-    var D_key = "";
-    var T_len = telescope.children.length;
-    console.log("telescope.children.length = " + T_len);
-    for (var j = 0; j <= T_len - 2; j++) {
-        T_id = Number(telescope.children[j].id.slice(10));
-        //console.log(telescope.children[j].id);
-        I_id = T_id;
-        //console.log("j=" + j + ", I_id=" + I_id);
-        T_key = extractValue(CHARACTER, KEY, inputElement.children[I_id].innerHTML);//获取当前对应的key
-        //console.log("j=" + j + ", T_key=" + T_key);
-        D_key = keyTipArray[I_id];
-        //console.log("j=" + j + ", D_key=" + D_key);
-        if (D_key == T_key) {
-            telescope.children[j].className = "TTC_correct";
-        }
-        if (D_key != T_key) {
-            telescope.children[j].className = "TTC_incorrect";
+    if(_SANDBOX_MODE==false){
+        var T_id = 0;
+        var I_id = 0;
+        var T_key = "";
+        var D_key = "";
+        var T_len = telescope.children.length;
+        //console.log("telescope.children.length = " + T_len);
+        for (var j = 0; j <= T_len - 2; j++) {
+            T_id = Number(telescope.children[j].id.slice(10));
+            //console.log(telescope.children[j].id);
+            I_id = T_id;
+            //console.log("j=" + j + ", I_id=" + I_id);
+            T_key = extractValue(CHARACTER, KEY, inputElement.children[I_id].innerHTML);//获取当前对应的key
+            //console.log("j=" + j + ", T_key=" + T_key);
+            D_key = keyTipArray[I_id];
+            //console.log("j=" + j + ", D_key=" + D_key);
+            if (D_key == T_key) {
+                telescope.children[j].className = "TTC_correct";
+            }
+            if (D_key != T_key) {
+                telescope.children[j].className = "TTC_incorrect";
+            }
         }
     }
     telescope.style.width = (__MAX_TELESCOPE_CHARACTER / 2 + 0.5) + "em";
@@ -206,7 +208,7 @@ setInterval(function () {
 //显示进入网页的说明
 var _str = "";
 _str += "***This is a purely English web page. Your keyboard input has been restricted on this page and you cannot enter any characters other than English (and punctuation).";
-_str += "<br>***Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task randomly from the file \".\\js\\tasks.js\" and start your practice.";
+_str += "<br>***Press <strong>" + __FK_MODE_SWITCH + "</strong> then <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task randomly from the file \".\\js\\tasks.js\" and start your practice.";
 _str += "<br>***You can add new typing tasks by modifying the file \".\\js\\tasks.js\".";
 _str += "<br>***If you want to enter a line break (i.e. <strong>Enter</strong> key) in a typing task, type\"&lt;br&gt;\" into the file.";
 _str += "<br>***Note: If the length of a single typing task is too long (greater than 500 letters), your browser will take more time to load it, usually LONGER than 0.6 seconds.";

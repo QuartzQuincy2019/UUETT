@@ -301,16 +301,11 @@ function fixHorizontalPosition(element, rate) {
     element.style.left = Math.floor(left) + "px";
 }
 
-function clearInputText() {//F1
-    //console.log("已清除。当前内容：" + inputElement.innerHTML);
+function clearInputText() {
     inputElement.innerHTML = "";
-    appendCharacter(__CURSOR_STRING);
-    typingCount = 0;
-    backspaceCount = 0;
-    keydownCount = 0;
-    timer.restart();
     pressedKeyArray = [];
-    window.scrollTo(0, 0);
+    appendCharacter(__CURSOR_STRING);
+    timer.restart();
     refreshTelescope();
 }
 
@@ -322,20 +317,32 @@ function inputModeText() {
     }
 }
 
+function clearModeCache() {
+    keyTipArray = [];
+    inputModeText();
+    areaDisplay();
+    _CHOSEN_ARTICLE_NUMBER = 0;
+    _TASK_STRING_LENGTH = 0;
+    displayElement.innerHTML = "You are in <strong>Task Mode</strong> but have <strong>not</strong> launched a task yet.<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!<br>Typing is meaningless now.";
+    inputElement.innerHTML = "";
+    done = false;
+    typingCount = 0;
+    backspaceCount = 0;
+    keydownCount = 0;
+    window.scrollTo(0, 0);
+    clearInputText();
+}
+
 function inputModeSwitch() {
     if (timer.intervalId) {
-        timer.stop();
-        timer.reset();
+        timer.restart();
     }
     if (_SANDBOX_MODE == true) {
         _SANDBOX_MODE = false;
     } else {
         _SANDBOX_MODE = true;
-        keyTipArray = [];
     }
-    inputModeText();
-    areaDisplay();
-    clearInputText();
+    clearModeCache();
 }
 
 function deleteCharacter(count) {
