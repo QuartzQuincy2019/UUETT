@@ -30,4 +30,18 @@ var __SKIN_HINTS = [
     null,
     "Turn Off the Light",
     "Turn On the Light"
-]
+];
+
+var __DEFAULT_FONT_TYPING = "Consolas";
+var __DEFAULT_FONT_OTHER = 'Times New Roman';
+
+//功能键设置
+var __FK_LAUNCH_TASK = "Control";
+var __FK_MODE_SWITCH = "Tab";
+var __FK_TIMER_RESTART = "Alt";
+var __FK_CLEAR = "F1";
+var __FK_MOVE_SKIN = "F10";
+var __FK_TIMER_TOGGLE = "F12";
+var __FK_DEFAULT_FONT_SIZE = "F9";
+var __FK_INCREASE_FONT_SIZE = "PageUp";
+var __FK_DECREASE_FONT_SIZE = "PageDown";

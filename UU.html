@@ -3,7 +3,7 @@
 <html lang="en-US">
 
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width"/>
+    <meta charset="UTF-8" name="viewport" content="width=device-width" />
     <link rel="stylesheet" type="text/css" href=".\css\general.css" />
     <link id="SKINLINK" rel="stylesheet" type="text/css" href=".\css\uu-1.css" />
     <title>UU Typing Practicer -- UUTP</title>
@@ -15,25 +15,25 @@
     <div id="TITLEAREA">
         <!--标题-->
         <h1 id="_title_" class="floating">0</h1>
+        <h2 id="loadingInfo" class="floating">loadingInfo</h2>
         <h2 id="progressCounter" class="floating">TaskProgressDisplayer</h2>
         <h2 id="timerStatusDisplayer" class="floating">TimerStatus</h2>
     </div>
-    <div id="BUTTONAREA">
-        <!--模式开关、清空键、新任务键、计时器刷新键、皮肤切换键-->
-        <button class="FunctionButton" onclick="inputModeSwitch();" type="button"
-            id="button_inputModeSwitch">MODESWITCH</button>
-        <button class="FunctionButton" onclick="clearInputText();" type="button" id="button_clearInputText">Clear &
-            Restart
-            Timer [F1]</button>
-        <button class="FunctionButton" onclick="launchTask(articles);" type="button" id="button_taskLauncher">Launch New
-            Task! [Control]</button>
-        <button class="FunctionButton" onclick="timer.restart();" type="button" id="button_restartTimer">Restart Timer
-            [Alt]</button>
-        <button class="FunctionButton" onclick="moveSkin();" type="button" id="button_changeSkin">Change Skin
-            [F10]</button>
+    <div id="BUTTONAREA" class="floating">
+        <button class="FunctionButton" onclick="inputModeSwitch();" type="button" id="button_inputModeSwitch">Mode
+            Switch</button>
+        <button class="FunctionButton" onclick="clearInputText();" type="button"
+            id="button_clearInputText">Clear</button>
+        <button class="FunctionButton" onclick="launchTask(articles);" type="button" id="button_taskLauncher">Task
+            Launcher</button>
+        <button class="FunctionButton" onclick="timer.restart();" type="button" id="button_restartTimer">Restart
+            Timer</button>
+        <button class="FunctionButton" onclick="moveSkin();" type="button" id="button_changeSkin">Change Skin</button>
+        <button class="FunctionButton" onclick="adjustIoAreaSize(true, 30);" type="button"
+            id="button_defaultFontSize">Default Font Size</button>
     </div>
     <div id="COUNTAREA" class="floating">
-        <!--打字计数器、按键计数器、退格计数器、进度计数器-->
+        <!--打字计数器、按键计数器、退格计数器-->
         <h2 id="typingCounter">TypingCounter</h2>
         <h2 id="keydownCounter">KeydownCounter</h2>
         <h2 id="backspaceCounter">BackspaceCounter</h2>
@@ -47,18 +47,10 @@
         <!--按键提示、显示器、输入器-->
         <h3 id="keyTip" class="floating"></h3>
         <div id="displayElement" class="ioAreaPara">
-            Press Control(Ctrl) to launch a new task.
+            Let's launch a new task!
         </div>
         <div id="inputElement" class="ioAreaPara">
-            ***This is a purely English web page. Your keyboard input has been restricted on this page and you cannot enter any characters other than English (and punctuation).
-            <br>***Press <strong>Control</strong>(Ctrl) to launch a new task randomly from the file ".\js\tasks.js" and start your practice.
-            <br>***You can add new typing tasks by modifying the file ".\js\tasks.js".
-            <br>***If you want to enter a line break (i.e. <strong>Enter</strong> key) in a typing task, type "&lt;br&gt;" into the file.
-            <br>***Note: If the length of a single typing task is too long (greater than 500 letters), your browser will take more time to load it, usually longer than 0.6 seconds.
-            <br>***You have to make sure you type <strong>## E V E R Y ##</strong> letter correctly. In this way, the program can determine that you have completed the typing task.
-            <br>***The default fonts used for this page are "Consolas" and "Times New Roman". If you do not have a font file for these fonts on your computer, the browser will use the default font to replace the missing font.
-            <br>***Press the <strong>F12</strong> key to start/stop your inputing and the timer.
-            <br>***Press the <strong>F10</strong> / <strong>Backspace</strong> (continuously) /<strong>Tab</strong> key to clear these instructions.
+            0
         </div>
     </div>
     <div id="AUTHORAREA">

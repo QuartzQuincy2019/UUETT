@@ -42,11 +42,11 @@ function getCurrentSkinId() {
 }
 
 function refreshSkinButtonText() {
-    var keyText = "[F10]";
+    var keyText = "[" + __FK_MOVE_SKIN + "]";
     var str = "";
     var id = getCurrentSkinId();
     str = __SKIN_HINTS[id];
-    str += keyText;
+    str += " " + keyText;
     button_changeSkin.innerHTML = str;
 }
 

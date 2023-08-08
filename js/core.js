@@ -7,6 +7,7 @@ var done = false;//不允许修改
 var keydownCount = 0;//按键次数（包括Shift）
 var backspaceCount = 0;//退格次数
 var typingCount = 0;//字母次数
+var _CHOSEN_ARTICLE_NUMBER = 0;
 var _CURRENT_NUMBER = 0;
 var _TASK_STRING_LENGTH = 0;
 
@@ -25,12 +26,25 @@ var keydownCounter = document.getElementById("keydownCounter");
 var backspaceCounter = document.getElementById("backspaceCounter");
 var typingCounter = document.getElementById("typingCounter");
 var progressCounter = document.getElementById("progressCounter");
+var loadingInfo = document.getElementById("loadingInfo");
 var timerElement = document.getElementById("timer");
 var timerStatusDisplayer = document.getElementById("timerStatusDisplayer");
 var speedDisplayer = document.getElementById("speedDisplayer");
+
 var button_inputModeSwitch = document.getElementById("button_inputModeSwitch");
+var button_clearInputText = document.getElementById("button_clearInputText");
 var button_taskLauncher = document.getElementById("button_taskLauncher");
+var button_restartTimer = document.getElementById("button_restartTimer");
 var button_changeSkin = document.getElementById("button_changeSkin");
+var button_defaultFontSize = document.getElementById("button_defaultFontSize");
+
+var SPEEDAREA = document.getElementById("SPEEDAREA");
+var TITLEAREA = document.getElementById("TITLEAREA");
+var COUNTAREA = document.getElementById("COUNTAREA");
+var BUTTONAREA = document.getElementById("BUTTONAREA");
+var AUTHORAREA = document.getElementById("AUTHORAREA");
+var TYPINGAREA = document.getElementById("TYPINGAREA");
+var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
 
 var _author_ = document.getElementById("_author_");
 var _title_ = document.getElementById("_title_");
@@ -271,9 +285,9 @@ function clearInputText() {//F1
 
 function inputModeText() {
     if (_SANDBOX_MODE == true) {
-        button_inputModeSwitch.innerHTML = "Switch out of Sandbox Mode [Tab]";
+        button_inputModeSwitch.innerHTML = "Switch out of Sandbox Mode [" + __FK_MODE_SWITCH + "]";
     } else {
-        button_inputModeSwitch.innerHTML = "Switch to Sandbox Mode [Tab]";
+        button_inputModeSwitch.innerHTML = "Switch to Sandbox Mode [" + __FK_MODE_SWITCH + "]";
     }
 }
 

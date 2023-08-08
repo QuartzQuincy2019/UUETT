@@ -11,21 +11,6 @@ function areaDisplay() {
     }
 }
 
-setInterval(function () {
-    fixHorizontalPosition(_author_, 0.5);
-    fixHorizontalPosition(_title_, 0.5);
-    fixHorizontalPosition(progressCounter, 0.5);
-    fixHorizontalPosition(timerStatusDisplayer, 0.5);
-    progressCounter.style.top = _title_.offsetHeight + 5 + "px";
-    timerStatusDisplayer.style.top = _title_.offsetHeight + progressCounter.offsetHeight + 10 + "px";
-}, 100);
-
-setInterval(function () {
-    timer.writeInTimer();
-    refreshTimerStatusText();
-    refreshSpeedDisplay(typingCount, timer);
-}, 100);
-
 function refreshTimerStatusText() {
     if (timer.intervalId) {
         timerStatusDisplayer.innerHTML = "Timer is running";
@@ -66,8 +51,13 @@ function refreshDisplayKeyMap(key, chara) {
     displayKey.textContent = "[" + key + "] key is [" + chara + "]";
 }
 
+function refreshLoadingInfoText(article_number) {
+    loadingInfo.innerHTML = "Article: " + (article_number + 1) + " / " + articles.length;
+}
+
 function refreshProgressText() {
     _CURRENT_NUMBER = getCurrentNumber();
+    console.log(_CURRENT_NUMBER);
     var len = keyTipArray.length;
     var rate = Math.round(_CURRENT_NUMBER / len * 10000) / 100;
     progressCounter.innerHTML = "Progress: " + _CURRENT_NUMBER + " / " + len + " (" + rate + "%)";
@@ -83,7 +73,7 @@ function refreshKeyTip() {
     if (!done) {
         keyTip.innerHTML = "Please press KEY: " + keyTipArray[idx];
     } else {
-        keyTip.innerHTML = "Nice Job!<br>You completed your task within " + timer.totalTime / 1000 + " seconds!<br>Press Control key to launch a new task!";
+        keyTip.innerHTML = "Nice Job!<br>You completed your task within " + timer.totalTime / 1000 + " seconds!<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!";
         timer.stop();
     }
 }
@@ -126,3 +116,70 @@ function refreshKeyCounterText() {
     backspaceCounter.innerHTML = backspaceCount + " Backspace(s)";
     keydownCounter.innerHTML = keydownCount + " Keydown(s)";
 }
+
+function adjustIoAreaSize(isAssignment, _SIZE) {
+    if (!isAssignment) {
+        for (var i = 0; i < _ioAreaPara.length; i++) {
+            var cur = Number(window.getComputedStyle(_ioAreaPara[i])["font-size"].slice(0, -2));
+            cur += _SIZE;
+            _ioAreaPara[i].style["font-size"] = cur + "px";
+        }
+    } else {
+        for (var i = 0; i < _ioAreaPara.length; i++) {
+            _ioAreaPara[i].style["font-size"] = _SIZE + "px";
+        }
+    }
+}
+
+//位置固定
+setInterval(function () {
+    fixHorizontalPosition(_author_, 0.5);
+    fixHorizontalPosition(_title_, 0.5);
+    fixHorizontalPosition(progressCounter, 0.5);
+    fixHorizontalPosition(timerStatusDisplayer, 0.5);
+    progressCounter.style.top = _title_.offsetHeight + 5 + "px";
+    timerStatusDisplayer.style.top = _title_.offsetHeight + progressCounter.offsetHeight + 10 + "px";
+    loadingInfo.style.top = SPEEDAREA.offsetHeight + 5 + "px";
+    loadingInfo.style.right = "0px";
+}, 100);
+
+setInterval(function () {
+    timer.writeInTimer();
+    refreshTimerStatusText();
+    refreshSpeedDisplay(typingCount, timer);
+}, 100);
+
+//显示进入网页的说明
+var _str = "";
+_str += "***This is a purely English web page. Your keyboard input has been restricted on this page and you cannot enter any characters other than English (and punctuation).";
+_str += "<br>***Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task randomly from the file \".\\js\\tasks.js\" and start your practice.";
+_str += "<br>***You can add new typing tasks by modifying the file \".\\js\\tasks.js\".";
+_str += "<br>***If you want to enter a line break (i.e. <strong>Enter</strong> key) in a typing task, type\"&lt;br&gt;\" into the file.";
+_str += "<br>***Note: If the length of a single typing task is too long (greater than 500 letters), your browser will take more time to load it, usually LONGER than 0.6 seconds.";
+_str += "<br>***You have to make sure you type <strong>## E V E R Y ##</strong> letter correctly. In this way, the program can determine that you have completed the typing task.";
+_str += "<br>***The default fonts used for this page are \"" + __DEFAULT_FONT_TYPING + "\" and \"" + __DEFAULT_FONT_OTHER + "\". If you do not have a font file for these fonts on your computer, the browser will use the default font to replace the missing font.";
+_str += "<br>***Press the <strong>" + __FK_TIMER_TOGGLE + "</strong> key to start/stop your inputing and the timer.";
+_str += "<br>***Press the <strong>" + __FK_INCREASE_FONT_SIZE + "</strong> / <strong>" + __FK_DECREASE_FONT_SIZE + "</strong> key to increase / decrease the size of the text of input&display area; press the <strong>" + __FK_DEFAULT_FONT_SIZE + "</strong> key to set them to the default size.";
+_str += "<br>***Press the <strong>" + __FK_CLEAR + "</strong> / <strong>Backspace</strong> (continuously) / <strong>" + __FK_MODE_SWITCH + "</strong> key to clear these instructions.";
+inputElement.innerHTML = _str;
+button_clearInputText.innerHTML = "Clear & Restart Timer [" + __FK_CLEAR + "]";
+button_taskLauncher.innerHTML = "Launch New Task! [" + __FK_LAUNCH_TASK + "]";
+button_restartTimer.innerHTML = "Restart Timer [" + __FK_TIMER_RESTART + "]";
+button_changeSkin.innerHTML = "Change Skin [" + __FK_MOVE_SKIN + "]";
+button_defaultFontSize.innerHTML = "Default Font Size [" + __FK_DEFAULT_FONT_SIZE + "]";
+
+//设置字体大小
+adjustIoAreaSize(true, 30);
+
+//设置字体
+TITLEAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
+COUNTAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
+AUTHORAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
+SPEEDAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
+for (var i = 0; i < BUTTONAREA.children.length; i++) {
+    BUTTONAREA.children[i].style["font-family"] = __DEFAULT_FONT_OTHER;
+}
+
+TYPINGAREA.style["font-family"] = __DEFAULT_FONT_TYPING;
+
+
