@@ -1,5 +1,5 @@
 # UUTP_HJ105
-> **UU** **T**yping **P**racticer —— UU打字练习器
+> **UU** **T**yping **T**rainer —— UU打字练习器
 
 **Project UU**: ***Created on Aug.2, 2023***
 ## 下载和使用方法
