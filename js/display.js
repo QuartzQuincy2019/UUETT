@@ -57,7 +57,7 @@ function refreshLoadingInfoText(article_number) {
 
 function refreshProgressText() {
     _CURRENT_NUMBER = getCurrentNumber();
-    console.log(_CURRENT_NUMBER);
+    //console.log(_CURRENT_NUMBER);
     var len = keyTipArray.length;
     var rate = Math.round(_CURRENT_NUMBER / len * 10000) / 100;
     progressCounter.innerHTML = "Progress: " + _CURRENT_NUMBER + " / " + len + " (" + rate + "%)";
@@ -117,6 +117,60 @@ function refreshKeyCounterText() {
     keydownCounter.innerHTML = keydownCount + " Keydown(s)";
 }
 
+function refreshTelescope() {
+    if (!__IS_TELESCOPE_ALWAYS_DISPLAY) {
+        console.log(inputElement.isBelowViewport(false));
+        if (inputElement.isBelowViewport(false)) {
+            telescope.style.display = "";
+        } else {
+            telescope.style.display = "none";
+            return;
+        }
+    } else {
+        telescope.style.display = "";
+    }
+    telescope.innerHTML = "";
+    var I_len = inputElement.children.length;
+    if (I_len <= __MAX_TELESCOPE_CHARACTER) {
+        for (var i = 0; i < inputElement.children.length; i++) {
+            telescope.innerHTML += "<span id=\"TELESCOPE_" + i + "\">" + inputElement.children[i].innerHTML + "</span>";
+        }
+    } else {
+        for (var i = I_len - __MAX_TELESCOPE_CHARACTER; i < I_len; i++) {
+            var writeIn;
+            if (inputElement.children[i].innerHTML == "<br>") {
+                writeIn = __TELESCOPE_BREAKLINE;
+            } else {
+                writeIn = inputElement.children[i].innerHTML;
+            }
+            telescope.innerHTML += "<span id=\"TELESCOPE_" + i + "\">" + writeIn + "</span>";
+        }
+    }
+    var T_id = 0;
+    var I_id = 0;
+    var T_key = "";
+    var D_key = "";
+    var T_len = telescope.children.length;
+    console.log("telescope.children.length = " + T_len);
+    for (var j = 0; j <= T_len - 2; j++) {
+        T_id = Number(telescope.children[j].id.slice(10));
+        //console.log(telescope.children[j].id);
+        I_id = T_id;
+        //console.log("j=" + j + ", I_id=" + I_id);
+        T_key = extractValue(CHARACTER, KEY, inputElement.children[I_id].innerHTML);//获取当前对应的key
+        //console.log("j=" + j + ", T_key=" + T_key);
+        D_key = keyTipArray[I_id];
+        //console.log("j=" + j + ", D_key=" + D_key);
+        if (D_key == T_key) {
+            telescope.children[j].className = "TTC_correct";
+        }
+        if (D_key != T_key) {
+            telescope.children[j].className = "TTC_incorrect";
+        }
+    }
+    telescope.style.width = (__MAX_TELESCOPE_CHARACTER / 2 + 0.5) + "em";
+}
+
 function adjustIoAreaSize(isAssignment, _SIZE) {
     if (!isAssignment) {
         for (var i = 0; i < _ioAreaPara.length; i++) {
@@ -137,10 +191,10 @@ setInterval(function () {
     fixHorizontalPosition(_title_, 0.5);
     fixHorizontalPosition(progressCounter, 0.5);
     fixHorizontalPosition(timerStatusDisplayer, 0.5);
+    fixHorizontalPosition(telescope, 0.5);
     progressCounter.style.top = _title_.offsetHeight + 5 + "px";
     timerStatusDisplayer.style.top = _title_.offsetHeight + progressCounter.offsetHeight + 10 + "px";
     loadingInfo.style.top = SPEEDAREA.offsetHeight + 5 + "px";
-    loadingInfo.style.right = "0px";
 }, 100);
 
 setInterval(function () {
@@ -170,6 +224,7 @@ button_defaultFontSize.innerHTML = "Default Font Size [" + __FK_DEFAULT_FONT_SIZ
 
 //设置字体大小
 adjustIoAreaSize(true, 30);
+telescope.style["font-size"] = __DEFAULT_TELESCOPE_FONT_SIZE + "px";
 
 //设置字体
 TITLEAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
@@ -181,5 +236,6 @@ for (var i = 0; i < BUTTONAREA.children.length; i++) {
 }
 
 TYPINGAREA.style["font-family"] = __DEFAULT_FONT_TYPING;
+telescope.style["font-family"] = __DEFAULT_FONT_TYPING;
 
 

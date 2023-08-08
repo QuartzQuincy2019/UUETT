@@ -18,8 +18,11 @@ var _NEXT_DISPLAY;//element
 
 //element variables
 var SKINLINK = document.getElementById("SKINLINK");
+
 var inputElement = document.getElementById("inputElement");
 var displayElement = document.getElementById("displayElement");
+var telescope = document.getElementById("telescope");
+
 var displayKey = document.getElementById("displayKey");
 var keyTip = document.getElementById("keyTip");
 var keydownCounter = document.getElementById("keydownCounter");
@@ -49,7 +52,7 @@ var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
 var _author_ = document.getElementById("_author_");
 var _title_ = document.getElementById("_title_");
 
-_title_.innerHTML = "UUTP " + _VERSION;
+_title_.innerHTML = "UUTT " + _VERSION;
 _author_.innerHTML = "By QuartzQuincy2019 (Quincy K.)";
 _author_.href = "https://github.com/QuartzQuincy2019";
 _author_.title = "How did you discover me?";
@@ -90,7 +93,7 @@ String.prototype.getTypingNewArray = function () {
     var newArray = [];
     var restString = this;
 
-    var reg = [null, /&#\d+;/, /&\w+;/, /<\w+>/];
+    var reg = [null, /&#\d+;/, /&\w+;/, /<br>/];
 
     var reg_startIdx = [null];
     for (var i = 1; i < reg.length; i++) {
@@ -130,7 +133,6 @@ String.prototype.getTypingNewArray = function () {
             //包括0
             var __MODE = -1;//判断到了表达式的序号
             //寻找第几项不是0
-            var count = 0;
             for (var j = 1; j < reg_startIdx.length; j++) {
                 if (reg_startIdx[j] == 0) {
                     __MODE = j;
@@ -151,6 +153,34 @@ String.prototype.charAtTyping = function (charIndex) {
 }
 String.prototype.getTypinglength = function () {
     return this.getTypingNewArray().length;
+}
+/**
+ * 
+ * @param {boolean} isCompletelyBelow 控制是否完全在视口下方
+ * @returns
+ */
+Element.prototype.isBelowViewport = function (isCompletelyBelow) {
+    var rect = this.getBoundingClientRect();
+    var bottom = rect.bottom;
+    if (isCompletelyBelow) {
+        return bottom - window.innerHeight > rect.height;
+    } else {
+        return (bottom - window.innerHeight > 0 && bottom - window.innerHeight < rect.height);
+    }
+}
+/**
+ * 
+ * @param {boolean} isCompletelyOver 控制是否完全在视口上方
+ * @returns 
+ */
+Element.prototype.isOverViewport = function (isCompletelyOver) {
+    var rect = this.getBoundingClientRect();
+    var top = rect.top;
+    if (isCompletelyOver) {
+        return top - rect.bottom == rect.height;
+    } else {
+        return (top + rect.bottom == rect.height && top > 0)
+    }
 }
 function round(number, precision) {
     return Math.round(+number + "e" + precision) / Math.pow(10, precision);
@@ -281,6 +311,7 @@ function clearInputText() {//F1
     timer.restart();
     pressedKeyArray = [];
     window.scrollTo(0, 0);
+    refreshTelescope();
 }
 
 function inputModeText() {
@@ -354,3 +385,4 @@ function getCurrentNumber() {
         }
     }
 }
+

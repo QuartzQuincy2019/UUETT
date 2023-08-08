@@ -71,6 +71,17 @@ a {
     bottom: 0;
 }
 
+#loadingInfo{
+    right: 0;
+}
+
+#telescope {
+    position: fixed;
+    bottom: 0;
+    white-space: nowrap;
+    font-size: 30px;
+}
+
 #_author_,
 #_title_ {
     display: inline-block;

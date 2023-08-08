@@ -45,16 +45,16 @@ var typing = document.addEventListener('keydown', function (event) {
         event.preventDefault();
         adjustIoAreaSize(false, -2);
     }
-    if (timer.intervalId == null && _SANDBOX_MODE == false) {
+    if (timer.intervalId == null/*未计时*/ && _SANDBOX_MODE == false/*非沙盒模式*/) {
         return;
     }
     if (key != "Backspace") {
-        // 检查按下的键是否在假名映射表中
+        // 检查按下的键是否在映射表中
         if (KEY.includes(key)) {
             if (!signs.includes(key)) {//如果按键不在signs中
                 typingCount++;
             }
-            event.preventDefault(); // 阻止默认的按键行为（例如输入字符到输入框）
+            event.preventDefault(); //阻止默认按键行为
             var character = extractValue(KEY, CHARACTER, key);
             deleteCharacter(1);
             appendCharacter(character);
@@ -78,6 +78,7 @@ var typing = document.addEventListener('keydown', function (event) {
     keydownCount += 1;
     refreshKeyCounterText();
     refreshProgressText();
+    refreshTelescope();
 });
 
 var windowScroller = document.addEventListener("keydown", function (event) {
@@ -118,8 +119,11 @@ var _interval_correction = setInterval(correct, 100);
 function launchTask(articleArray) {
     var aLength = articleArray.length;
     var randomNum = getRandomInt(0, aLength);
-    while (randomNum == _CHOSEN_ARTICLE_NUMBER) {
+    while (randomNum == _CHOSEN_ARTICLE_NUMBER && aLength != 1) {//5.0.0修复
         randomNum = getRandomInt(0, aLength);
+    }
+    if(aLength == 1){
+        randomNum = 0;
     }
     _CHOSEN_ARTICLE_NUMBER = randomNum;
     refreshLoadingInfoText(_CHOSEN_ARTICLE_NUMBER);
@@ -152,5 +156,6 @@ function launchTask(articleArray) {
     pressedKeyArray = [];
     refreshKeyTip();
     refreshProgressText();
+    refreshTelescope();
     timer.restart();//必须为restart，否则按Shift会导致计时器加速，原因未知
 }

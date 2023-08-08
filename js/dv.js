@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v4.2.1";
+var _VERSION = "v5.0.0";
 
 /**
  * 最大皮肤ID。
@@ -23,6 +23,22 @@ var FILE_HEADER = "uu";//uu-<number>.css
 var __CURSOR_STRING = "▮";
 
 /**
+ * 若为true，则一直显示望远镜
+ * 若为false，则仅当输入区域在视口界面以下时显示望远镜
+ */
+var __IS_TELESCOPE_ALWAYS_DISPLAY = true;
+
+/**
+ * 望远镜最多能显示的字符。不宜超过15。
+ */
+var __MAX_TELESCOPE_CHARACTER = 10;
+
+/**
+ * 望远镜对换行符的替代字符，不允许包含大于号和小于号。
+ */
+var __TELESCOPE_BREAKLINE = "□";
+
+/**
  * 切换皮肤按钮上显示的文本
  * 当皮肤ID为n时，皮肤按钮上显示的文本为__SKIN_HINTS[n]
  */
@@ -31,6 +47,9 @@ var __SKIN_HINTS = [
     "Turn Off the Light",
     "Turn On the Light"
 ];
+
+//默认字体大小设置，单位：px
+var __DEFAULT_TELESCOPE_FONT_SIZE = 30;//望远镜默认字体
 
 //默认字体设置
 var __DEFAULT_FONT_TYPING = "Consolas";//打字区域显示字体
