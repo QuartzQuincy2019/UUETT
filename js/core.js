@@ -1,10 +1,21 @@
-var _VERSION = "v3.3.0";
-var MIN_SKIN_ID = 1;
-var MAX_SKIN_ID = 2;
-var FILE_HEADER = "uu";//uu-<number>.css
-var __CURSOR_STRING = "▮";
-var _SCORE = 0;
+//core.js
+var MIN_SKIN_ID = 1;//最小皮肤ID，不允许修改
 
+var _SANDBOX_MODE = true;//页面刷新时的默认输入模式
+var done = false;//不允许修改
+
+var keydownCount = 0;//按键次数（包括Shift）
+var backspaceCount = 0;//退格次数
+var typingCount = 0;//字母次数
+var _CURRENT_NUMBER = 0;
+var _TASK_STRING_LENGTH = 0;
+
+var keyTipArray = [];
+var pressedKeyArray = [];
+
+var _NEXT_DISPLAY;//element
+
+//element variables
 var SKINLINK = document.getElementById("SKINLINK");
 var inputElement = document.getElementById("inputElement");
 var displayElement = document.getElementById("displayElement");
@@ -24,11 +35,11 @@ var button_changeSkin = document.getElementById("button_changeSkin");
 var _author_ = document.getElementById("_author_");
 var _title_ = document.getElementById("_title_");
 
-
 _title_.innerHTML = "UUTP " + _VERSION;
 _author_.innerHTML = "By QuartzQuincy2019 (Quincy K.)";
 _author_.href = "https://github.com/QuartzQuincy2019";
 _author_.title = "How did you discover me?";
+
 /**
  * 
  * @param {Number} start 
@@ -207,6 +218,7 @@ var timer = {
         timerEle.innerHTML += " (" + round(totalSec, 1) + "s)";
     }
 };
+
 /**
  * 
  * @param {Array} array1 
@@ -233,36 +245,98 @@ function extractValue(keyArray, valueArray, keyArrayValue) {
     return valueArray[indexInValueArray];
 }
 
-function refreshTimerStatusText(){
-    if(timer.intervalId){
-        timerStatusDisplayer.innerHTML = "Timer is running";
-    }else{
-        timerStatusDisplayer.innerHTML = "Timer stopped";
-    }
-}
-
 /**
  * 
- * @param {Element} element 要居中的元素
+ * @param {Element} element 要固定位置的元素
+ * @param {Number} rate 比率
  */
 function fixHorizontalPosition(element, rate) {
     var WINDOW_WIDTH = window.innerWidth;
     var ELEMENT_WIDTH = element.offsetWidth;
-    var left = WINDOW_WIDTH*rate-ELEMENT_WIDTH/2;
+    var left = WINDOW_WIDTH * rate - ELEMENT_WIDTH / 2;
     element.style.left = Math.floor(left) + "px";
 }
 
-setInterval(function () {
-    fixHorizontalPosition(_author_, 0.5);
-    fixHorizontalPosition(_title_, 0.5);
-    fixHorizontalPosition(progressCounter, 0.5);
-    fixHorizontalPosition(timerStatusDisplayer, 0.5);
-    progressCounter.style.top = _title_.offsetHeight + 5 + "px";
-    timerStatusDisplayer.style.top = _title_.offsetHeight + progressCounter.offsetHeight + 10 + "px";
-}, 100);
+function clearInputText() {//F1
+    //console.log("已清除。当前内容：" + inputElement.innerHTML);
+    inputElement.innerHTML = "";
+    appendCharacter(__CURSOR_STRING);
+    typingCount = 0;
+    backspaceCount = 0;
+    keydownCount = 0;
+    timer.restart();
+    pressedKeyArray = [];
+    window.scrollTo(0, 0);
+}
 
-setInterval(function () {
-    timer.writeInTimer();
-    refreshTimerStatusText();
-    refreshSpeedDisplay(typingCount, timer);
-}, 100);
+function inputModeText() {
+    if (_SANDBOX_MODE == true) {
+        button_inputModeSwitch.innerHTML = "Switch out of Sandbox Mode [Tab]";
+    } else {
+        button_inputModeSwitch.innerHTML = "Switch to Sandbox Mode [Tab]";
+    }
+}
+
+function inputModeSwitch() {
+    if (timer.intervalId) {
+        timer.stop();
+        timer.reset();
+    }
+    if (_SANDBOX_MODE == true) {
+        _SANDBOX_MODE = false;
+    } else {
+        _SANDBOX_MODE = true;
+        keyTipArray = [];
+    }
+    inputModeText();
+    areaDisplay();
+    clearInputText();
+}
+
+function deleteCharacter(count) {
+    var i = 1;
+    while (i <= count) {
+        //console.log(inputElement.lastChild);
+        inputElement.removeChild(inputElement.lastChild);
+        i++;
+    }
+}
+
+function appendCharacter(str) {
+    inputElement.innerHTML += "<span>" + str + "</span>";
+}
+
+/**
+ * done判定与刷新函数
+ */
+function setDone() {
+    if (_CURRENT_NUMBER == keyTipArray.length) {
+        done = true;
+    } else {
+        done = false;
+    }
+}
+
+function getCurrentNumber() {
+    if (_SANDBOX_MODE == true) {
+        return NaN;
+    }
+    var tip = keyTipArray;
+    var press = pressedKeyArray;
+    if (press.length == 0) {
+        return 0;
+    }
+    if (tip.length == 0) {
+        throw new Error("keyTipArray的长度不允许为0！");
+    }
+    var wrong = 0;
+    for (var idx = 0; idx < tip.length; idx++) {
+        if (tip[idx] != press[idx]) {
+            wrong = idx;
+            return wrong;
+        }
+        if (idx == tip.length - 1) {
+            return tip.length;
+        }
+    }
+}

@@ -1,5 +1,9 @@
-var skinId = [null, 1, 2];
+var skinId = [null];
 var skinPath = [null];
+
+for (var i = MIN_SKIN_ID; i <= MAX_SKIN_ID; i++) {
+    skinId.push(i);
+}
 
 for (var i = MIN_SKIN_ID; i <= MAX_SKIN_ID; i++) {
     skinPath.push(".\\css\\" + FILE_HEADER + "-" + skinId[i] + ".css");
@@ -38,11 +42,12 @@ function getCurrentSkinId() {
 }
 
 function refreshSkinButtonText() {
-    if (getCurrentSkinId() == 1) {
-        button_changeSkin.innerHTML = "Turn Off the Light [F10]";
-    } else {
-        button_changeSkin.innerHTML = "Turn On the Light [F10]";
-    }
+    var keyText = "[F10]";
+    var str = "";
+    var id = getCurrentSkinId();
+    str = __SKIN_HINTS[id];
+    str += keyText;
+    button_changeSkin.innerHTML = str;
 }
 
 function moveSkin() {
