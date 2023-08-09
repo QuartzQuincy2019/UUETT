@@ -11,6 +11,15 @@ a {
     color: #707070;
 }
 
+.floating {
+    padding: 5px 8px;
+    margin: 6px;
+    display: block;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 5px;
+}
+
 #TYPINGAREA {
     width: auto;
     margin: 10px;
@@ -88,8 +97,12 @@ a {
 
 #typingRecordList {
     position: fixed;
-    right: 0;
+    left: 0;
     padding: 6px;
+    white-space: nowrap;
+    width: 18em;
+    max-width: 20em;
+    overflow-x: scroll;
     overflow-y: scroll;
 }
 
@@ -107,13 +120,4 @@ a {
     transition-property: all;
     font-size: 16px;
     margin: 2px 2px;
-}
-
-.floating {
-    padding: 5px 8px;
-    margin: 6px;
-    display: block;
-    border-style: solid;
-    border-width: 3px;
-    border-radius: 5px;
 }

@@ -21,8 +21,8 @@ setInterval(function () {
     progressCounter.style.top = _title_.offsetHeight + 5 + "px";
     timerStatusDisplayer.style.top = _title_.offsetHeight + progressCounter.offsetHeight + 10 + "px";
     loadingInfo.style.top = SPEEDAREA.offsetHeight + 5 + "px";
-    trl.style.top = SPEEDAREA.offsetHeight + loadingInfo.offsetHeight + 10 + "px";
-}, 300);
+    trl.style.bottom = keyTip.offsetHeight + 5 + "px";
+}, 200);
 
 setInterval(function () {
     timer.writeInTimer();
@@ -40,8 +40,8 @@ telescope.style["font-size"] = __DEFAULT_TELESCOPE_FONT_SIZE + "px";
 telescope.style["width"] = (__MAX_TELESCOPE_CHARACTER / 2 + 0.6) + "em";
 telescope.style["maxWidth"] = (__MAX_TELESCOPE_CHARACTER / 2 + 0.6) + "em";
 //列表
-trl.style["maxHeight"] = __LIST_HEIGHT + "em";
-trl.style["height"] = __LIST_HEIGHT + "em";
+trl.style["maxHeight"] = (__LIST_HEIGHT + 1) + "em";
+trl.style["height"] = (__LIST_HEIGHT + 1) + "em";
 
 //设置字体
 TITLEAREA.style["font-family"] = __DEFAULT_FONT_OTHER;

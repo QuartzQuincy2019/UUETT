@@ -7,14 +7,14 @@ var done = false;//不允许修改
 
 var keydownCount = 0;//按键次数（包括Shift）
 var backspaceCount = 0;//退格次数
-var typingCount = 0;//字母次数
-var _CHOSEN_ARTICLE_NUMBER = 0;
+var typingCount = 0;//打字次数
 var _CURRENT_NUMBER = 0;
 var _TASK_STRING_LENGTH = 0;
 
 var keyTipArray = [];
 var pressedKeyArray = [];
 var _TYPING_RECORDS = [];
+var _CHOSEN_ARTICLE = [0, 0];
 
 var _NEXT_DISPLAY;//element
 
@@ -202,7 +202,8 @@ class TypingRecord {
      */
     constructor(completeTime) {
         this.completeTime = completeTime;
-        this.chosenArticle = _CHOSEN_ARTICLE_NUMBER;
+        this.articleGroup = _CHOSEN_ARTICLE[0];
+        this.articleNumber = _CHOSEN_ARTICLE[1];
         this.articleLength = _TASK_STRING_LENGTH;
         this.timeCost = timer.totalTime / 1000;
         this.speedPerSec = getSpeed((true));
@@ -380,15 +381,13 @@ function inputModeText() {
  * @param {Boolean} _resetDone 
  */
 function clearModeCache(
-    _clearArticleNumber,
+    _clearArticleData,
     _clearCount,
     _clearKeyTip,
     _resetDone) {
-    if (_resetDone) {
-        done = false;
-    }
-    if (_clearArticleNumber) {
-        _CHOSEN_ARTICLE_NUMBER = 0;
+    areaDisplay();
+    if (_clearArticleData) {
+        _CHOSEN_ARTICLE = [0, 0];
     }
     if (_clearCount) {
         typingCount = 0;
@@ -398,12 +397,15 @@ function clearModeCache(
     if (_clearKeyTip) {
         keyTipArray = [];
     }
+    if (_resetDone) {
+        done = false;
+    }
     inputModeText();
-    areaDisplay();
     _TASK_STRING_LENGTH = 0;
     displayElement.innerHTML = "You are in <strong>Task Mode</strong> but have <strong>not</strong> launched a task yet.<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!<br>Typing is meaningless now.";
-    inputElement.innerHTML = "";
     clearInputText();
+    refreshLoadingInfoText();
+    refreshKeyTip();
 }
 
 function inputModeSwitch() {
@@ -435,8 +437,12 @@ function appendCharacter(str) {
  * done判定与刷新函数
  */
 function setDone() {
-    if (_CURRENT_NUMBER == keyTipArray.length) {
-        done = true;
+    if (keyTipArray.length != 0) {
+        if (_CURRENT_NUMBER == keyTipArray.length) {
+            done = true;
+        } else {
+            done = false;
+        }
     } else {
         done = false;
     }
@@ -512,4 +518,14 @@ function switchTrl() {
         _IS_TRL_OPEN = false;
     }
     setTrlDisplay();
+}
+
+function isArticleGroupRandom() {
+    if (__DEFAULT_AG_NUMBER == undefined || __DEFAULT_AG_NUMBER == Infinity
+        || __DEFAULT_AG_NUMBER < 0 || __DEFAULT_AG_NUMBER == NaN
+        || __DEFAULT_AG_NUMBER % 1 != 0 || __DEFAULT_AG_NUMBER >= __ARTICLE_GROUPS.length) {
+        return true;
+    } else {
+        return false;
+    }
 }

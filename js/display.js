@@ -51,8 +51,26 @@ function refreshDisplayKeyMap(key, chara) {
     displayKey.textContent = "[" + key + "] key is [" + chara + "]";
 }
 
-function refreshLoadingInfoText(article_number) {
-    loadingInfo.innerHTML = "Article: " + (article_number + 1) + " / " + articles.length;
+function refreshLoadingInfoText() {
+    if (_SANDBOX_MODE == true) {
+        loadingInfo.innerHTML = "SANDBOX MODE";
+        return;
+    }
+    if (_SANDBOX_MODE == false && keyTipArray.length == 0) {
+        loadingInfo.innerHTML = "NO TASK INFO";
+        return;
+    }
+    var str = "";
+    if (isArticleGroupRandom()) {
+        str += "**Random Article Group**<br>";
+    }
+    str +=
+        "Selected Article Group: " + (_CHOSEN_ARTICLE[0] + 1)
+        + " / " + (__ARTICLE_GROUPS.length)
+        + "<br>" +
+        "Selected Article: " + (_CHOSEN_ARTICLE[1] + 1) +
+        " / " + (__ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]].length);
+    loadingInfo.innerHTML = str;
 }
 
 function refreshProgressText() {
@@ -70,12 +88,16 @@ function refreshProgressText() {
  * 核心函数，刷新按键提示
  */
 function refreshKeyTip() {
-    if (keyTipArray.length == 0) {
-        return;
+    if (keyTipArray.length == 0 || _SANDBOX_MODE == true) {
+        keyTip.style.display = "none";
+    } else {
+        keyTip.style.display = "";
     }
     _CURRENT_NUMBER = getCurrentNumber();//刷新现在要输入的number
     var idx = _CURRENT_NUMBER;
     setDone();
+    var p = "<p>";
+    var _p = "</p>";
     if (!done) {
         var writeIn = "";
         var target = keyTipArray[idx];
@@ -84,13 +106,13 @@ function refreshKeyTip() {
         } else {
             writeIn = target;
         }
-        keyTip.innerHTML = "Please press KEY: " + writeIn;
+        keyTip.innerHTML = p + "Please press KEY: <em>" + writeIn + "</em>" + _p;
     } else {
         //done
         var date = new Date();
         addTypingRecord(date);
         refreshTrl();
-        keyTip.innerHTML = "Nice Job!<br>You completed your task within " + timer.totalTime / 1000 + " seconds!<br>Press " + __FK_LAUNCH_TASK + " to launch a new task!";
+        keyTip.innerHTML = p + "Nice Job!<br>You completed your task within <em>" + timer.totalTime / 1000 + "</em> seconds!<br>Press " + __FK_LAUNCH_TASK + " to launch a new task!" + _p;
         timer.stop();
     }
 }
@@ -210,6 +232,7 @@ function refreshTrl() {
     clearTrl();
     var _time;
     var _dateText = "";
+    var _articleGro = 0;
     var _articleNum = 0;
     var _articleLen = 0;
     var _timeCost = 0;
@@ -221,26 +244,46 @@ function refreshTrl() {
     var l = "[";
     var r = "]";
     var nbsp = " ";
+    var _ag_str = "";
     var _an_str = "";
     var _al_str = "";
     var _tc_str = "";
     var _sp_str = "";
+    var _hr_str = "";
+    var _min_str = "";
+    var _sec_str = "";
     for (var i = 0; i < _arr.length; i++) {
         _time = _arr[i].completeTime;
+        if (_time.getHours() < 10) {
+            _hr_str = "0" + _time.getHours();
+        } else {
+            _hr_str = _time.getHours();
+        }
+        if (_time.getMinutes() < 10) {
+            _min_str = "0" + _time.getMinutes();
+        } else {
+            _min_str = _time.getMinutes();
+        }
+        if (_time.getSeconds() < 10) {
+            _sec_str = "0" + _time.getSeconds();
+        } else {
+            _sec_str = _time.getSeconds();
+        }
         _dateText = "" + _time.getDate() + "/"
             + (_time.getMonth() + 1) + "/"
             + (_time.getYear() + 1900) + " "
-            + _time.getHours() + ":"
-            + _time.getMinutes() + ":"
-            + _time.getSeconds();
-        console.log(_dateText);
-        _articleNum = _arr[i].chosenArticle;
+            + _hr_str + ":"
+            + _min_str + ":"
+            + _sec_str;
+        _articleGro = _arr[i].articleGroup;
+        _articleNum = _arr[i].articleNumber;
         _articleLen = _arr[i].articleLength;
         _timeCost = _arr[i].timeCost;
         _speedPerSec = _arr[i].speedPerSec;
         _speedPerMin = _arr[i].speedPerMin;
         var id = i;
         var seq = i + 1;
+        _ag_str = __LIST_TEXT_ATCG + ": " + strong + _articleGro + _strong + "; ";
         _an_str = __LIST_TEXT_ATCN + ": " + strong + _articleNum + _strong + "; ";
         _al_str = __LIST_TEXT_ATCL + ": " + strong + _articleLen + _strong + "; ";
         _tc_str = __LIST_TEXT_TIMEC + ": " + strong + _timeCost + "s" + _strong + "; ";
@@ -250,6 +293,7 @@ function refreshTrl() {
         _str = "<p id=\"TRL_" + id + "\">"
             + l + strong + seq + _strong + r + nbsp
             + l + strong + _dateText + _strong + r + nbsp
+            + _ag_str
             + _an_str
             + _al_str
             + _tc_str

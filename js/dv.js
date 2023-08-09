@@ -5,12 +5,24 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v6.1.0";
+var _VERSION = "v6.2.0";
 
 /**
  * 自定义光标。
  */
 var __CURSOR_STRING = "▮";
+
+/**
+ * 装载tasks.js中您想要进行练习的文章数组
+ */
+var __ARTICLE_GROUPS = [sentences,hplovecraft,travelchinaguide];
+
+/**
+ * 您选择的__ARTICLE_GROUPS中的文章数组的序列
+ * 若值为以下几种，则全部选择随机：
+ * 负数, undefined, NaN, infinity, 大于等于__ARTICLE_GROUPS长度的数
+ */
+var __DEFAULT_AG_NUMBER = 0;
 
 /**
  * 最大皮肤ID。
@@ -63,9 +75,10 @@ var __DEFAULT_TELESCOPE_FONT_SIZE = 30;//望远镜默认字体大小
  * 列表的默认宽度，单位为em(字高)
  * 该值是多少，就显示几列数据
  */
-var __LIST_HEIGHT = 3;
+var __LIST_HEIGHT = 4;
 
 //列表数据的文本格式(v6.1.0)
+var __LIST_TEXT_ATCG = "AtcG.";//文章组编号
 var __LIST_TEXT_ATCN = "AtcN.";//文章编号
 var __LIST_TEXT_ATCL = "AtcL.";//文章长度
 var __LIST_TEXT_TIMEC = "Time";//花费时间

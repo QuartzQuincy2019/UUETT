@@ -5,7 +5,7 @@ var typing = document.addEventListener('keydown', function (event) {
     console.log("按键：" + key);
     if (key == __FK_LAUNCH_TASK) {
         event.preventDefault();
-        launchTask(articles);
+        launchTask(__ARTICLE_GROUPS);
         return;
     }
     if (key == __FK_MODE_SWITCH) {
@@ -139,17 +139,33 @@ function correct() {
 }
 var _interval_correction = setInterval(correct, 100);
 
-function launchTask(articleArray) {
+/**
+ * @param {Array} articleGroupArray
+ * @returns {Array}
+ */
+function articleChoose(articleGroupArray) {
+    if (isArticleGroupRandom() == true) {
+        _CHOSEN_ARTICLE[0] = getRandomIntInclusive(0, __ARTICLE_GROUPS.length - 1);
+    } else {
+        _CHOSEN_ARTICLE[0] = __DEFAULT_AG_NUMBER;
+    }
+    //_CHOSEN_ARTICLE[0]决定完毕
+    var selN = _CHOSEN_ARTICLE[0];
+    var articles = articleGroupArray[selN];
+    //抽取开始
+    var randomNum = 0;
+    var aLength = articles.length;
+    randomNum = noRepeatRandom(_CHOSEN_ARTICLE[1], 0, aLength - 1, true);
+    _CHOSEN_ARTICLE[1] = randomNum;
+    return _CHOSEN_ARTICLE;
+}
+
+function launchTask(articleGroupArray) {
     if (_SANDBOX_MODE == true) {
         return;
     }
-    //抽取开始
-    var aLength = articleArray.length;
-    var randomNum = noRepeatRandom(_CHOSEN_ARTICLE_NUMBER, 0, aLength - 1, true);
-    _CHOSEN_ARTICLE_NUMBER = randomNum;
-    refreshLoadingInfoText(_CHOSEN_ARTICLE_NUMBER);
-    var str = articleArray[randomNum];
-    //抽取结束
+    var _arr = articleChoose(articleGroupArray);
+    var str = __ARTICLE_GROUPS[_arr[0]][_arr[1]];
     clearModeCache(false, true, true, true);
     displayElement.innerHTML = "";//请勿忘记
     var _TASK_STRING = str.getTypingNewArray();//事先准备好新数组，减少运算次数
@@ -171,6 +187,7 @@ function launchTask(articleArray) {
     //console.log(keyTipArray)
     pressedKeyArray = [];
     refreshKeyTip();
+    refreshLoadingInfoText();
     refreshProgressText();
     clearInputText();
     timer.restart();//必须为restart，否则按Shift会导致计时器加速，原因未知
