@@ -80,6 +80,8 @@ a {
     bottom: 0;
     white-space: nowrap;
     font-size: 30px;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 #_author_,

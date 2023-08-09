@@ -2,7 +2,7 @@
 
 var typing = document.addEventListener('keydown', function (event) {
     var key = event.key + "";//小写
-    console.log("按键：" + key);
+    //console.log("按键：" + key);
     if (key == __FK_LAUNCH_TASK) {
         event.preventDefault();
         launchTask(articles);
@@ -82,17 +82,36 @@ var typing = document.addEventListener('keydown', function (event) {
 });
 
 var windowScroller = document.addEventListener("keydown", function (event) {
-    var ret = refreshNextDisplay(false);
-    if (ret == -1) {
-        return -1;
+    if (_SANDBOX_MODE == false) {
+        if(keyTipArray.length == 0){
+            return -1;
+        }
+        var ret = refreshNextDisplay(false);
+        if (ret == -1) {
+            return -1;
+        }
+        var _CURRENT_TO_TOP = _NEXT_DISPLAY.offsetTop;
+        var _CURRENT_TO_LEFT = _NEXT_DISPLAY.offsetLeft;
+        var _INNER_WIDTH = window.innerWidth;
+        var _INNER_HEIGHT = window.innerHeight;
+        var targetX = _CURRENT_TO_LEFT - _INNER_WIDTH * 0.5;
+        var targetY = _CURRENT_TO_TOP - _INNER_HEIGHT * 0.5;
+        window.scrollTo(targetX, targetY);
+    }else{
+        var I_len = inputElement.children.length;
+        if(I_len == 1 && inputElement.children[0].innerHTML == __CURSOR_STRING){
+            return -1;
+        }
+        var idx = pressedKeyArray.length - 1;
+        var _cur = inputElement.children[idx];
+        var _CURRENT_TO_TOP = _cur.offsetTop;
+        var _CURRENT_TO_LEFT = _cur.offsetLeft;
+        var _INNER_WIDTH = window.innerWidth;
+        var _INNER_HEIGHT = window.innerHeight;
+        var targetX = _CURRENT_TO_LEFT - _INNER_WIDTH * 0.5;
+        var targetY = _CURRENT_TO_TOP - _INNER_HEIGHT * 0.5;
+        window.scrollTo(targetX, targetY);
     }
-    var _CURRENT_TO_TOP = _NEXT_DISPLAY.offsetTop;
-    var _CURRENT_TO_LEFT = _NEXT_DISPLAY.offsetLeft;
-    var _INNER_WIDTH = window.innerWidth;
-    var _INNER_HEIGHT = window.innerHeight;
-    var targetX = _CURRENT_TO_LEFT - _INNER_WIDTH * 0.5;
-    var targetY = _CURRENT_TO_TOP - _INNER_HEIGHT * 0.5;
-    window.scrollTo(targetX, targetY);
 })
 
 function correct() {
@@ -117,7 +136,7 @@ function correct() {
 var _interval_correction = setInterval(correct, 100);
 
 function launchTask(articleArray) {
-    if(_SANDBOX_MODE == true){
+    if (_SANDBOX_MODE == true) {
         return;
     }
     //抽取开始
@@ -126,11 +145,11 @@ function launchTask(articleArray) {
     while (randomNum == _CHOSEN_ARTICLE_NUMBER && aLength != 1) {//5.0.0修复
         randomNum = getRandomInt(0, aLength);
     }
-    if(aLength == 1){
+    if (aLength == 1) {
         randomNum = 0;
     }
     _CHOSEN_ARTICLE_NUMBER = randomNum;
-    console.log(_CHOSEN_ARTICLE_NUMBER);
+    //console.log(_CHOSEN_ARTICLE_NUMBER);
     refreshLoadingInfoText(_CHOSEN_ARTICLE_NUMBER);
     var str = articleArray[randomNum];
     clearModeCache();

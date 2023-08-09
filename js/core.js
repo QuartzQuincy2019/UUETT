@@ -1,7 +1,7 @@
 //core.js
 var MIN_SKIN_ID = 1;//最小皮肤ID，不允许修改
 
-var _SANDBOX_MODE = true;//页面刷新时的默认输入模式
+var _SANDBOX_MODE = false;//页面刷新时的默认输入模式
 var done = false;//不允许修改
 
 var keydownCount = 0;//按键次数（包括Shift）
@@ -148,12 +148,7 @@ String.prototype.getTypingNewArray = function () {
     }
     return newArray;
 }
-String.prototype.charAtTyping = function (charIndex) {
-    return this.getTypingNewArray()[charIndex];
-}
-String.prototype.getTypinglength = function () {
-    return this.getTypingNewArray().length;
-}
+
 /**
  * 
  * @param {boolean} isCompletelyBelow 控制是否完全在视口下方
@@ -306,14 +301,15 @@ function clearInputText() {
     pressedKeyArray = [];
     appendCharacter(__CURSOR_STRING);
     timer.restart();
+    window.scrollTo(0, 0);
     refreshTelescope();
 }
 
 function inputModeText() {
     if (_SANDBOX_MODE == true) {
-        button_inputModeSwitch.innerHTML = "Switch out of Sandbox Mode [" + __FK_MODE_SWITCH + "]";
+        button_inputModeSwitch.innerHTML = "to Task Mode [" + __FK_MODE_SWITCH + "]";
     } else {
-        button_inputModeSwitch.innerHTML = "Switch to Sandbox Mode [" + __FK_MODE_SWITCH + "]";
+        button_inputModeSwitch.innerHTML = "to Sandbox Mode [" + __FK_MODE_SWITCH + "]";
     }
 }
 
@@ -329,7 +325,6 @@ function clearModeCache() {
     typingCount = 0;
     backspaceCount = 0;
     keydownCount = 0;
-    window.scrollTo(0, 0);
     clearInputText();
 }
 
@@ -393,3 +388,9 @@ function getCurrentNumber() {
     }
 }
 
+function refreshMode(){
+    //当页面被加载时调用
+    if(_SANDBOX_MODE == false) {
+        clearModeCache();
+    }
+}

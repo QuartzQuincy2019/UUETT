@@ -56,6 +56,9 @@ function refreshLoadingInfoText(article_number) {
 }
 
 function refreshProgressText() {
+    if (keyTipArray.length == 0) {
+        return;
+    }
     _CURRENT_NUMBER = getCurrentNumber();
     //console.log(_CURRENT_NUMBER);
     var len = keyTipArray.length;
@@ -67,13 +70,23 @@ function refreshProgressText() {
  * 核心函数，刷新按键提示
  */
 function refreshKeyTip() {
+    if (keyTipArray.length == 0) {
+        return;
+    }
     _CURRENT_NUMBER = getCurrentNumber();//刷新现在要输入的number
     var idx = _CURRENT_NUMBER;
     setDone();
     if (!done) {
-        keyTip.innerHTML = "Please press KEY: " + keyTipArray[idx];
+        var writeIn = "";
+        var target = keyTipArray[idx];
+        if (target == " ") {
+            writeIn = "Space";
+        } else {
+            writeIn = target;
+        }
+        keyTip.innerHTML = "Please press KEY: " + writeIn;
     } else {
-        keyTip.innerHTML = "Nice Job!<br>You completed your task within " + timer.totalTime / 1000 + " seconds!<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!";
+        keyTip.innerHTML = "Nice Job!<br>You completed your task within " + timer.totalTime / 1000 + " seconds!<br>Press " + __FK_LAUNCH_TASK + " to launch a new task!";
         timer.stop();
     }
 }
@@ -112,7 +125,7 @@ function refreshSpeedDisplay(typingCount, _timer) {
 }
 
 function refreshKeyCounterText() {
-    typingCounter.innerHTML = typingCount + " letter(s) & space(s) typed";
+    typingCounter.innerHTML = typingCount + " Ltr(s)&Sp(s)";
     backspaceCounter.innerHTML = backspaceCount + " Backspace(s)";
     keydownCounter.innerHTML = keydownCount + " Keydown(s)";
 }
@@ -133,20 +146,34 @@ function refreshTelescope() {
     var I_len = inputElement.children.length;
     if (I_len <= __MAX_TELESCOPE_CHARACTER) {
         for (var i = 0; i < inputElement.children.length; i++) {
-            telescope.innerHTML += "<span id=\"TELESCOPE_" + i + "\">" + inputElement.children[i].innerHTML + "</span>";
-        }
-    } else {
-        for (var i = I_len - __MAX_TELESCOPE_CHARACTER; i < I_len; i++) {
             var writeIn;
-            if (inputElement.children[i].innerHTML == "<br>") {
+            var thisChar = inputElement.children[i].innerHTML;
+            if (thisChar == "<br>") {
                 writeIn = __TELESCOPE_BREAKLINE;
+            } else if (thisChar == " " || thisChar == "&nbsp;") {
+                writeIn = __TELESCOPE_SPACE;
             } else {
-                writeIn = inputElement.children[i].innerHTML;
+                writeIn = thisChar;
             }
             telescope.innerHTML += "<span id=\"TELESCOPE_" + i + "\">" + writeIn + "</span>";
         }
+        telescope.style.width = (__MAX_TELESCOPE_CHARACTER / 2 + 0.5) + "em";
+    } else {
+        for (var i = I_len - __MAX_TELESCOPE_CHARACTER; i < I_len; i++) {
+            var writeIn;
+            var thisChar = inputElement.children[i].innerHTML;
+            if (thisChar == "<br>") {
+                writeIn = __TELESCOPE_BREAKLINE;
+            } else if (thisChar == " " || thisChar == "&nbsp;") {
+                writeIn = __TELESCOPE_SPACE;
+            } else {
+                writeIn = thisChar;
+            }
+            telescope.innerHTML += "<span id=\"TELESCOPE_" + i + "\">" + writeIn + "</span>";
+        }
+        telescope.style.width = "auto";
     }
-    if(_SANDBOX_MODE==false){
+    if (_SANDBOX_MODE == false && keyTipArray.length != 0) {
         var T_id = 0;
         var I_id = 0;
         var T_key = "";
@@ -170,7 +197,6 @@ function refreshTelescope() {
             }
         }
     }
-    telescope.style.width = (__MAX_TELESCOPE_CHARACTER / 2 + 0.5) + "em";
 }
 
 function adjustIoAreaSize(isAssignment, _SIZE) {
@@ -194,6 +220,7 @@ setInterval(function () {
     fixHorizontalPosition(progressCounter, 0.5);
     fixHorizontalPosition(timerStatusDisplayer, 0.5);
     fixHorizontalPosition(telescope, 0.5);
+    telescope.style.bottom = (_author_.offsetHeight - 3) +"px";
     progressCounter.style.top = _title_.offsetHeight + 5 + "px";
     timerStatusDisplayer.style.top = _title_.offsetHeight + progressCounter.offsetHeight + 10 + "px";
     loadingInfo.style.top = SPEEDAREA.offsetHeight + 5 + "px";
