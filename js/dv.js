@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v6.0.0";
+var _VERSION = "v6.1.0";
 
 /**
  * 自定义光标。
@@ -57,13 +57,21 @@ var __TELESCOPE_SPACE = "•";
 
 var __DEFAULT_TELESCOPE_FONT_SIZE = 30;//望远镜默认字体大小
 
-//打字纪录列表(TRL)设置
+//打字纪录列表(TRL)设置(v6.0.0)
 
 /**
  * 列表的默认宽度，单位为em(字高)
  * 该值是多少，就显示几列数据
  */
 var __LIST_HEIGHT = 3;
+
+//列表数据的文本格式(v6.1.0)
+var __LIST_TEXT_ATCN = "AtcN.";//文章编号
+var __LIST_TEXT_ATCL = "AtcL.";//文章长度
+var __LIST_TEXT_TIMEC = "Time";//花费时间
+var __LIST_TEXY_SPD = "Speed";//速度
+var __LIST_TEXT_U_LS = "Ltr./s";//字母每秒
+var __LIST_TEXT_U_LM = "Ltr./min";//字母每分钟
 
 //默认字体设置
 var __DEFAULT_FONT_TYPING = "Consolas";//打字区域显示字体

@@ -14,7 +14,6 @@ var _TASK_STRING_LENGTH = 0;
 
 var keyTipArray = [];
 var pressedKeyArray = [];
-
 var _TYPING_RECORDS = [];
 
 var _NEXT_DISPLAY;//element
@@ -57,11 +56,6 @@ var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
 
 var _author_ = document.getElementById("_author_");
 var _title_ = document.getElementById("_title_");
-
-_title_.innerHTML = "UUTT " + _VERSION;
-_author_.innerHTML = "By QuartzQuincy2019 (Quincy K.)";
-_author_.href = "https://github.com/QuartzQuincy2019";
-_author_.title = "How did you discover me?";
 
 /**
  * 
@@ -184,9 +178,14 @@ Element.prototype.isOverViewport = function (isCompletelyOver) {
     }
 }
 
-function getSpeed() {
+function getSpeed(isPerSecond) {
+    var speed = 0;
     var sec = timer.totalTime / 1000;
-    var speed = typingCount / sec;
+    speed = typingCount / sec;
+    if (!isPerSecond) {
+        speed = (speed * 60).toFixed();
+        return speed;
+    }
     return speed.toFixed(2);
 }
 
@@ -204,8 +203,10 @@ class TypingRecord {
     constructor(completeTime) {
         this.completeTime = completeTime;
         this.chosenArticle = _CHOSEN_ARTICLE_NUMBER;
+        this.articleLength = _TASK_STRING_LENGTH;
         this.timeCost = timer.totalTime / 1000;
-        this.speed = getSpeed();
+        this.speedPerSec = getSpeed((true));
+        this.speedPerMin = getSpeed((false));
     }
 }
 
