@@ -5,7 +5,12 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v5.2.0";
+var _VERSION = "v6.0.0";
+
+/**
+ * 自定义光标。
+ */
+var __CURSOR_STRING = "▮";
 
 /**
  * 最大皮肤ID。
@@ -18,10 +23,14 @@ var MAX_SKIN_ID = 2;
 var FILE_HEADER = "uu";//uu-<number>.css
 
 /**
- * 自定义光标。
+ * 切换皮肤按钮上显示的文本
+ * 当皮肤ID为n时，皮肤按钮上显示的文本为__SKIN_HINTS[n]
  */
-var __CURSOR_STRING = "▮";
-
+var __SKIN_HINTS = [
+    null,
+    "Turn Off the Light",
+    "Turn On the Light"
+];
 
 //望远镜设置
 
@@ -46,18 +55,15 @@ var __TELESCOPE_BREAKLINE = "↲";
  */
 var __TELESCOPE_SPACE = "•";
 
-//默认字体大小设置，单位：px
 var __DEFAULT_TELESCOPE_FONT_SIZE = 30;//望远镜默认字体大小
 
+//打字纪录列表(TRL)设置
+
 /**
- * 切换皮肤按钮上显示的文本
- * 当皮肤ID为n时，皮肤按钮上显示的文本为__SKIN_HINTS[n]
+ * 列表的默认宽度，单位为em(字高)
+ * 该值是多少，就显示几列数据
  */
-var __SKIN_HINTS = [
-    null,
-    "Turn Off the Light",
-    "Turn On the Light"
-];
+var __LIST_HEIGHT = 3;
 
 //默认字体设置
 var __DEFAULT_FONT_TYPING = "Consolas";//打字区域显示字体
@@ -73,3 +79,4 @@ var __FK_TIMER_TOGGLE = "F12";//暂停或开始计时
 var __FK_DEFAULT_FONT_SIZE = "F9";//默认字号
 var __FK_INCREASE_FONT_SIZE = "PageUp";//增大字号
 var __FK_DECREASE_FONT_SIZE = "PageDown";//减小字号
+var __FK_TRL_SWITCH = "F7";//显示/隐藏打字记录表

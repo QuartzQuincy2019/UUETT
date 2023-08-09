@@ -11,7 +11,7 @@
     </script>
 </head>
 
-<body onload="refreshMode();inputModeText();areaDisplay();refreshSkinButtonText();">
+<body onload="refreshMode();inputModeText();areaDisplay();refreshSkinButtonText();setTrlDisplay();">
     <div id="TITLEAREA">
         <!--标题-->
         <h1 id="_title_" class="floating">0</h1>
@@ -31,6 +31,8 @@
         <button class="FunctionButton" onclick="moveSkin();" type="button" id="button_changeSkin">Change Skin</button>
         <button class="FunctionButton" onclick="adjustIoAreaSize(true, 30);" type="button"
             id="button_defaultFontSize">Default Font Size</button>
+        <button class="FunctionButton" onclick="setTrlDisplay()" type="button" id="button_trl">Typing Record
+            List</button>
     </div>
     <div id="COUNTAREA" class="floating">
         <!--打字计数器、按键计数器、退格计数器-->
@@ -55,7 +57,12 @@
     </div>
     <div id="TELESCOPEAREA">
         <div id="telescope" class="floating">
-            telescope
+            ~TELESCOPE~
+        </div>
+    </div>
+    <div id="LISTAREA">
+        <div id="typingRecordList" class="floating">
+            typingRecordList
         </div>
     </div>
     <div id="AUTHORAREA">

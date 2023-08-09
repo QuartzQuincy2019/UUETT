@@ -71,7 +71,7 @@ a {
     bottom: 0;
 }
 
-#loadingInfo{
+#loadingInfo {
     right: 0;
 }
 
@@ -82,6 +82,15 @@ a {
     font-size: 30px;
     padding-left: 3px;
     padding-right: 3px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#typingRecordList {
+    position: fixed;
+    right: 0;
+    padding: 6px;
+    overflow-y: scroll;
 }
 
 #_author_,
@@ -91,7 +100,7 @@ a {
 
 .FunctionButton {
     display: inline;
-    width : 100%;
+    width: 100%;
     border-radius: 5px;
     cursor: pointer;
     transition-duration: 300ms;

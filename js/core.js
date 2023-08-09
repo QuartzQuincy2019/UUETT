@@ -1,7 +1,8 @@
 //core.js
 var MIN_SKIN_ID = 1;//最小皮肤ID，不允许修改
 
-var _SANDBOX_MODE = false;//页面刷新时的默认输入模式
+var _SANDBOX_MODE = true;//页面刷新时的默认输入模式
+var _IS_TRL_OPEN = false;
 var done = false;//不允许修改
 
 var keydownCount = 0;//按键次数（包括Shift）
@@ -14,6 +15,8 @@ var _TASK_STRING_LENGTH = 0;
 var keyTipArray = [];
 var pressedKeyArray = [];
 
+var _TYPING_RECORDS = [];
+
 var _NEXT_DISPLAY;//element
 
 //element variables
@@ -22,6 +25,7 @@ var SKINLINK = document.getElementById("SKINLINK");
 var inputElement = document.getElementById("inputElement");
 var displayElement = document.getElementById("displayElement");
 var telescope = document.getElementById("telescope");
+var trl = document.getElementById("typingRecordList");
 
 var displayKey = document.getElementById("displayKey");
 var keyTip = document.getElementById("keyTip");
@@ -40,6 +44,7 @@ var button_taskLauncher = document.getElementById("button_taskLauncher");
 var button_restartTimer = document.getElementById("button_restartTimer");
 var button_changeSkin = document.getElementById("button_changeSkin");
 var button_defaultFontSize = document.getElementById("button_defaultFontSize");
+var button_trl = document.getElementById("button_trl");
 
 var SPEEDAREA = document.getElementById("SPEEDAREA");
 var TITLEAREA = document.getElementById("TITLEAREA");
@@ -47,6 +52,7 @@ var COUNTAREA = document.getElementById("COUNTAREA");
 var BUTTONAREA = document.getElementById("BUTTONAREA");
 var AUTHORAREA = document.getElementById("AUTHORAREA");
 var TYPINGAREA = document.getElementById("TYPINGAREA");
+var LISTAREA = document.getElementById("LISTAREA");
 var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
 
 var _author_ = document.getElementById("_author_");
@@ -177,17 +183,69 @@ Element.prototype.isOverViewport = function (isCompletelyOver) {
         return (top + rect.bottom == rect.height && top > 0)
     }
 }
+
+function getSpeed() {
+    var sec = timer.totalTime / 1000;
+    var speed = typingCount / sec;
+    return speed.toFixed(2);
+}
+
+/**
+ * TypingRecord类
+ */
+class TypingRecord {
+    /**
+     * 
+     * @param {Date} completeTime 完成任务的时间
+     * @param {Number} chosenArticle 选择的文章序号
+     * @param {Number} timeCost 花费时间（秒）
+     * @param {Number} speed 打字速度（字母每秒）
+     */
+    constructor(completeTime) {
+        this.completeTime = completeTime;
+        this.chosenArticle = _CHOSEN_ARTICLE_NUMBER;
+        this.timeCost = timer.totalTime / 1000;
+        this.speed = getSpeed();
+    }
+}
+
+function addTypingRecord(completeTime) {
+    var tr = new TypingRecord(completeTime)
+    _TYPING_RECORDS.push(tr);
+}
+
 function round(number, precision) {
     return Math.round(+number + "e" + precision) / Math.pow(10, precision);
 }
+
+/**
+ * 获取一个min<=x<max的随机数
+ * @param {Number} min 
+ * @param {Number} max 
+ * @returns 随机数
+ */
 function getRandomArbitrary(min, max) {//min<=x<max
     return Math.random() * (max - min) + min;
 }
+
+/**
+ * 获取一个min<=x<max的随机整数
+ * @param {Number} min 
+ * @param {Number} max 
+ * @returns 随机整数
+ */
 function getRandomInt(min, max) {//min<=x<max
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min; //不含最大值，含最小值
 }
+
+/**
+ * 获取一个min<=x<=max的随机整数
+ * @param {Number} min 
+ * @param {Number} max 
+ * @returns 随机整数
+ */
 function getRandomIntInclusive(min, max) {//min<=x<=max
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -313,18 +371,37 @@ function inputModeText() {
     }
 }
 
-function clearModeCache() {
-    keyTipArray = [];
+/**
+ * 
+ * @param {Boolean} _clearArticleNumber 
+ * @param {Boolean} _clearCount 
+ * @param {Boolean} _clearKeyTip 
+ * @param {Boolean} _resetDone 
+ */
+function clearModeCache(
+    _clearArticleNumber,
+    _clearCount,
+    _clearKeyTip,
+    _resetDone) {
+    if (_resetDone) {
+        done = false;
+    }
+    if (_clearArticleNumber) {
+        _CHOSEN_ARTICLE_NUMBER = 0;
+    }
+    if (_clearCount) {
+        typingCount = 0;
+        backspaceCount = 0;
+        keydownCount = 0;
+    }
+    if (_clearKeyTip) {
+        keyTipArray = [];
+    }
     inputModeText();
     areaDisplay();
-    _CHOSEN_ARTICLE_NUMBER = 0;
     _TASK_STRING_LENGTH = 0;
     displayElement.innerHTML = "You are in <strong>Task Mode</strong> but have <strong>not</strong> launched a task yet.<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!<br>Typing is meaningless now.";
     inputElement.innerHTML = "";
-    done = false;
-    typingCount = 0;
-    backspaceCount = 0;
-    keydownCount = 0;
     clearInputText();
 }
 
@@ -337,7 +414,7 @@ function inputModeSwitch() {
     } else {
         _SANDBOX_MODE = true;
     }
-    clearModeCache();
+    clearModeCache(true, true, true, true);
 }
 
 function deleteCharacter(count) {
@@ -388,9 +465,50 @@ function getCurrentNumber() {
     }
 }
 
-function refreshMode(){
+function refreshMode() {
     //当页面被加载时调用
-    if(_SANDBOX_MODE == false) {
-        clearModeCache();
+    if (_SANDBOX_MODE == false) {
+        clearModeCache(true, true, true, true);
     }
+}
+
+/**
+ * 
+ * @param {Number} toolVariable 全局工具变量
+ * @param {Number} min 最小值
+ * @param {Number} max 最大值
+ * @param {Boolean} isInclusive 是否包括最大值 
+ * @returns {Number} 随机整数
+ */
+function noRepeatRandom(toolVariable, min, max, isInclusive) {
+    if (min == max) {
+        return min;
+    }
+    var lastValue = toolVariable;
+    var random = undefined;
+    do {
+        if (isInclusive) {
+            random = getRandomIntInclusive(min, max);
+        } else {
+            random = getRandomInt(min, max);
+        }
+    } while (random == lastValue);
+    return random;
+}
+
+function setTrlDisplay() {
+    if (_IS_TRL_OPEN == true) {
+        trl.style.display = "";
+    } else {
+        trl.style.display = "none";
+    }
+}
+
+function switchTrl() {
+    if (!_IS_TRL_OPEN) {
+        _IS_TRL_OPEN = true;
+    } else {
+        _IS_TRL_OPEN = false;
+    }
+    setTrlDisplay();
 }

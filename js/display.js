@@ -86,6 +86,10 @@ function refreshKeyTip() {
         }
         keyTip.innerHTML = "Please press KEY: " + writeIn;
     } else {
+        //done
+        var date = new Date();
+        addTypingRecord(date);
+        refreshTrl();
         keyTip.innerHTML = "Nice Job!<br>You completed your task within " + timer.totalTime / 1000 + " seconds!<br>Press " + __FK_LAUNCH_TASK + " to launch a new task!";
         timer.stop();
     }
@@ -98,7 +102,7 @@ function refreshSpeedDisplay(typingCount, _timer) {
     var LETTER_PER_MINUTE = LETTER_PER_SECOND * 60;
     LETTER_PER_MINUTE = LETTER_PER_MINUTE.toFixed(0);
     speedDisplay.innerHTML = LETTER_PER_SECOND + "   letters/s<br>" + LETTER_PER_MINUTE + "   letters/min";
-    if (LETTER_PER_MINUTE == Infinity) {
+    if (LETTER_PER_MINUTE == Infinity || LETTER_PER_SECOND == NaN) {
         speedDisplay.style.display = "none";
     } else {
         speedDisplay.style.display = "";
@@ -157,7 +161,6 @@ function refreshTelescope() {
             }
             telescope.innerHTML += "<span id=\"TELESCOPE_" + i + "\">" + writeIn + "</span>";
         }
-        telescope.style.width = (__MAX_TELESCOPE_CHARACTER / 2 + 0.5) + "em";
     } else {
         for (var i = I_len - __MAX_TELESCOPE_CHARACTER; i < I_len; i++) {
             var writeIn;
@@ -171,7 +174,6 @@ function refreshTelescope() {
             }
             telescope.innerHTML += "<span id=\"TELESCOPE_" + i + "\">" + writeIn + "</span>";
         }
-        telescope.style.width = "auto";
     }
     if (_SANDBOX_MODE == false && keyTipArray.length != 0) {
         var T_id = 0;
@@ -199,6 +201,45 @@ function refreshTelescope() {
     }
 }
 
+function clearTrl() {
+    trl.innerHTML = "";
+}
+
+function refreshTrl() {
+    var _arr = _TYPING_RECORDS;
+    clearTrl();
+    var _time;
+    var _dateText = "";
+    var _articleNum = 0;
+    var _timeCost = 0;
+    var _speed = 0;
+    var _str = "";
+    for (var i = 0; i < _arr.length; i++) {
+        _time = _arr[i].completeTime;
+        _dateText = "" + _time.getDate() + "/"
+            + (_time.getMonth() + 1) + "/"
+            + (_time.getYear() + 1900) + " "
+            + _time.getHours() + ":"
+            + _time.getMinutes() + ":"
+            + _time.getSeconds();
+        console.log(_dateText);
+        _articleNum = _arr[i].chosenArticle;
+        _timeCost = _arr[i].timeCost;
+        _speed = _arr[i].speed;
+        var id = i;
+        var seq = i + 1;
+        _str = "<p id=\"TRL_" + id + "\">"
+            + "[<strong>" + seq + "</strong>] "
+            + "[<strong>" + _dateText + "</strong>] "
+            + "Atc.: <strong>" + _articleNum + "</strong>; "
+            + "Time: <strong>" + _timeCost + "s</strong>; "
+            + "Speed: <strong>" + _speed + " Ltr./s</strong>"
+            + "</p>";
+        trl.innerHTML += _str;
+    }
+    trl.scrollTop = trl.scrollHeight;
+}
+
 function adjustIoAreaSize(isAssignment, _SIZE) {
     if (!isAssignment) {
         for (var i = 0; i < _ioAreaPara.length; i++) {
@@ -220,17 +261,21 @@ setInterval(function () {
     fixHorizontalPosition(progressCounter, 0.5);
     fixHorizontalPosition(timerStatusDisplayer, 0.5);
     fixHorizontalPosition(telescope, 0.5);
-    telescope.style.bottom = (_author_.offsetHeight - 3) +"px";
+    telescope.style.bottom = (_author_.offsetHeight - 3) + "px";
     progressCounter.style.top = _title_.offsetHeight + 5 + "px";
     timerStatusDisplayer.style.top = _title_.offsetHeight + progressCounter.offsetHeight + 10 + "px";
     loadingInfo.style.top = SPEEDAREA.offsetHeight + 5 + "px";
-}, 100);
+    trl.style.top = SPEEDAREA.offsetHeight + loadingInfo.offsetHeight + 10 + "px";
+}, 300);
 
 setInterval(function () {
     timer.writeInTimer();
-    refreshTimerStatusText();
     refreshSpeedDisplay(typingCount, timer);
 }, 100);
+
+setInterval(() => {
+    refreshTimerStatusText();
+}, 200);
 
 //显示进入网页的说明
 var _str = "";
@@ -250,16 +295,25 @@ button_taskLauncher.innerHTML = "Launch New Task! [" + __FK_LAUNCH_TASK + "]";
 button_restartTimer.innerHTML = "Restart Timer [" + __FK_TIMER_RESTART + "]";
 button_changeSkin.innerHTML = "Change Skin [" + __FK_MOVE_SKIN + "]";
 button_defaultFontSize.innerHTML = "Default Font Size [" + __FK_DEFAULT_FONT_SIZE + "]";
+button_trl.innerHTML = "Typing Record List [" + __FK_TRL_SWITCH + "]";
 
 //设置字体大小
 adjustIoAreaSize(true, 30);
 telescope.style["font-size"] = __DEFAULT_TELESCOPE_FONT_SIZE + "px";
+//望远镜
+telescope.style["width"] = (__MAX_TELESCOPE_CHARACTER / 2 + 0.6) + "em";
+telescope.style["maxWidth"] = (__MAX_TELESCOPE_CHARACTER / 2 + 0.6) + "em";
+//列表
+trl.style["maxHeight"] = __LIST_HEIGHT + "em";
+trl.style["height"] = __LIST_HEIGHT + "em";
 
 //设置字体
 TITLEAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
 COUNTAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
 AUTHORAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
 SPEEDAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
+LISTAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
+LISTAREA.style["font-size"] = "18px";
 for (var i = 0; i < BUTTONAREA.children.length; i++) {
     BUTTONAREA.children[i].style["font-family"] = __DEFAULT_FONT_OTHER;
 }
@@ -268,3 +322,4 @@ TYPINGAREA.style["font-family"] = __DEFAULT_FONT_TYPING;
 telescope.style["font-family"] = __DEFAULT_FONT_TYPING;
 
 
+clearTrl();

@@ -2,7 +2,7 @@
 
 var typing = document.addEventListener('keydown', function (event) {
     var key = event.key + "";//小写
-    //console.log("按键：" + key);
+    console.log("按键：" + key);
     if (key == __FK_LAUNCH_TASK) {
         event.preventDefault();
         launchTask(articles);
@@ -45,6 +45,10 @@ var typing = document.addEventListener('keydown', function (event) {
         event.preventDefault();
         adjustIoAreaSize(false, -2);
     }
+    if (key == __FK_TRL_SWITCH) {
+        event.preventDefault();
+        switchTrl();
+    }
     if (timer.intervalId == null/*未计时*/ && _SANDBOX_MODE == false/*非沙盒模式*/) {
         return;
     }
@@ -83,7 +87,7 @@ var typing = document.addEventListener('keydown', function (event) {
 
 var windowScroller = document.addEventListener("keydown", function (event) {
     if (_SANDBOX_MODE == false) {
-        if(keyTipArray.length == 0){
+        if (keyTipArray.length == 0) {
             return -1;
         }
         var ret = refreshNextDisplay(false);
@@ -97,9 +101,9 @@ var windowScroller = document.addEventListener("keydown", function (event) {
         var targetX = _CURRENT_TO_LEFT - _INNER_WIDTH * 0.5;
         var targetY = _CURRENT_TO_TOP - _INNER_HEIGHT * 0.5;
         window.scrollTo(targetX, targetY);
-    }else{
+    } else {
         var I_len = inputElement.children.length;
-        if(I_len == 1 && inputElement.children[0].innerHTML == __CURSOR_STRING){
+        if (I_len == 1 && inputElement.children[0].innerHTML == __CURSOR_STRING) {
             return -1;
         }
         var idx = pressedKeyArray.length - 1;
@@ -141,18 +145,12 @@ function launchTask(articleArray) {
     }
     //抽取开始
     var aLength = articleArray.length;
-    var randomNum = getRandomInt(0, aLength);
-    while (randomNum == _CHOSEN_ARTICLE_NUMBER && aLength != 1) {//5.0.0修复
-        randomNum = getRandomInt(0, aLength);
-    }
-    if (aLength == 1) {
-        randomNum = 0;
-    }
+    var randomNum = noRepeatRandom(_CHOSEN_ARTICLE_NUMBER, 0, aLength - 1, true);
     _CHOSEN_ARTICLE_NUMBER = randomNum;
-    //console.log(_CHOSEN_ARTICLE_NUMBER);
     refreshLoadingInfoText(_CHOSEN_ARTICLE_NUMBER);
     var str = articleArray[randomNum];
-    clearModeCache();
+    //抽取结束
+    clearModeCache(false, true, true, true);
     displayElement.innerHTML = "";//请勿忘记
     var _TASK_STRING = str.getTypingNewArray();//事先准备好新数组，减少运算次数
     _TASK_STRING_LENGTH = _TASK_STRING.length;//事先准备好数组长度，减少运算次数
@@ -174,6 +172,6 @@ function launchTask(articleArray) {
     pressedKeyArray = [];
     refreshKeyTip();
     refreshProgressText();
-    refreshTelescope();
+    clearInputText();
     timer.restart();//必须为restart，否则按Shift会导致计时器加速，原因未知
 }
