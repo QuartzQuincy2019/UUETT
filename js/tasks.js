@@ -14,7 +14,21 @@ var sentences = [
     "Death comes to all, but great achievements raise a monument which shall endure until the sun grows old.",
     "A fall into the pit, a gain in your wit.",
     "Bad luck often brings good luck.",
-    "A young idler, an old beggar."
+    "A young idler, an old beggar.",
+    "All for one, one for all.",
+    "A friend in need is a friend indeed.",
+    "The journey of a thousand miles begins with a single step.",
+    "More haste, less speed.",
+    "Never too old to learn.",
+    "Practice makes perfect.",
+    "God helps those who help themselves.",
+    "One false step will make a great difference.",
+    "Great minds think alike.",
+    "Twenty years from now you will be more disappointed by the things that you didnt do than by the ones you did do.",
+    "I am who I am today because of the choices I made yesterday.",
+    "I may not be perfect but at least I'm not fake.",
+    "The remembrance of the past is the teacher of the future.",
+    "A straight foot is not afraid of a crooked shoe."
 ];
 
 var hplovecraft = [
