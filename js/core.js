@@ -2,7 +2,8 @@
 var MIN_SKIN_ID = 1;//最小皮肤ID，不允许修改
 
 var _SANDBOX_MODE = true;//页面刷新时的默认输入模式
-var _IS_TRL_OPEN = false;
+var _IS_TRL_OPEN = true;
+var _IS_BA_OPEN = true;
 var done = false;//不允许修改
 
 var keydownCount = 0;//按键次数（包括Shift）
@@ -45,6 +46,10 @@ var button_changeSkin = document.getElementById("button_changeSkin");
 var button_defaultFontSize = document.getElementById("button_defaultFontSize");
 var button_trl = document.getElementById("button_trl");
 
+var menu = document.getElementById("menu");
+var footer = document.getElementById("footer");
+
+var KEYTIPAREA = document.getElementById("KEYTIPAREA");
 var SPEEDAREA = document.getElementById("SPEEDAREA");
 var TITLEAREA = document.getElementById("TITLEAREA");
 var COUNTAREA = document.getElementById("COUNTAREA");
@@ -176,6 +181,44 @@ Element.prototype.isOverViewport = function (isCompletelyOver) {
     } else {
         return (top + rect.bottom == rect.height && top > 0)
     }
+}
+
+/**
+ * 
+ * @param {Array} elements 
+ * @param {String} value 
+ */
+function setElementsStyle(elements, attribute, value) {
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].style[attribute] = value;
+    }
+}
+
+/**
+ * 
+ * @param {ELement} elementId
+ * @param {Boolean} isWidth
+ */
+function getOneEm(elementId, isWidth) {
+    var element = document.getElementById(elementId);
+    var tempElement = document.createElement("div");
+    tempElement.style.position = "absolute";
+    tempElement.style.whiteSpace = "nowrap";
+    tempElement.style.margin = "0";
+    tempElement.style.padding = "0";
+    tempElement.innerHTML = "A";
+    tempElement.style.fontFamily = element.style.fontFamily;
+    tempElement.style.fontSize = element.style.fontSize;
+    document.body.appendChild(tempElement);
+    var emToPx = 0;
+    if (isWidth) {
+        emToPx = tempElement.offsetWidth;
+    } else {
+        emToPx = tempElement.offsetHeight;
+    }
+    document.body.removeChild(tempElement);
+    var emValueInPx = emToPx;
+    return emValueInPx;
 }
 
 function getSpeed(isPerSecond) {
@@ -405,6 +448,7 @@ function clearModeCache(
     displayElement.innerHTML = "You are in <strong>Task Mode</strong> but have <strong>not</strong> launched a task yet.<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!<br>Typing is meaningless now.";
     clearInputText();
     refreshLoadingInfoText();
+    refreshProgressText();
     refreshKeyTip();
 }
 
@@ -518,6 +562,23 @@ function switchTrl() {
         _IS_TRL_OPEN = false;
     }
     setTrlDisplay();
+}
+
+function switchBa() {
+    if (!_IS_BA_OPEN) {
+        _IS_BA_OPEN = true;
+    } else {
+        _IS_BA_OPEN = false;
+    }
+    setBaDisplay();
+}
+
+function setBaDisplay() {
+    if (_IS_BA_OPEN == true) {
+        BUTTONAREA.style.display = "";
+    } else {
+        BUTTONAREA.style.display = "none";
+    }
 }
 
 function isArticleGroupRandom() {

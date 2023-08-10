@@ -21,8 +21,10 @@ body {
     text-shadow: 2px 2px 3px #999999;
 }
 
-.floating {
+.floatingmenu,
+.content {
     background-color: #fff0cf;
+    border: 3px solid #000000;
 }
 
 div span.TTC_correct {

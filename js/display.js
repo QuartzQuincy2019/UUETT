@@ -1,21 +1,17 @@
 //display.js
 function areaDisplay() {
     if (_SANDBOX_MODE == true) {
-        keyTip.style.display = "none";
         displayElement.style.display = "none";
-        progressCounter.style.display = "none";
     } else {
-        keyTip.style.display = "";
         displayElement.style.display = "";
-        progressCounter.style.display = "";
     }
 }
 
 function refreshTimerStatusText() {
     if (timer.intervalId) {
-        timerStatusDisplayer.innerHTML = "Timer is running";
+        timerStatusDisplayer.innerHTML = "<p>Timer is <strong>running</strong></p>";
     } else {
-        timerStatusDisplayer.innerHTML = "Timer stopped";
+        timerStatusDisplayer.innerHTML = "<p>Timer <strong>stopped</strong></p>";
     }
 }
 
@@ -47,10 +43,6 @@ function refreshNextDisplay(isCurrentDisplay) {
     return 0;
 }
 
-function refreshDisplayKeyMap(key, chara) {
-    displayKey.textContent = "[" + key + "] key is [" + chara + "]";
-}
-
 function refreshLoadingInfoText() {
     if (_SANDBOX_MODE == true) {
         loadingInfo.innerHTML = "SANDBOX MODE";
@@ -74,24 +66,32 @@ function refreshLoadingInfoText() {
 }
 
 function refreshProgressText() {
+    if (_SANDBOX_MODE == true) {
+        progressCounter.innerHTML = "<p><strong>SANDBOX MODE</strong>: Progress is invalid</p>";
+        return;
+    }
     if (keyTipArray.length == 0) {
+        progressCounter.innerHTML = "<p><strong>NO TASK INFO</strong>: Progress is invalid</p>";
         return;
     }
     _CURRENT_NUMBER = getCurrentNumber();
     //console.log(_CURRENT_NUMBER);
     var len = keyTipArray.length;
     var rate = Math.round(_CURRENT_NUMBER / len * 10000) / 100;
-    progressCounter.innerHTML = "Progress: " + _CURRENT_NUMBER + " / " + len + " (" + rate + "%)";
+    progressCounter.innerHTML = "<p>Progress: " + _CURRENT_NUMBER + " / " + len + " (" + rate + "%)</p>";
 }
 
 /**
  * 核心函数，刷新按键提示
  */
 function refreshKeyTip() {
-    if (keyTipArray.length == 0 || _SANDBOX_MODE == true) {
-        keyTip.style.display = "none";
-    } else {
-        keyTip.style.display = "";
+    if (_SANDBOX_MODE == true) {
+        keyTip.innerHTML = "SANDBOX MODE: Key Tip is invalid";
+        return;
+    }
+    if (keyTipArray.length == 0) {
+        keyTip.innerHTML = "NO TASK INFO: KeyTip is empty";
+        return;
     }
     _CURRENT_NUMBER = getCurrentNumber();//刷新现在要输入的number
     var idx = _CURRENT_NUMBER;

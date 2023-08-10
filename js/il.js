@@ -9,19 +9,18 @@ _author_.href = "https://github.com/QuartzQuincy2019";
 _author_.title = "How did you discover me?";
 
 clearTrl();
+refreshLoadingInfoText();
+refreshProgressText();
+refreshKeyTip();
 
 //位置固定
+var eles;
+trl.style.left = "5px";
+BUTTONAREA.style.right = "5px";
 setInterval(function () {
-    fixHorizontalPosition(_author_, 0.5);
-    fixHorizontalPosition(_title_, 0.5);
-    fixHorizontalPosition(progressCounter, 0.5);
-    fixHorizontalPosition(timerStatusDisplayer, 0.5);
-    fixHorizontalPosition(telescope, 0.5);
-    telescope.style.bottom = (_author_.offsetHeight - 3) + "px";
-    progressCounter.style.top = _title_.offsetHeight + 5 + "px";
-    timerStatusDisplayer.style.top = _title_.offsetHeight + progressCounter.offsetHeight + 10 + "px";
-    loadingInfo.style.top = SPEEDAREA.offsetHeight + 5 + "px";
-    trl.style.bottom = keyTip.offsetHeight + 5 + "px";
+    TYPINGAREA.style.top = menu.offsetHeight + "px";
+    trl.style.bottom = footer.offsetHeight + 5 + "px";
+    BUTTONAREA.style.bottom = footer.offsetHeight + 5 + "px";
 }, 200);
 
 setInterval(function () {
@@ -33,12 +32,25 @@ setInterval(() => {
     refreshTimerStatusText();
 }, 200);
 
+
+
+
 //设置字体大小
 adjustIoAreaSize(true, 30);
+
+//望远镜弹性宽度显示功能
 telescope.style["font-size"] = __DEFAULT_TELESCOPE_FONT_SIZE + "px";
-//望远镜
-telescope.style["width"] = (__MAX_TELESCOPE_CHARACTER / 2 + 0.6) + "em";
-telescope.style["maxWidth"] = (__MAX_TELESCOPE_CHARACTER / 2 + 0.6) + "em";
+eles = document.querySelectorAll(".feet:nth-child(2)");
+var telescopeWidth = (__MAX_TELESCOPE_CHARACTER / 2 + 0.6) * getOneEm("telescope", true);
+var pct = (telescopeWidth / (window.innerWidth)) * 100;
+if (eles) {
+    setElementsStyle(eles, "flex-basis", pct + "%");
+}
+eles = document.querySelectorAll(".feet");
+if (eles) {
+    setElementsStyle(eles, "flex-basis", (100 - pct) + "%");
+}
+
 //列表
 trl.style["maxHeight"] = (__LIST_HEIGHT + 1) + "em";
 trl.style["height"] = (__LIST_HEIGHT + 1) + "em";
@@ -49,6 +61,8 @@ COUNTAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
 AUTHORAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
 SPEEDAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
 LISTAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
+KEYTIPAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
+progressCounter.style["font-family"] = __DEFAULT_FONT_OTHER;
 LISTAREA.style["font-size"] = "18px";
 for (var i = 0; i < BUTTONAREA.children.length; i++) {
     BUTTONAREA.children[i].style["font-family"] = __DEFAULT_FONT_OTHER;
@@ -71,7 +85,7 @@ _str += "<br>***Press the <strong>" + __FK_INCREASE_FONT_SIZE + "</strong> / <st
 _str += "<br>***Press the <strong>" + __FK_CLEAR + "</strong> / <strong>Backspace</strong> (continuously) / <strong>" + __FK_MODE_SWITCH + "</strong> key to clear these instructions.";
 inputElement.innerHTML = _str;
 button_clearInputText.innerHTML = "Clear & Restart Timer [" + __FK_CLEAR + "]";
-button_taskLauncher.innerHTML = "Launch New Task! [" + __FK_LAUNCH_TASK + "]";
+button_taskLauncher.innerHTML = "Launch New Task! (TaskMode) [" + __FK_LAUNCH_TASK + "]";
 button_restartTimer.innerHTML = "Restart Timer [" + __FK_TIMER_RESTART + "]";
 button_changeSkin.innerHTML = "Change Skin [" + __FK_MOVE_SKIN + "]";
 button_defaultFontSize.innerHTML = "Default Font Size [" + __FK_DEFAULT_FONT_SIZE + "]";

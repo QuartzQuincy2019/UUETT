@@ -49,6 +49,10 @@ var typing = document.addEventListener('keydown', function (event) {
         event.preventDefault();
         switchTrl();
     }
+    if (key == __FK_BA_SWITCH) {
+        event.preventDefault();
+        switchBa();
+    }
     if (timer.intervalId == null/*未计时*/ && _SANDBOX_MODE == false/*非沙盒模式*/) {
         return;
     }
@@ -64,7 +68,6 @@ var typing = document.addEventListener('keydown', function (event) {
             appendCharacter(character);
             appendCharacter(__CURSOR_STRING);
             pressedKeyArray.push(key);
-            refreshKeyTip();
         }
     } else if (key == "Backspace") {
         backspaceCount += 1;
@@ -77,9 +80,9 @@ var typing = document.addEventListener('keydown', function (event) {
             appendCharacter(__CURSOR_STRING);
         }
         pressedKeyArray.pop();
-        refreshKeyTip();
     }
     keydownCount += 1;
+    refreshKeyTip();
     refreshKeyCounterText();
     refreshProgressText();
     refreshTelescope();
@@ -104,6 +107,9 @@ var windowScroller = document.addEventListener("keydown", function (event) {
     } else {
         var I_len = inputElement.children.length;
         if (I_len == 1 && inputElement.children[0].innerHTML == __CURSOR_STRING) {
+            return -1;
+        }
+        if (keyTipArray.length == 0) {
             return -1;
         }
         var idx = pressedKeyArray.length - 1;

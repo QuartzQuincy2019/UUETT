@@ -11,58 +11,23 @@ a {
     color: #707070;
 }
 
-.floating {
-    padding: 5px 8px;
-    margin: 6px;
-    display: block;
-    border-style: solid;
-    border-width: 3px;
-    border-radius: 5px;
+div p {
+    font-size: 22px;
 }
 
 #TYPINGAREA {
     width: auto;
     margin: 10px;
+    position: absolute;
 }
 
 #TYPINGAREA * {
     white-space: nowrap;
 }
 
-#BUTTONAREA {
-    width: 20%;
-    margin-bottom: 50px;
-}
-
-#COUNTAREA {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-}
-
-#COUNTAREA * {
-    text-align: right;
-}
-
-#SPEEDAREA {
+#LISTAREA {
     position: fixed;
     right: 0;
-    top: 0;
-}
-
-#AUTHORAREA * {
-    position: fixed;
-    opacity: 0.2;
-    bottom: 0;
-}
-
-#TITLEAREA * {
-    position: fixed;
-    top: 0;
-}
-
-#progressCounter {
-    position: fixed;
 }
 
 #displayKey {
@@ -74,21 +39,14 @@ a {
     text-shadow: 1px 1px 2px #000000;
 }
 
-#keyTip {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-}
-
-#loadingInfo {
-    right: 0;
+#TELESCOPEAREA {
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 #telescope {
-    position: fixed;
-    bottom: 0;
     white-space: nowrap;
-    font-size: 30px;
     padding-left: 3px;
     padding-right: 3px;
     overflow-x: hidden;
@@ -96,12 +54,8 @@ a {
 }
 
 #typingRecordList {
-    position: fixed;
-    left: 0;
     padding: 6px;
     white-space: nowrap;
-    width: 18em;
-    max-width: 20em;
     overflow-x: scroll;
     overflow-y: scroll;
 }
@@ -120,4 +74,46 @@ a {
     transition-property: all;
     font-size: 16px;
     margin: 2px 2px;
+}
+
+.floatingmenu {
+    position: fixed;
+    width: 25%;
+    padding: 3px;
+    border-radius: 7px;
+}
+
+.fixedmenu {
+    position: fixed;
+    width: 100%;
+    height: fit-content;
+    max-height: 19em;
+    display: flex;
+}
+
+.content {
+    margin: 5px;
+    padding: 3px;
+    border-radius: 7px;
+}
+
+#menu {
+    top: 0;
+}
+
+#footer {
+    bottom: 0;
+}
+
+.heads {
+    border: 2px solid #000000;
+    flex-basis: 40%;
+}
+
+.heads:nth-child(2) {
+    flex-basis: 20%;
+}
+
+.feet {
+    border: 1px solid #000000;
 }

@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v6.2.0";
+var _VERSION = "v7.0.0";
 
 /**
  * 自定义光标。
@@ -15,14 +15,14 @@ var __CURSOR_STRING = "▮";
 /**
  * 装载tasks.js中您想要进行练习的文章数组
  */
-var __ARTICLE_GROUPS = [sentences,hplovecraft,travelchinaguide];
+var __ARTICLE_GROUPS = [sentences, hplovecraft, travelchinaguide];
 
 /**
  * 您选择的__ARTICLE_GROUPS中的文章数组的序列
  * 若值为以下几种，则全部选择随机：
  * 负数, undefined, NaN, infinity, 大于等于__ARTICLE_GROUPS长度的数
  */
-var __DEFAULT_AG_NUMBER = 0;
+var __DEFAULT_AG_NUMBER = -1;
 
 /**
  * 最大皮肤ID。
@@ -100,4 +100,5 @@ var __FK_TIMER_TOGGLE = "F12";//暂停或开始计时
 var __FK_DEFAULT_FONT_SIZE = "F9";//默认字号
 var __FK_INCREASE_FONT_SIZE = "PageUp";//增大字号
 var __FK_DECREASE_FONT_SIZE = "PageDown";//减小字号
+var __FK_BA_SWITCH = "F6";//显示/隐藏按钮区域
 var __FK_TRL_SWITCH = "F7";//显示/隐藏打字记录表
