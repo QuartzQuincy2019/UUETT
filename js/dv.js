@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.2.0";
+var _VERSION = "v7.3.0";
 
 /**
  * 自定义光标。
@@ -13,14 +13,27 @@ var _VERSION = "v7.2.0";
 var __CURSOR_STRING = "▮";
 
 /**
- * 装载tasks.js中您想要进行练习的文章数组
+ * 默认输入区域的字体大小，单位：px（像素）
+ * v7.2.1
  */
-var __ARTICLE_GROUPS = [sentences, hplovecraft, travelchinaguide];
+var __DEFAULT_IO_FONT_SIZE = 40;
+
+/**
+ * 调整字体大小的幅度，不宜超过6。单位：px（像素）
+ * v7.2.1
+ */
+var __FONT_SIZE_ADJUSTMENT_RANGE = 4;
+
+/**
+ * 装载tasks.js中您想要进行练习的文章组
+ * 不允许填字符串！！！
+ */
+ var __ARTICLE_GROUPS = [sentences, hplovecraft, travelchinaguide];
 
 /**
  * 您选择的__ARTICLE_GROUPS中的文章数组的序列，从0开始（包括0）
- * 若值为以下几种，则进行全局随机练习：
- * 负数, undefined, NaN, infinity, 大于等于__ARTICLE_GROUPS长度的数
+ * 若值为以下几种，则自动进入全局随机练习模式：
+ * 负数, undefined, NaN, Infinity, 大于等于__ARTICLE_GROUPS长度的数
  */
 var __DEFAULT_AG_NUMBER = -1;
 

@@ -33,10 +33,12 @@ var keydownCounter = document.getElementById("keydownCounter");
 var backspaceCounter = document.getElementById("backspaceCounter");
 var typingCounter = document.getElementById("typingCounter");
 var progressCounter = document.getElementById("progressCounter");
+
 var loadingInfo = document.getElementById("loadingInfo");
 var timerElement = document.getElementById("timer");
 var timerStatusDisplayer = document.getElementById("timerStatusDisplayer");
 var speedDisplayer = document.getElementById("speedDisplayer");
+var fontSizeDisplayer = document.getElementById("fontSizeDisplayer");
 
 var button_inputModeSwitch = document.getElementById("button_inputModeSwitch");
 var button_clearInputText = document.getElementById("button_clearInputText");
@@ -62,6 +64,47 @@ var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
 
 var _author_ = document.getElementById("_author_");
 var _title_ = document.getElementById("_title_");
+
+//errors
+var ERRORS = {
+    1200: {
+        ErrorStatus: false,
+        ErrorMessage: "ERROR 1200: \"__ARTICLE_GROUPS\" IS EMPTY"
+    },
+    1201: {
+        ErrorStatus: false,
+        ErrorMessage: "ERROR 1201: NOT ALL ELEMENTS IN \"__ARTICLE_GROUPS\" ARE ARRAYS"
+    },
+    1202: {
+        ErrorStatus: false,
+        ErrorMessage: "ERROR 1202: NOT ALL ELEMENTS IN EVERY ARTICLE GROUP ARE STRINGS"
+    }
+}
+
+if (__ARTICLE_GROUPS.length == 0) ERRORS[1200].ErrorStatus = true;
+if (isArrayAll(__ARTICLE_GROUPS, "array") == false) ERRORS[1201].ErrorStatus = true;
+if (__ARTICLE_GROUPS.every(function (subArr) {
+    return isArrayAll(subArr, "string");
+}) == false) ERRORS[1202].ErrorStatus = true;
+/**
+ * 
+ * @param {Array} _arr 
+ * @param {String} _type 
+ * @returns 
+ */
+function isArrayAll(_arr, _type) {
+    if (!Array.isArray(_arr)) {
+        return false;
+    }
+    if (_type === "array") {
+        return _arr.every(function (element) {
+            return Array.isArray(element)
+        })
+    }
+    return _arr.every(function (element) {
+        return typeof element === _type;
+    })
+}
 
 /**
  * 
@@ -106,7 +149,6 @@ String.prototype.getTypingNewArray = function () {
             continue;
         }
     }
-    console.log(restString);
 
     var reg = [null, /&#\d+;/, /&\w+;/, /<br>/];
 

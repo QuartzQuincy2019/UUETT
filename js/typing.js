@@ -35,15 +35,18 @@ var typing = document.addEventListener('keydown', function (event) {
     }
     if (key == __FK_DEFAULT_FONT_SIZE) {
         event.preventDefault();
-        adjustIoAreaSize(true, 30);
+        adjustIoAreaSize(true, __DEFAULT_IO_FONT_SIZE);
+        refreshFontSizeDisplay();
     }
     if (key == __FK_INCREASE_FONT_SIZE) {
         event.preventDefault();
-        adjustIoAreaSize(false, 2);
+        adjustIoAreaSize(false, __FONT_SIZE_ADJUSTMENT_RANGE);
+        refreshFontSizeDisplay();
     }
     if (key == __FK_DECREASE_FONT_SIZE) {
         event.preventDefault();
-        adjustIoAreaSize(false, -2);
+        adjustIoAreaSize(false, -__FONT_SIZE_ADJUSTMENT_RANGE);
+        refreshFontSizeDisplay();
     }
     if (key == __FK_TRL_SWITCH) {
         event.preventDefault();

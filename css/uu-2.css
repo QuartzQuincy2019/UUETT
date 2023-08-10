@@ -1,6 +1,7 @@
 /* uu-2.css */
 body {
     background-color: #000833;
+    color: #ffffff;
 }
 
 body * {
@@ -10,7 +11,6 @@ body * {
 
 .FunctionButton {
     background-color: #0162b7;
-    color: #ffffff;
     border: 3px solid #ffffff;
 }
 

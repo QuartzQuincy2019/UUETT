@@ -35,7 +35,7 @@ setInterval(() => {
 
 
 //设置字体大小
-adjustIoAreaSize(true, 30);
+adjustIoAreaSize(true, __DEFAULT_IO_FONT_SIZE);
 
 //望远镜弹性宽度显示功能 v7.0.0
 telescope.style["font-size"] = __DEFAULT_TELESCOPE_FONT_SIZE + "px";
@@ -57,7 +57,6 @@ var telescopeFlexibleWidthAdjuster = setInterval(function () {
 var trlStyle = window.getComputedStyle(trl);
 var trl_em = getOneEm("typingRecordList", false);
 var trl_innerHeight = (__LIST_HEIGHT + 1) * trl_em;//px
-console.log(trl_innerHeight);
 trl.style["maxHeight"] = parseFloat(trlStyle.paddingTop) + parseFloat(trlStyle.paddingBottom) + trl_innerHeight + "px";
 trl.style["height"] = trl.style["maxHeight"];
 

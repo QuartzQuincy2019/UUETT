@@ -15,6 +15,28 @@ function refreshTimerStatusText() {
     }
 }
 
+function refreshFontSizeDisplay() {//7.2.1
+    var fs = window.getComputedStyle(inputElement).fontSize;
+    var _def_str = "<strong>(Default)</strong>";
+    var _min_str = "<strong>(Minimum)</strong>";
+    var _str = "IO Area Font Size: <strong>" + fs + "</strong>";
+    var isDefault = false;
+    var isMinimum = false
+    if (fs == __DEFAULT_IO_FONT_SIZE + "px") {
+        isDefault = true;
+    }
+    if (fs == "12px") {
+        isMinimum = true;
+    }
+    if (isDefault) {
+        _str += " " + _def_str;
+    }
+    if (isMinimum) {
+        _str += " " + _min_str;
+    }
+    fontSizeDisplayer.innerHTML = _str;
+}
+
 /**
  * 
  * @param {Boolean} isCurrentDisplay 是否是这一个
@@ -48,6 +70,18 @@ function refreshLoadingInfoText() {
         loadingInfo.innerHTML = "<p><strong>SANDBOX MODE</strong></p>";
         return;
     }
+    if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
+        loadingInfo.innerHTML = "<p><strong>" + ERRORS[1200].ErrorMessage + "</strong></p>";
+        return;
+    }
+    if (ERRORS[1201].ErrorStatus) {
+        loadingInfo.innerHTML = "<p><strong>" + ERRORS[1201].ErrorMessage + "</strong></p>";
+        return;
+    }
+    if (ERRORS[1202].ErrorStatus) {
+        loadingInfo.innerHTML = "<p><strong>" + ERRORS[1202].ErrorMessage + "</strong></p>";
+        return;
+    }
     if (_SANDBOX_MODE == false && keyTipArray.length == 0) {
         loadingInfo.innerHTML = "<p><strong>NO TASK INFO</strong></p>";
         return;
@@ -72,6 +106,18 @@ function refreshProgressText() {
         progressCounter.innerHTML = "<p><strong>SANDBOX MODE</strong>: Progress is invalid</p>";
         return;
     }
+    if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
+        progressCounter.innerHTML = "<p><strong>" + ERRORS[1200].ErrorMessage + "</strong></p>";
+        return;
+    }
+    if (ERRORS[1201].ErrorStatus) {
+        progressCounter.innerHTML = "<p><strong>" + ERRORS[1201].ErrorMessage + "</strong></p>";
+        return;
+    }
+    if (ERRORS[1202].ErrorStatus) {
+        progressCounter.innerHTML = "<p><strong>" + ERRORS[1202].ErrorMessage + "</strong></p>";
+        return;
+    }
     if (keyTipArray.length == 0) {
         progressCounter.innerHTML = "<p><strong>NO TASK INFO</strong>: Progress is invalid</p>";
         return;
@@ -89,6 +135,18 @@ function refreshProgressText() {
 function refreshKeyTip() {
     if (_SANDBOX_MODE == true) {
         keyTip.innerHTML = "<p><strong>SANDBOX MODE</strong>: Key Tip is invalid</p>";
+        return;
+    }
+    if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
+        keyTip.innerHTML = "<p><strong>" + ERRORS[1200].ErrorMessage + "</strong>: There is no tasks to load! Modify file \"dv.js\" to load an article group!</p>";
+        return;
+    }
+    if (ERRORS[1201].ErrorStatus) {
+        keyTip.innerHTML = "<p><strong>" + ERRORS[1201].ErrorMessage + "</strong></p>";
+        return;
+    }
+    if (ERRORS[1202].ErrorStatus) {
+        keyTip.innerHTML = "<p><strong>" + ERRORS[1202].ErrorMessage + "</strong></p>";
         return;
     }
     if (keyTipArray.length == 0) {
