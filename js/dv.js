@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.0.0";
+var _VERSION = "v7.2.0";
 
 /**
  * 自定义光标。
@@ -18,8 +18,8 @@ var __CURSOR_STRING = "▮";
 var __ARTICLE_GROUPS = [sentences, hplovecraft, travelchinaguide];
 
 /**
- * 您选择的__ARTICLE_GROUPS中的文章数组的序列
- * 若值为以下几种，则全部选择随机：
+ * 您选择的__ARTICLE_GROUPS中的文章数组的序列，从0开始（包括0）
+ * 若值为以下几种，则进行全局随机练习：
  * 负数, undefined, NaN, infinity, 大于等于__ARTICLE_GROUPS长度的数
  */
 var __DEFAULT_AG_NUMBER = -1;
@@ -67,7 +67,10 @@ var __TELESCOPE_BREAKLINE = "↲";
  */
 var __TELESCOPE_SPACE = "•";
 
-var __DEFAULT_TELESCOPE_FONT_SIZE = 30;//望远镜默认字体大小
+/**
+ * 望远镜字体大小，默认值为48
+ */
+var __DEFAULT_TELESCOPE_FONT_SIZE = 48;
 
 //打字纪录列表(TRL)设置(v6.0.0)
 
@@ -100,5 +103,5 @@ var __FK_TIMER_TOGGLE = "F12";//暂停或开始计时
 var __FK_DEFAULT_FONT_SIZE = "F9";//默认字号
 var __FK_INCREASE_FONT_SIZE = "PageUp";//增大字号
 var __FK_DECREASE_FONT_SIZE = "PageDown";//减小字号
-var __FK_BA_SWITCH = "F6";//显示/隐藏按钮区域
+var __FK_BA_SWITCH = "F6";//显示/隐藏按钮区域(v7.0.0)
 var __FK_TRL_SWITCH = "F7";//显示/隐藏打字记录表

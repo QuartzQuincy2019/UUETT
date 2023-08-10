@@ -14,14 +14,13 @@ refreshProgressText();
 refreshKeyTip();
 
 //位置固定
-var eles;
 trl.style.left = "5px";
 BUTTONAREA.style.right = "5px";
 setInterval(function () {
-    TYPINGAREA.style.top = menu.offsetHeight + "px";
+    TYPINGAREA.style.top = menu.offsetHeight + 5 + "px";
     trl.style.bottom = footer.offsetHeight + 5 + "px";
     BUTTONAREA.style.bottom = footer.offsetHeight + 5 + "px";
-}, 200);
+}, 100);
 
 setInterval(function () {
     timer.writeInTimer();
@@ -38,22 +37,29 @@ setInterval(() => {
 //设置字体大小
 adjustIoAreaSize(true, 30);
 
-//望远镜弹性宽度显示功能
+//望远镜弹性宽度显示功能 v7.0.0
 telescope.style["font-size"] = __DEFAULT_TELESCOPE_FONT_SIZE + "px";
-eles = document.querySelectorAll(".feet:nth-child(2)");
-var telescopeWidth = (__MAX_TELESCOPE_CHARACTER / 2 + 0.6) * getOneEm("telescope", true);
-var pct = (telescopeWidth / (window.innerWidth)) * 100;
-if (eles) {
-    setElementsStyle(eles, "flex-basis", pct + "%");
-}
-eles = document.querySelectorAll(".feet");
-if (eles) {
-    setElementsStyle(eles, "flex-basis", (100 - pct) + "%");
-}
+var telescopeFlexibleWidthAdjuster = setInterval(function () {
+    var _mtc = __MAX_TELESCOPE_CHARACTER;
+    var _em = getOneEm("telescope", true);//通过字体大小获取一个em的宽度
+    //初始设置完毕
+    var W = window.innerWidth;//px
+    //var _w = TELESCOPEAREA.offsetWidth;//px
+    var w = (_mtc + 1.6) * _em;//px，默认情况下的望远镜宽度
+    var pct = (w / W) * 100;//默认百分比
+    //console.log("默认宽度w=" + w + ", 实际宽度_w" + _w + ", 窗口总宽W=" + W + ", 默认比窗口pct=" + pct + "%");
+    TELESCOPEAREA.style["flex-basis"] = pct + "%";
+    KEYTIPAREA.style["flex-basis"] = (100 - pct) / 2 + "%";
+    AUTHORAREA.style["flex-basis"] = (100 - pct) / 2 + "%";
+}, 100);
 
-//列表
-trl.style["maxHeight"] = (__LIST_HEIGHT + 1) + "em";
-trl.style["height"] = (__LIST_HEIGHT + 1) + "em";
+//列表 v7.0.1
+var trlStyle = window.getComputedStyle(trl);
+var trl_em = getOneEm("typingRecordList", false);
+var trl_innerHeight = (__LIST_HEIGHT + 1) * trl_em;//px
+console.log(trl_innerHeight);
+trl.style["maxHeight"] = parseFloat(trlStyle.paddingTop) + parseFloat(trlStyle.paddingBottom) + trl_innerHeight + "px";
+trl.style["height"] = trl.style["maxHeight"];
 
 //设置字体
 TITLEAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
@@ -63,7 +69,7 @@ SPEEDAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
 LISTAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
 KEYTIPAREA.style["font-family"] = __DEFAULT_FONT_OTHER;
 progressCounter.style["font-family"] = __DEFAULT_FONT_OTHER;
-LISTAREA.style["font-size"] = "18px";
+//LISTAREA.style["font-size"] = "18px";
 for (var i = 0; i < BUTTONAREA.children.length; i++) {
     BUTTONAREA.children[i].style["font-family"] = __DEFAULT_FONT_OTHER;
 }

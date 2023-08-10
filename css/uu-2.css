@@ -33,13 +33,13 @@ body * {
 }
 
 div span.TTC_correct {
-    color: #87ff41;
-    text-shadow: 0px 0px 6px #87ff41;
+    color: #17e03c;
+    text-shadow: 0px 0px 1px #17e03c;
 }
 
 div span.TTC_incorrect {
-    color: #ff4a4a;
-    text-shadow: 0px 0px 6px #ff4a4a;
+    color: #ff0505;
+    text-shadow: 2px 2px 3px #ff0571;
 }
 
 div span.TTC_none {

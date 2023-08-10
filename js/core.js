@@ -56,6 +56,7 @@ var COUNTAREA = document.getElementById("COUNTAREA");
 var BUTTONAREA = document.getElementById("BUTTONAREA");
 var AUTHORAREA = document.getElementById("AUTHORAREA");
 var TYPINGAREA = document.getElementById("TYPINGAREA");
+var TELESCOPEAREA = document.getElementById("TELESCOPEAREA");
 var LISTAREA = document.getElementById("LISTAREA");
 var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
 
@@ -97,6 +98,15 @@ Array.prototype.allGreaterThan = function (start, num) {
 String.prototype.getTypingNewArray = function () {
     var newArray = [];
     var restString = this;
+    for (var i = 0; i < restString.length; i++) {
+        if (INCORRECT_SET.includes(restString.charAt(i))) {
+            var value = extractValue(INCORRECT_SET, CORRECT_SET, restString.charAt(i));
+            console.log(value);
+            restString = replaceCharAndShift(restString, i, value);
+            continue;
+        }
+    }
+    console.log(restString);
 
     var reg = [null, /&#\d+;/, /&\w+;/, /<br>/];
 
@@ -181,6 +191,27 @@ Element.prototype.isOverViewport = function (isCompletelyOver) {
     } else {
         return (top + rect.bottom == rect.height && top > 0)
     }
+}
+
+function replaceCharAndShift(str, i, replacement) {
+    var charArray = str.split('');
+    var shiftAmount = replacement.length - 1;
+
+    // 替换字符
+    charArray[i] = replacement[0];
+
+    // 向后移动字符
+    for (var j = charArray.length - 1; j > i; j--) {
+        charArray[j + shiftAmount] = charArray[j];
+    }
+
+    // 插入替换的字符
+    for (var k = 1; k < replacement.length; k++) {
+        charArray[i + k] = replacement[k];
+    }
+
+    var modifiedStr = charArray.join('');
+    return modifiedStr;
 }
 
 /**

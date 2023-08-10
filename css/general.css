@@ -19,6 +19,7 @@ div p {
     width: auto;
     margin: 10px;
     position: absolute;
+    z-index: 0;
 }
 
 #TYPINGAREA * {
@@ -98,10 +99,12 @@ div p {
 }
 
 #menu {
+    z-index: 1;
     top: 0;
 }
 
 #footer {
+    z-index: 1;
     bottom: 0;
 }
 

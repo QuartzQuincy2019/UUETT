@@ -45,23 +45,25 @@ function refreshNextDisplay(isCurrentDisplay) {
 
 function refreshLoadingInfoText() {
     if (_SANDBOX_MODE == true) {
-        loadingInfo.innerHTML = "SANDBOX MODE";
+        loadingInfo.innerHTML = "<p><strong>SANDBOX MODE</strong></p>";
         return;
     }
     if (_SANDBOX_MODE == false && keyTipArray.length == 0) {
-        loadingInfo.innerHTML = "NO TASK INFO";
+        loadingInfo.innerHTML = "<p><strong>NO TASK INFO</strong></p>";
         return;
     }
     var str = "";
     if (isArticleGroupRandom()) {
-        str += "**Random Article Group**<br>";
+        str += "<p><strong>**Random Article Group**</strong><br>";
     }
     str +=
-        "Selected Article Group: " + (_CHOSEN_ARTICLE[0] + 1)
-        + " / " + (__ARTICLE_GROUPS.length)
-        + "<br>" +
-        "Selected Article: " + (_CHOSEN_ARTICLE[1] + 1) +
-        " / " + (__ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]].length);
+        "Selected Article Group: <strong>" + (_CHOSEN_ARTICLE[0] + 1)
+        + "</strong> / <strong>" + (__ARTICLE_GROUPS.length)
+        + "</strong><br>" +
+        "Selected Article: <strong>" + (_CHOSEN_ARTICLE[1] + 1) +
+        "</strong> / <strong>" + (__ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]].length)
+        + "</strong>";
+    str += "</p>";
     loadingInfo.innerHTML = str;
 }
 
@@ -78,7 +80,7 @@ function refreshProgressText() {
     //console.log(_CURRENT_NUMBER);
     var len = keyTipArray.length;
     var rate = Math.round(_CURRENT_NUMBER / len * 10000) / 100;
-    progressCounter.innerHTML = "<p>Progress: " + _CURRENT_NUMBER + " / " + len + " (" + rate + "%)</p>";
+    progressCounter.innerHTML = "<p>Progress: <strong>" + _CURRENT_NUMBER + "</strong> / <strong>" + len + "</strong> (<strong>" + rate + "%</strong>)</p>";
 }
 
 /**
@@ -86,11 +88,11 @@ function refreshProgressText() {
  */
 function refreshKeyTip() {
     if (_SANDBOX_MODE == true) {
-        keyTip.innerHTML = "SANDBOX MODE: Key Tip is invalid";
+        keyTip.innerHTML = "<p><strong>SANDBOX MODE</strong>: Key Tip is invalid</p>";
         return;
     }
     if (keyTipArray.length == 0) {
-        keyTip.innerHTML = "NO TASK INFO: KeyTip is empty";
+        keyTip.innerHTML = "<p><strong>NO TASK INFO</strong>: KeyTip is empty</p>";
         return;
     }
     _CURRENT_NUMBER = getCurrentNumber();//刷新现在要输入的number
@@ -106,13 +108,13 @@ function refreshKeyTip() {
         } else {
             writeIn = target;
         }
-        keyTip.innerHTML = p + "Please press KEY: <em>" + writeIn + "</em>" + _p;
+        keyTip.innerHTML = p + "Please press KEY:&nbsp;&nbsp;&nbsp;<strong>" + writeIn + "</strong>" + _p;
     } else {
         //done
         var date = new Date();
         addTypingRecord(date);
         refreshTrl();
-        keyTip.innerHTML = p + "Nice Job!<br>You completed your task within <em>" + timer.totalTime / 1000 + "</em> seconds!<br>Press " + __FK_LAUNCH_TASK + " to launch a new task!" + _p;
+        keyTip.innerHTML = p + "Nice Job!<br>You completed your task within <strong><em>" + timer.totalTime / 1000 + "</em></strong> seconds!<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!" + _p;
         timer.stop();
     }
 }

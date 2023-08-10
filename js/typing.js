@@ -97,12 +97,15 @@ var windowScroller = document.addEventListener("keydown", function (event) {
         if (ret == -1) {
             return -1;
         }
-        var _CURRENT_TO_TOP = _NEXT_DISPLAY.offsetTop;
+        var rect = _NEXT_DISPLAY.getBoundingClientRect();//v7.2.0
+        var _HEIGHT = rect.height;
+        var _WIDTH = rect.width;
+        var _CURRENT_TO_TOP = _NEXT_DISPLAY.offsetTop + menu.offsetHeight;
         var _CURRENT_TO_LEFT = _NEXT_DISPLAY.offsetLeft;
         var _INNER_WIDTH = window.innerWidth;
         var _INNER_HEIGHT = window.innerHeight;
-        var targetX = _CURRENT_TO_LEFT - _INNER_WIDTH * 0.5;
-        var targetY = _CURRENT_TO_TOP - _INNER_HEIGHT * 0.5;
+        var targetX = _CURRENT_TO_LEFT - (_INNER_WIDTH - _WIDTH) / 2;
+        var targetY = _CURRENT_TO_TOP - (_INNER_HEIGHT - _HEIGHT) / 2;
         window.scrollTo(targetX, targetY);
     } else {
         var I_len = inputElement.children.length;
