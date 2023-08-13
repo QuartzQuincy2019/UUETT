@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.5.1";
+var _VERSION = "v7.6.0";
 
 /**
  * 界面语言 v7.5.0
@@ -32,17 +32,17 @@ var __DEFAULT_IO_FONT_SIZE = 40;
 var __FONT_SIZE_ADJUSTMENT_RANGE = 4;
 
 /**
- * 装载tasks.js中您想要进行练习的文章组
- * 不允许填字符串！！！
+ * 在这里列举您想要进行练习的文章组名，(v7.6.0)
+ * 以装载在tasks.js中您想要进行练习的文章组
  */
-var __ARTICLE_GROUPS = [sentences, hplovecraft, travelchinaguide];
+var __ARTICLE_GROUPS = ["名句", "洛夫克拉夫特", "travelchinaguide.com"];
 
 /**
  * 您选择的__ARTICLE_GROUPS中的文章数组的序列，从0开始（包括0）
  * 若值为以下几种，则自动进入全局随机练习模式：
  * 负数, undefined, NaN, Infinity, 大于等于__ARTICLE_GROUPS长度的数
  */
-var __DEFAULT_AG_NUMBER = -1;
+var __DEFAULT_AG_NUMBER = 0;
 
 /**
  * 最大皮肤ID。

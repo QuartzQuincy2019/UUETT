@@ -59,6 +59,7 @@ var typing = document.addEventListener('keydown', function (event) {
     if (key == __FK_CLEAR_MODE_SWITCH) {
         event.preventDefault();
         switchClearMode();
+        refreshProgressText();
     }
     if (timer.intervalId == null/*未计时*/ && _SANDBOX_MODE == false/*非沙盒模式*/) {
         return;
@@ -159,32 +160,30 @@ function correct() {
 var _interval_correction = setInterval(correct, 100);
 
 /**
- * @param {Array} articleGroupArray
  * @returns {Array}
  */
-function articleChoose(articleGroupArray) {
+function articleChoose() {
     if (isArticleGroupRandom() == true) {
         _CHOSEN_ARTICLE[0] = getRandomIntInclusive(0, __ARTICLE_GROUPS.length - 1);
     } else {
         _CHOSEN_ARTICLE[0] = __DEFAULT_AG_NUMBER;
     }
-    //_CHOSEN_ARTICLE[0]决定完毕
-    var selN = _CHOSEN_ARTICLE[0];
-    var articles = articleGroupArray[selN];
+    //_CHOSEN_ARTICLE[0]（文章组）决定完毕
+    var articles = _CHOSEN_ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]];//articles为ArticleGroup类型
     //抽取开始
     var randomNum = 0;
-    var aLength = articles.length;
+    var aLength = articles["articlesArray"].length;
     randomNum = noRepeatRandom(_CHOSEN_ARTICLE[1], 0, aLength - 1, true);
     _CHOSEN_ARTICLE[1] = randomNum;
     return _CHOSEN_ARTICLE;
 }
 
-function launchTask(articleGroupArray) {
+function launchTask() {
     if (_SANDBOX_MODE == true) {
         return;
     }
-    var _arr = articleChoose(articleGroupArray);
-    var str = __ARTICLE_GROUPS[_arr[0]][_arr[1]];
+    var _arr = articleChoose();//即_CHOSEN_ARTICLE
+    var str = _CHOSEN_ARTICLE_GROUPS[_arr[0]]["articlesArray"][_arr[1]];//选中的字符串
     clearModeCache(false, true, true, true);
     displayElement.innerHTML = "";//请勿忘记
     var _TASK_STRING = str.getTypingNewArray();//事先准备好新数组，减少运算次数

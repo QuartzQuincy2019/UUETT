@@ -18,6 +18,30 @@ function areaDisplay() {
     }
 }
 
+/**
+ * 
+ * @param {Element} element 
+ * @param {Number} errorNumber 
+ */
+function throwErrorMessage(element, errorNumber) {
+    element.innerHTML = "<p><strong>" + ERRORS[errorNumber].ErrorMessage + "</strong></p>";
+}
+
+/**
+ * 
+ * @param {Element} element 
+ * @param {Array} errorNumberArray 
+ */
+function determineError(element, errorNumberArray) {
+    for (var i = 0; i < errorNumberArray.length; i++) {
+        if (ERRORS[errorNumberArray[i]].ErrorStatus) {
+            throwErrorMessage(element, errorNumberArray[i]);
+        }
+    }
+}
+
+var _determineErrorArray = [1201, 1202, 1203];
+
 function refreshTimerStatusText() {
     if (timer.intervalId) {
         if (__LANGUAGE == "english") {
@@ -100,17 +124,10 @@ function refreshLoadingInfoText() {
         return;
     }
     if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
-        loadingInfo.innerHTML = "<p><strong>" + ERRORS[1200].ErrorMessage + "</strong></p>";
+        throwErrorMessage(loadingInfo, 1200);
         return;
     }
-    if (ERRORS[1201].ErrorStatus) {
-        loadingInfo.innerHTML = "<p><strong>" + ERRORS[1201].ErrorMessage + "</strong></p>";
-        return;
-    }
-    if (ERRORS[1202].ErrorStatus) {
-        loadingInfo.innerHTML = "<p><strong>" + ERRORS[1202].ErrorMessage + "</strong></p>";
-        return;
-    }
+    determineError(loadingInfo, _determineErrorArray);
     if (_SANDBOX_MODE == false && keyTipArray.length == 0) {
         loadingInfo.innerHTML = "<p><strong>" + _txt_NO_TASK_INFO + "</strong></p>";
         return;
@@ -123,23 +140,28 @@ function refreshLoadingInfoText() {
         if (__LANGUAGE == "simplified chinese") {
             str += "<p><strong>**随机文章组模式**</strong><br>";
         }
+    } else {
+        str += "<p>";
     }
+    var chosenGroupName = _CHOSEN_ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]]["articleGroupName"];
     if (__LANGUAGE == "english") {
         str +=
             "Selected Article Group: <strong>" + (_CHOSEN_ARTICLE[0] + 1)
             + "</strong> / <strong>" + (__ARTICLE_GROUPS.length)
-            + "</strong><br>" +
+            + "</strong>&nbsp;&nbsp;&nbsp;(<strong>"
+            + chosenGroupName + "</strong>)<br>" +
             "Selected Article: <strong>" + (_CHOSEN_ARTICLE[1] + 1) +
-            "</strong> / <strong>" + (__ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]].length)
+            "</strong> / <strong>" + (_CHOSEN_ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]]["articlesArray"].length)
             + "</strong>";
     }
     if (__LANGUAGE == "simplified chinese") {
         str +=
             "选中文章组：<strong>" + (_CHOSEN_ARTICLE[0] + 1)
             + "</strong> / <strong>" + (__ARTICLE_GROUPS.length)
-            + "</strong><br>" +
+            + "</strong>&nbsp;&nbsp;&nbsp;(<strong>"
+            + chosenGroupName + "</strong>)<br>" +
             "选中文章号：<strong>" + (_CHOSEN_ARTICLE[1] + 1) +
-            "</strong> / <strong>" + (__ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]].length)
+            "</strong> / <strong>" + (_CHOSEN_ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]]["articlesArray"].length)
             + "</strong>";
     }
     str += "</p>";
@@ -166,17 +188,10 @@ function refreshProgressText() {
         return;
     }
     if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
-        progressCounter.innerHTML = "<p><strong>" + ERRORS[1200].ErrorMessage + "</strong></p>";
+        throwErrorMessage(progressCounter, 1200);
         return;
     }
-    if (ERRORS[1201].ErrorStatus) {
-        progressCounter.innerHTML = "<p><strong>" + ERRORS[1201].ErrorMessage + "</strong></p>";
-        return;
-    }
-    if (ERRORS[1202].ErrorStatus) {
-        progressCounter.innerHTML = "<p><strong>" + ERRORS[1202].ErrorMessage + "</strong></p>";
-        return;
-    }
+    determineError(progressCounter, _determineErrorArray);
     if (keyTipArray.length == 0) {
         if (__LANGUAGE == "english") {
             progressCounter.innerHTML = "<p><strong>" + _txt_NO_TASK_INFO + "</strong>: Progress is invalid</p>";
@@ -212,22 +227,10 @@ function refreshKeyTip() {
         return;
     }
     if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
-        if (__LANGUAGE == "english") {
-            keyTip.innerHTML = "<p><strong>" + ERRORS[1200].ErrorMessage + "</strong>: There is no tasks to load! Modify file \"dv.js\" to load an article group!</p>";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            keyTip.innerHTML = "<p><strong>" + ERRORS[1200].ErrorMessage + "</strong>：没有能够加载的可用文章组！修改文件 \"dv.js\" 来加载一个文章组！</p>";
-        }
+        throwErrorMessage(keyTip, 1200);
         return;
     }
-    if (ERRORS[1201].ErrorStatus) {
-        keyTip.innerHTML = "<p><strong>" + ERRORS[1201].ErrorMessage + "</strong></p>";
-        return;
-    }
-    if (ERRORS[1202].ErrorStatus) {
-        keyTip.innerHTML = "<p><strong>" + ERRORS[1202].ErrorMessage + "</strong></p>";
-        return;
-    }
+    determineError(progressCounter, _determineErrorArray);
     if (keyTipArray.length == 0) {
         if (__LANGUAGE == "english") {
             keyTip.innerHTML = "<p><strong>" + _txt_NO_TASK_INFO + "</strong>: KeyTip is empty</p>";

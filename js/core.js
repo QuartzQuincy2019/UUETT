@@ -16,6 +16,13 @@ var _TASK_STRING_LENGTH = 0;
 var keyTipArray = [];
 var pressedKeyArray = [];
 var _TYPING_RECORDS = [];
+/**
+ * 被用户选中的ArticleGroup类的数组
+ */
+var _CHOSEN_ARTICLE_GROUPS = [];//每个元素为ArticleGroup类
+/**
+ * 被随机抽中的文章组序列与文章号序列组成的数组，具有定位用途
+ */
 var _CHOSEN_ARTICLE = [0, 0];
 
 var __LANGUAGE = "";
@@ -68,6 +75,41 @@ var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
 var _author_ = document.getElementById("_author_");
 var _title_ = document.getElementById("_title_");
 
+//基本文章组类
+class ArticleGroup {
+    /**
+     * 
+     * @param {String} articleGroupName 
+     * @param {Array} articlesArray 
+     */
+    constructor(articleGroupName, articlesArray) {
+        this.articleGroupName = articleGroupName;
+        this.articlesArray = articlesArray;
+    }
+}
+
+/**
+ * TypingRecord类
+ */
+class TypingRecord {
+    /**
+     * 
+     * @param {Date} completeTime 完成任务的时间
+     * @param {Number} chosenArticle 选择的文章序号
+     * @param {Number} timeCost 花费时间（秒）
+     * @param {Number} speed 打字速度（字母每秒）
+     */
+    constructor(completeTime) {
+        this.completeTime = completeTime;
+        this.articleGroup = _CHOSEN_ARTICLE[0];
+        this.articleNumber = _CHOSEN_ARTICLE[1];
+        this.articleLength = _TASK_STRING_LENGTH;
+        this.timeCost = timer.totalTime / 1000;
+        this.speedPerSec = getSpeed((true));
+        this.speedPerMin = getSpeed((false));
+    }
+}
+
 //errors
 var ERRORS = {
     1200: {
@@ -76,26 +118,32 @@ var ERRORS = {
     },
     1201: {
         ErrorStatus: false,
-        ErrorMessage: "ERROR 1201: NOT ALL ELEMENTS IN \"__ARTICLE_GROUPS\" ARE ARRAYS"
+        ErrorMessage: "ERROR 1201: NOT ALL ELEMENTS IN \"__ARTICLE_GROUPS\" ARE STRINGS"
     },
     1202: {
         ErrorStatus: false,
-        ErrorMessage: "ERROR 1202: NOT ALL ELEMENTS IN EVERY ARTICLE GROUP ARE STRINGS"
+        ErrorMessage: "ERROR 1202: SOME ARTICLE GROUP NAMES IN \"__ARTICLE_GROUPS\" ARE NOT EXSIT IN TASKS.JS."
+    },
+    1203: {
+        ErrorStatus: false,
+        ErrorMessage: "ERROR 1203: NOT ALL ELEMENTS IN THE ARRAY OF EVERY ARTICLE GROUP ARE STRINGS"
     }
 }
 
+//错误决定
 if (__ARTICLE_GROUPS.length == 0) ERRORS[1200].ErrorStatus = true;
-if (isArrayAll(__ARTICLE_GROUPS, "array") == false) ERRORS[1201].ErrorStatus = true;
-if (__ARTICLE_GROUPS.every(function (subArr) {
-    return isArrayAll(subArr, "string");
-}) == false) ERRORS[1202].ErrorStatus = true;
+if (isArrayAll(__ARTICLE_GROUPS, "string") == false) ERRORS[1201].ErrorStatus = true;
+if (areArticleGroupNameAllExist() == false) ERRORS[1202].ErrorStatus = true;
+if (__ARTICLE_GROUPS.every(function (agname) {
+    var ag = parseArticleGroupByName(agname);
+    return isArrayAll(ag["articlesArray"], "string");
+}) == false) ERRORS[1203].ErrorStatus = true;
 
 //语言决定
 var __english_l = ["english", "English", "en-US"];
 var __simplified_chinese_l = ["simplified chinese", "简体中文", "简中", "Simplified Chinese", "Chinese(simplified)", "zh-cn"];
 if (__english_l.includes(__INTERFACE_LANGUAGE)) __LANGUAGE = "english";
 if (__simplified_chinese_l.includes(__INTERFACE_LANGUAGE)) __LANGUAGE = "simplified chinese";
-
 
 
 /**
@@ -116,6 +164,85 @@ function isArrayAll(_arr, _type) {
     return _arr.every(function (element) {
         return typeof element === _type;
     })
+}
+
+/**
+ * 
+ * @param {String} articleGroupName 
+ * @returns 
+ */
+function findArticleGroupName(articleGroupName) {
+    var tasks = __task_ArticleGroups;
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i]["articleGroupName"] == articleGroupName) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function getArticleGroupNameStatus(index) {
+    var tasks = __task_ArticleGroups;
+    var groups = __ARTICLE_GROUPS;
+    if (tasks.length == 0) {
+        return -1;//无任务
+    }
+    var targetIndex = findArticleGroupName(groups[index]);
+    if (targetIndex == -1) {
+        return -2;//任务名在任务数组中不存在
+    }
+    if (typeof tasks[targetIndex]["articleGroupName"] === "string" && Array.isArray(tasks[targetIndex]["articlesArray"])) {
+        return 0;//单任务组格式符合
+    }
+}
+
+function areArticleGroupNameAllExist() {
+    var count = 0;
+    for (var i = 0; i < __ARTICLE_GROUPS.length; i++) {
+        if (getArticleGroupNameStatus(i) == 0) {
+            count++;
+        }
+    }
+    if (count == __ARTICLE_GROUPS.length) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function parseArticleGroup(index) {
+    var tasks = __task_ArticleGroups;
+    var groups = __ARTICLE_GROUPS;
+    if (tasks.length == 0) {
+        return -1;
+    }
+    var targetIndex = findArticleGroupName(groups[index]);
+    if (targetIndex == -1) {
+        return -2;
+    }
+    var result = new ArticleGroup(tasks[targetIndex]["articleGroupName"], tasks[targetIndex]["articlesArray"]);
+    return result;
+}
+
+function parseArticleGroupByName(agname) {
+    var tasks = __task_ArticleGroups;
+    var groups = __ARTICLE_GROUPS;
+    if (tasks.length == 0) {
+        return -1;
+    }
+    var targetIndex = findArticleGroupName(agname);
+    if (targetIndex == -1) {
+        return -2;
+    }
+    var result = new ArticleGroup(tasks[targetIndex]["articleGroupName"], tasks[targetIndex]["articlesArray"]);
+    return result;
+}
+
+
+//parse v7.6.0
+for (var i = 0; i < __ARTICLE_GROUPS.length; i++) {
+    _CHOSEN_ARTICLE_GROUPS.push(parseArticleGroup(i));
+    console.log(_CHOSEN_ARTICLE_GROUPS);
 }
 
 /**
@@ -315,28 +442,6 @@ function getSpeed(isPerSecond) {
         return speed;
     }
     return speed.toFixed(2);
-}
-
-/**
- * TypingRecord类
- */
-class TypingRecord {
-    /**
-     * 
-     * @param {Date} completeTime 完成任务的时间
-     * @param {Number} chosenArticle 选择的文章序号
-     * @param {Number} timeCost 花费时间（秒）
-     * @param {Number} speed 打字速度（字母每秒）
-     */
-    constructor(completeTime) {
-        this.completeTime = completeTime;
-        this.articleGroup = _CHOSEN_ARTICLE[0];
-        this.articleNumber = _CHOSEN_ARTICLE[1];
-        this.articleLength = _TASK_STRING_LENGTH;
-        this.timeCost = timer.totalTime / 1000;
-        this.speedPerSec = getSpeed((true));
-        this.speedPerMin = getSpeed((false));
-    }
 }
 
 function addTypingRecord(completeTime) {
