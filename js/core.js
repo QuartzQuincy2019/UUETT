@@ -18,6 +18,8 @@ var pressedKeyArray = [];
 var _TYPING_RECORDS = [];
 var _CHOSEN_ARTICLE = [0, 0];
 
+var __LANGUAGE = "";
+
 var _NEXT_DISPLAY;//element
 
 //element variables
@@ -87,6 +89,15 @@ if (isArrayAll(__ARTICLE_GROUPS, "array") == false) ERRORS[1201].ErrorStatus = t
 if (__ARTICLE_GROUPS.every(function (subArr) {
     return isArrayAll(subArr, "string");
 }) == false) ERRORS[1202].ErrorStatus = true;
+
+//语言决定
+var __english_l = ["english", "English", "en-US"];
+var __simplified_chinese_l = ["simplified chinese", "简体中文", "简中", "Simplified Chinese", "Chinese(simplified)", "zh-cn"];
+if (__english_l.includes(__INTERFACE_LANGUAGE)) __LANGUAGE = "english";
+if (__simplified_chinese_l.includes(__INTERFACE_LANGUAGE)) __LANGUAGE = "simplified chinese";
+
+
+
 /**
  * 
  * @param {Array} _arr 
@@ -426,10 +437,17 @@ var timer = {
         if (_sec < 10) {
             isSingle = true;
         }
+        var _txt_time = "";
+        if (__LANGUAGE == "english") {
+            _txt_time = "Time: ";
+        }
+        if (__LANGUAGE == "simplified chinese") {
+            _txt_time = "时间：";
+        }
         if (isSingle) {
-            timerEle.innerHTML = "Time: " + _min + ":0" + _sec;
+            timerEle.innerHTML = _txt_time + _min + ":0" + _sec;
         } else {
-            timerEle.innerHTML = "Time: " + _min + ":" + _sec;
+            timerEle.innerHTML = _txt_time + _min + ":" + _sec;
         }
         timerEle.innerHTML += " (" + round(totalSec, 1) + "s)";
     }
@@ -484,9 +502,19 @@ function clearInputText() {
 
 function inputModeText() {
     if (_SANDBOX_MODE == true) {
-        button_inputModeSwitch.innerHTML = "to Task Mode [" + __FK_MODE_SWITCH + "]";
+        if (__LANGUAGE == "english") {
+            button_inputModeSwitch.innerHTML = "to Task Mode [" + __FK_MODE_SWITCH + "]";
+        }
+        if (__LANGUAGE == "simplified chinese") {
+            button_inputModeSwitch.innerHTML = "切换至任务模式 [" + __FK_MODE_SWITCH + "]";
+        }
     } else {
-        button_inputModeSwitch.innerHTML = "to Sandbox Mode [" + __FK_MODE_SWITCH + "]";
+        if (__LANGUAGE == "english") {
+            button_inputModeSwitch.innerHTML = "to Sandbox Mode [" + __FK_MODE_SWITCH + "]";
+        }
+        if (__LANGUAGE == "simplified chinese") {
+            button_inputModeSwitch.innerHTML = "切换至沙盒模式 [" + __FK_MODE_SWITCH + "]";
+        }
     }
 }
 
@@ -519,7 +547,12 @@ function clearModeCache(
     }
     inputModeText();
     _TASK_STRING_LENGTH = 0;
-    displayElement.innerHTML = "You are in <strong>Task Mode</strong> but have <strong>not</strong> launched a task yet.<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!<br>Typing is meaningless now.";
+    if (__LANGUAGE == "english") {
+        displayElement.innerHTML = "You are in <strong>Task Mode</strong> but have <strong>not</strong> launched a task yet.<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!<br>Typing is meaningless now.";
+    }
+    if (__LANGUAGE == "simplified chinese") {
+        displayElement.innerHTML = "您现在处于<strong>任务模式</strong>，但<strong>还没有</strong>启动任务。<br>按 <strong>" + __FK_LAUNCH_TASK + "</strong> 键来启动新任务！<br>打字现在无意义。";
+    }
     clearInputText();
     refreshLoadingInfoText();
     refreshProgressText();
@@ -668,11 +701,11 @@ function setClearModeDisplay() {
     var areas = [KEYTIPAREA, AUTHORAREA,
         TITLEAREA, COUNTAREA, BUTTONAREA];
     if (_CLEAR_MODE == true) {
-        for(var i = 0; i<areas.length;i++){
+        for (var i = 0; i < areas.length; i++) {
             areas[i].style.visibility = "hidden";
         }
     } else {
-        for(var i = 0; i<areas.length;i++){
+        for (var i = 0; i < areas.length; i++) {
             areas[i].style.visibility = "visible";
         }
     }

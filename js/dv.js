@@ -5,7 +5,14 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.4.0";
+var _VERSION = "v7.5.0";
+
+/**
+ * 界面语言 v7.5.0
+ * english / English —— 英文
+ * simplified chinese / 简体中文 / 简中 —— 简体中文
+ */
+var __INTERFACE_LANGUAGE = "简体中文";
 
 /**
  * 自定义光标。
@@ -53,8 +60,8 @@ var FILE_HEADER = "uu";//uu-<number>.css
  */
 var __SKIN_HINTS = [
     null,
-    "Turn Off the Light",
-    "Turn On the Light"
+    "☽",
+    "☀"
 ];
 
 //望远镜设置
@@ -103,8 +110,8 @@ var __LIST_TEXT_U_LS = "Ltr./s";//字母每秒
 var __LIST_TEXT_U_LM = "Ltr./min";//字母每分钟
 
 //默认字体设置
-var __DEFAULT_FONT_TYPING = "Consolas";//打字区域显示字体
-var __DEFAULT_FONT_OTHER = 'Times New Roman';//其他区域显示字体
+var __DEFAULT_FONT_TYPING = "Consolas";//打字区域显示字体，强烈建议等宽字体
+var __DEFAULT_FONT_OTHER = '宋体';//其他区域显示字体，建议为Times New Roman或宋体
 
 //功能键设置
 var __FK_LAUNCH_TASK = "Control";//刷新任务

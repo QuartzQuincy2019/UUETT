@@ -113,6 +113,12 @@ div p {
     bottom: 0;
 }
 
+.select_none {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 .heads {
     border: 2px solid #000000;
     flex-basis: 40%;
@@ -127,13 +133,13 @@ div p {
 }
 
 ::-webkit-scrollbar {
-    height: 18px;
-    width: 18px;
+    height: 12px;
+    width: 12px;
 }
 
 ::-moz-scrollbar {
-    height: 18px;
-    width: 18px;
+    height: 12px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-corner {
