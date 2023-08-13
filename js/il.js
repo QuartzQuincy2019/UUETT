@@ -81,7 +81,7 @@ telescope.style["font-family"] = __DEFAULT_FONT_TYPING;
 //显示进入网页的说明
 if (__LANGUAGE == 'english') {
     var _str = "";
-    _str += "***This is a purely English web page. Your keyboard input has been restricted on this page and you cannot enter any characters other than English (and punctuation).";
+    _str += "***Your keyboard input has been restricted on this page and you cannot enter any characters other than English (and punctuation).";
     _str += "<br>*Press the <strong>" + __FK_CLEAR + "</strong> / <strong>Backspace</strong> (continuously) / <strong>" + __FK_MODE_SWITCH + "</strong> key to clear these instructions.";
     _str += "<br>***<strong>Functional Key Instructions</strong>:";
     _str += "<br>*Press the <strong>" + __FK_CLEAR_MODE_SWITCH + "</strong> <em>(Clear Mode Key)</em> key to hide/display following areas: <strong> TITLE, COUNT, KEYTIP, BUTTON and AUTHOR.</strong>";
@@ -95,7 +95,7 @@ if (__LANGUAGE == 'english') {
     _str += "<br>***If you want to enter a line break (i.e. <strong>Enter</strong> key) in a typing task, type\"&lt;br&gt;\" into the file.";
     _str += "<br>***Note: If the length of a single typing task is too long (greater than 500 letters), your browser will take more time to load it, usually LONGER than 0.6 seconds.";
     _str += "<br>***You have to make sure you type <strong>EVERY</strong> letter correctly. In this way, the program can determine that you have completed the typing task.";
-    _str += "<br>***The default fonts used for this page are \"" + __DEFAULT_FONT_TYPING + "\" and \"" + __DEFAULT_FONT_OTHER + "\". If you do not have a font file for these fonts on your computer, the browser will use the default font to replace the missing font.";
+    _str += "<br>***The default fonts used for this page are <strong>\"" + __DEFAULT_FONT_TYPING + "\"</strong>(Typing Area), and <strong>\"" + __DEFAULT_FONT_OTHER + "\"</strong>(Other Areas). If you do not have a font file for these fonts on your computer, the browser will use the default font to replace the missing font.";
     _str += "<br><br><br><br><br><br><br><br><br><br>";
     inputElement.innerHTML = _str;
     button_clearInputText.innerHTML = "Clear & Restart Timer [" + __FK_CLEAR + "]";
@@ -107,7 +107,7 @@ if (__LANGUAGE == 'english') {
 }
 if (__LANGUAGE == 'simplified chinese') {
     var _str = "";
-    _str += "***这是一个纯英文网页。您在本页上的键盘输入已被限制，您不能输入除英文(和标点符号)以外的任何字符。";
+    _str += "***您在本页上的键盘输入已被限制，您不能输入除英文(和标点符号)以外的任何字符。";
     _str += "<br>*按 <strong>" + __FK_CLEAR + "</strong> / 连续按<strong>退格键</strong> / <strong>" + __FK_MODE_SWITCH + "</strong> 键，来清除本页说明。";
     _str += "<br>***<strong>功能键概述</strong>：";
     _str += "<br>*按 <strong>" + __FK_CLEAR_MODE_SWITCH + "</strong> <em>(清净模式键)</em> 键，来隐藏/显示以下区域: <strong> 标题区域（左上）、计数区域（右上）、按键提示区域（左下）、作者区域（右下）、按钮区域（右侧）。</strong>千万别忘了切换回去！";
@@ -121,7 +121,7 @@ if (__LANGUAGE == 'simplified chinese') {
     _str += "<br>***如果您想要在任务文本中添加一个换行符 (也就是<strong>回车</strong>键)，请用\"&lt;br&gt;\"来代替。（千万不可直接在任务文本中换行！）";
     _str += "<br>***注：如果单个任务文本的长度太长 (长于500个字母)，您的浏览器将会花费更多时间来加载这个任务，一般要多于0.6秒。";
     _str += "<br>***您必须对照任务文本，将<strong>每一个</strong>字母输入正确。以这种方式，程序才能确定您完成了这次打字任务。";
-    _str += "<br>***本页面使用的默认字体为\"" + __DEFAULT_FONT_TYPING + "\"和\"" + __DEFAULT_FONT_OTHER + "\"。如果您的电脑上没有相关字体文件，浏览器将会用默认字体替代它。（可能是宋体，也可能是微软雅黑等）";
+    _str += "<br>***本页面使用的默认字体有：<strong>在打字区域：" + __DEFAULT_FONT_TYPING + "</strong> ；<strong>在其他区域：" + __DEFAULT_FONT_OTHER + "</strong>。如果您的电脑上没有相关字体文件，浏览器将会用默认字体替代它。（可能是宋体，也可能是微软雅黑等）";
     _str += "<br><br><br><br><br><br><br><br><br><br>";
     inputElement.innerHTML = _str;
     button_clearInputText.innerHTML = "清除输入及计时器 [" + __FK_CLEAR + "]";

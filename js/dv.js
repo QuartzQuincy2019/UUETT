@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.5.0";
+var _VERSION = "v7.5.1";
 
 /**
  * 界面语言 v7.5.0
@@ -110,8 +110,8 @@ var __LIST_TEXT_U_LS = "Ltr./s";//字母每秒
 var __LIST_TEXT_U_LM = "Ltr./min";//字母每分钟
 
 //默认字体设置
-var __DEFAULT_FONT_TYPING = "Consolas";//打字区域显示字体，强烈建议等宽字体
-var __DEFAULT_FONT_OTHER = '宋体';//其他区域显示字体，建议为Times New Roman或宋体
+var __DEFAULT_FONT_TYPING = "Consolas, '华文中宋'";//打字区域显示字体，强烈建议等宽字体
+var __DEFAULT_FONT_OTHER = "'Times New Roman', '华文中宋', '宋体'";//其他区域显示字体，建议为Times New Roman或宋体
 
 //功能键设置
 var __FK_LAUNCH_TASK = "Control";//刷新任务
