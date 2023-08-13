@@ -1,5 +1,5 @@
 # UUTT_HJ105
-> **UU** **T**yping **T**rainer —— **UU打字练习器**<br>
+> **UU** English **T**yping **T**rainer —— **UU英文打字练习器**<br>
 作者：QuartzQuincy2019 _"Quincy K."_
 
 > _"Where there is a will, there is a way."_
@@ -8,7 +8,7 @@ _UUTT For PC_
 
 _原名UUTP_
 ## 下载和使用方法
-1. 点击页面右侧的**Releases**中的**Latest**。或直接点击[**发布链接**](https://github.com/QuartzQuincy2019/UUTT_HJ105/releases)进入发布界面，置顶的即为最新发布。
+1. 点击页面右侧的**Releases**中的**Latest**。或直接进入[**最新发布**](https://github.com/QuartzQuincy2019/UUTT_HJ105/releases/latest)，进入最新发布界面。
 2. 在**Assets**下拉菜单中选择**Source Code (Zip)**，即可进行下载。
 3. 下载解压后，用浏览器（**建议使用Microsoft Edge**）打开**UU.html**（主文件），进入使用。
 4. 您的按键已被文件`database.js`中的按键映射绑定，**无需准备任何输入法**。
