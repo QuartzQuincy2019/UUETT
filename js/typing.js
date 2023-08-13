@@ -56,6 +56,10 @@ var typing = document.addEventListener('keydown', function (event) {
         event.preventDefault();
         switchBa();
     }
+    if (key == __FK_CLEAR_MODE_SWITCH) {
+        event.preventDefault();
+        switchClearMode();
+    }
     if (timer.intervalId == null/*未计时*/ && _SANDBOX_MODE == false/*非沙盒模式*/) {
         return;
     }
@@ -115,17 +119,20 @@ var windowScroller = document.addEventListener("keydown", function (event) {
         if (I_len == 1 && inputElement.children[0].innerHTML == __CURSOR_STRING) {
             return -1;
         }
-        if (keyTipArray.length == 0) {
+        if (pressedKeyArray.length == 0) {
             return -1;
         }
         var idx = pressedKeyArray.length - 1;
-        var _cur = inputElement.children[idx];
-        var _CURRENT_TO_TOP = _cur.offsetTop;
+        var _cur = inputElement.children[idx + 1];//跟随光标，而不是跟随光标前的字符 v7.4.0
+        var rect = _cur.getBoundingClientRect();
+        var _HEIGHT = rect.height;
+        var _WIDTH = rect.width;
+        var _CURRENT_TO_TOP = _cur.offsetTop + menu.offsetHeight;
         var _CURRENT_TO_LEFT = _cur.offsetLeft;
         var _INNER_WIDTH = window.innerWidth;
         var _INNER_HEIGHT = window.innerHeight;
-        var targetX = _CURRENT_TO_LEFT - _INNER_WIDTH * 0.5;
-        var targetY = _CURRENT_TO_TOP - _INNER_HEIGHT * 0.5;
+        var targetX = _CURRENT_TO_LEFT - (_INNER_WIDTH - _WIDTH) / 2;
+        var targetY = _CURRENT_TO_TOP - (_INNER_HEIGHT - _HEIGHT) / 2;
         window.scrollTo(targetX, targetY);
     }
 })

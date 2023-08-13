@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.3.0";
+var _VERSION = "v7.4.0";
 
 /**
  * 自定义光标。
@@ -28,7 +28,7 @@ var __FONT_SIZE_ADJUSTMENT_RANGE = 4;
  * 装载tasks.js中您想要进行练习的文章组
  * 不允许填字符串！！！
  */
- var __ARTICLE_GROUPS = [sentences, hplovecraft, travelchinaguide];
+var __ARTICLE_GROUPS = [sentences, hplovecraft, travelchinaguide];
 
 /**
  * 您选择的__ARTICLE_GROUPS中的文章数组的序列，从0开始（包括0）
@@ -89,7 +89,7 @@ var __DEFAULT_TELESCOPE_FONT_SIZE = 48;
 
 /**
  * 列表的默认宽度，单位为em(字高)
- * 该值是多少，就显示几列数据
+ * 该值是多少，就显示几列数据，若该值过大可能会导致计算不精确，建议设为4
  */
 var __LIST_HEIGHT = 4;
 
@@ -118,3 +118,4 @@ var __FK_INCREASE_FONT_SIZE = "PageUp";//增大字号
 var __FK_DECREASE_FONT_SIZE = "PageDown";//减小字号
 var __FK_BA_SWITCH = "F6";//显示/隐藏按钮区域(v7.0.0)
 var __FK_TRL_SWITCH = "F7";//显示/隐藏打字记录表
+var __FK_CLEAR_MODE_SWITCH = "F4";//进入纯净模式

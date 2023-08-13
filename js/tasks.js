@@ -5,6 +5,11 @@
 //in INCORRECT_SET in database.js will
 //be replaced to inputable characters automatically.
 
+//All the Article Groups you define here will be
+//passed to dv.js in the same directory, and then
+//you are free to choose the Article Groups you want
+//to practice with in dv.js.
+
 var sentences = [
     "Where there is a will, there is a way.",
     "I came, I saw, I conquered.",
@@ -24,7 +29,7 @@ var sentences = [
     "God helps those who help themselves.",
     "One false step will make a great difference.",
     "Great minds think alike.",
-    "Twenty years from now you will be more disappointed by the things that you didnt do than by the ones you did do.",
+    "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do.",
     "I am who I am today because of the choices I made yesterday.",
     "I may not be perfect but at least I'm not fake.",
     "The remembrance of the past is the teacher of the future.",
@@ -33,9 +38,19 @@ var sentences = [
 
 var hplovecraft = [
     "The oldest and strongest emotion of mankind is fear, and the oldest and strongest kind of fear is fear of the unknown.",
-    "We shall swim out to that brooding reef in the sea and dive down through black abysses to Cyclopean and many-columned Y'ha-nthlei, and in that lair of the Deep Ones we shall dwell amidst wonder and glory forever.",
-    "I'a! Shub-Niggurath! The Black Goat of the Woods with a Thousand Young!",
-    "Yog-Sothoth knows the gate. Yog-Sothoth is the gate. Yog-Sothoth is the key and guardian of the gate. Past, present, future, all are one in Yog-Sothoth. He knows where the Old Ones broke through of old, and where They shall break through again. He knows where They have trod earth's fields, and where They still tread them, and why no one can behold Them as They tread."
+    "The most merciful thing in the world, I think, is the inability of the human mind to correlate all its contents. We live on a placid island of ignorance in the midst of black seas of the infinity, and it was not meant that we should voyage far.",
+    "The world is indeed comic, but the joke is on mankind.",
+    "No new horror can be more terrible than the daily torture of the commonplace.",
+    "I am a student of life, and don't want to miss any experience. There's poetry in this sort of thing, you know--or perhaps you don't know, but it's all the same.",
+    "To be bitter is to attribute intent and personality to the formless, infinite, unchanging and unchangeable void. We drift on a chartless, resistless sea. Let us sing when we can, and forget the rest",
+    "Unhappy is he to whom the memories of childhood bring only fear and sadness.",
+    "Ocean is more ancient than the mountains, and freighted with the memories and the dreams of time.",
+    "If religion were true, its followers would not try to bludgeon their young into an artificial conformity; but would merely insist on their unbending quest for truth, irrespective of artificial backgrounds or practical consequences.",
+    "That which we call substance and reality is shadow and illusion, and that which we call shadow and illusion is substance and reality.",
+    "That is not dead which can eternal lie, and with strange aeons even death may die.",
+    "It is a mistake to fancy that horror is associated inextricably with darkness, slience and solitude.",
+    "I know always that I am an outsider; a stranger in this century and among those who are still men.",
+    "I'a! Shub-Niggurath! The Black Goat of the Woods with a Thousand Young!"
 ];
 
 var travelchinaguide = [

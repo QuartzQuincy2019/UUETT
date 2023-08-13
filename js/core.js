@@ -2,6 +2,7 @@
 var MIN_SKIN_ID = 1;//最小皮肤ID，不允许修改
 
 var _SANDBOX_MODE = true;//页面刷新时的默认输入模式
+var _CLEAR_MODE = false;
 var _IS_TRL_OPEN = true;
 var _IS_BA_OPEN = true;
 var done = false;//不允许修改
@@ -651,6 +652,29 @@ function setBaDisplay() {
         BUTTONAREA.style.display = "";
     } else {
         BUTTONAREA.style.display = "none";
+    }
+}
+
+function switchClearMode() {//Clear Mode
+    if (!_CLEAR_MODE) {
+        _CLEAR_MODE = true;
+    } else {
+        _CLEAR_MODE = false;
+    }
+    setClearModeDisplay();
+}
+
+function setClearModeDisplay() {
+    var areas = [KEYTIPAREA, AUTHORAREA,
+        TITLEAREA, COUNTAREA, BUTTONAREA];
+    if (_CLEAR_MODE == true) {
+        for(var i = 0; i<areas.length;i++){
+            areas[i].style.visibility = "hidden";
+        }
+    } else {
+        for(var i = 0; i<areas.length;i++){
+            areas[i].style.visibility = "visible";
+        }
     }
 }
 

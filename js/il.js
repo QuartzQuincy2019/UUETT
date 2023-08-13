@@ -3,10 +3,9 @@
 //2023/8/9
 //从display.js和core.js分离
 
-_title_.innerHTML = "UUTT " + _VERSION;
-_author_.innerHTML = "By QuartzQuincy2019 (Quincy K.)";
+_title_.innerHTML = "★ UUTT " + _VERSION + " ★";
+_author_.innerHTML = "GitHub: QuartzQuincy2019";
 _author_.href = "https://github.com/QuartzQuincy2019";
-_author_.title = "How did you discover me?";
 
 clearTrl();
 refreshLoadingInfoText();
@@ -56,8 +55,11 @@ var telescopeFlexibleWidthAdjuster = setInterval(function () {
 //列表 v7.0.1
 var trlStyle = window.getComputedStyle(trl);
 var trl_em = getOneEm("typingRecordList", false);
-var trl_innerHeight = (__LIST_HEIGHT + 1) * trl_em;//px
-trl.style["maxHeight"] = parseFloat(trlStyle.paddingTop) + parseFloat(trlStyle.paddingBottom) + trl_innerHeight + "px";
+var trl_innerHeight = __LIST_HEIGHT * trl_em;//px
+var trl_pd_top = parseFloat(trlStyle.paddingTop);
+var trl_pd_btm = parseFloat(trlStyle.paddingBottom);
+console.log(trl_em, trl_innerHeight, trl_pd_top, trl_pd_btm);
+trl.style["maxHeight"] = trl_pd_top + trl_pd_btm + trl_innerHeight + 15 + "px";
 trl.style["height"] = trl.style["maxHeight"];
 
 //设置字体
@@ -79,15 +81,21 @@ telescope.style["font-family"] = __DEFAULT_FONT_TYPING;
 //显示进入网页的说明
 var _str = "";
 _str += "***This is a purely English web page. Your keyboard input has been restricted on this page and you cannot enter any characters other than English (and punctuation).";
-_str += "<br>***Press <strong>" + __FK_MODE_SWITCH + "</strong> then <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task randomly from the file \".\\js\\tasks.js\" and start your practice.";
+_str += "<br>*Press the <strong>" + __FK_CLEAR + "</strong> / <strong>Backspace</strong> (continuously) / <strong>" + __FK_MODE_SWITCH + "</strong> key to clear these instructions.";
+_str += "<br>***<strong>Functional Key Instructions</strong>:";
+_str += "<br>*Press the <strong>" + __FK_CLEAR_MODE_SWITCH + "</strong> <em>(Clear Mode Key)</em> key to hide/display following areas: <strong> TITLE, COUNT, KEYTIP, BUTTON and AUTHOR.</strong>";
+_str += "<br>*Press the <strong>" + __FK_TRL_SWITCH + "</strong> key to hide/display the Typing Record List (TRL). <em>It is on your left.</em>";
+_str += "<br>*Press <strong>" + __FK_MODE_SWITCH + "</strong> then <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task randomly from the file \".\\js\\tasks.js\" and start your practice.";
+_str += "<br>*Press the <strong>" + __FK_BA_SWITCH + "</strong> key to hide/display the Button Area. <em>It is on your right.</em>";
+_str += "<br>*Press the <strong>" + __FK_MOVE_SKIN + "</strong> key to change skin.";
+_str += "<br>*Press the <strong>" + __FK_TIMER_TOGGLE + "</strong> key to start/stop your inputing and the timer.";
+_str += "<br>*Press the <strong>" + __FK_INCREASE_FONT_SIZE + "</strong> / <strong>" + __FK_DECREASE_FONT_SIZE + "</strong> key to increase / decrease the size of the text of input&display area; press the <strong>" + __FK_DEFAULT_FONT_SIZE + "</strong> key to set them to the default size.";
 _str += "<br>***You can add new typing tasks by modifying the file \".\\js\\tasks.js\".";
 _str += "<br>***If you want to enter a line break (i.e. <strong>Enter</strong> key) in a typing task, type\"&lt;br&gt;\" into the file.";
 _str += "<br>***Note: If the length of a single typing task is too long (greater than 500 letters), your browser will take more time to load it, usually LONGER than 0.6 seconds.";
-_str += "<br>***You have to make sure you type <strong>## E V E R Y ##</strong> letter correctly. In this way, the program can determine that you have completed the typing task.";
+_str += "<br>***You have to make sure you type <strong>EVERY</strong> letter correctly. In this way, the program can determine that you have completed the typing task.";
 _str += "<br>***The default fonts used for this page are \"" + __DEFAULT_FONT_TYPING + "\" and \"" + __DEFAULT_FONT_OTHER + "\". If you do not have a font file for these fonts on your computer, the browser will use the default font to replace the missing font.";
-_str += "<br>***Press the <strong>" + __FK_TIMER_TOGGLE + "</strong> key to start/stop your inputing and the timer.";
-_str += "<br>***Press the <strong>" + __FK_INCREASE_FONT_SIZE + "</strong> / <strong>" + __FK_DECREASE_FONT_SIZE + "</strong> key to increase / decrease the size of the text of input&display area; press the <strong>" + __FK_DEFAULT_FONT_SIZE + "</strong> key to set them to the default size.";
-_str += "<br>***Press the <strong>" + __FK_CLEAR + "</strong> / <strong>Backspace</strong> (continuously) / <strong>" + __FK_MODE_SWITCH + "</strong> key to clear these instructions.";
+_str += "<br><br><br><br><br><br><br><br><br><br>";
 inputElement.innerHTML = _str;
 button_clearInputText.innerHTML = "Clear & Restart Timer [" + __FK_CLEAR + "]";
 button_taskLauncher.innerHTML = "Launch New Task! (TaskMode) [" + __FK_LAUNCH_TASK + "]";

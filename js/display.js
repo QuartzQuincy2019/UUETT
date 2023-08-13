@@ -102,8 +102,12 @@ function refreshLoadingInfoText() {
 }
 
 function refreshProgressText() {
+    var cm_str = "";
+    if (_CLEAR_MODE) {
+        cm_str = "(Clear Mode) ";
+    }
     if (_SANDBOX_MODE == true) {
-        progressCounter.innerHTML = "<p><strong>SANDBOX MODE</strong>: Progress is invalid</p>";
+        progressCounter.innerHTML = "<p>" + cm_str + "<strong>SANDBOX MODE</strong>: Progress is invalid</p>";
         return;
     }
     if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
@@ -126,7 +130,7 @@ function refreshProgressText() {
     //console.log(_CURRENT_NUMBER);
     var len = keyTipArray.length;
     var rate = Math.round(_CURRENT_NUMBER / len * 10000) / 100;
-    progressCounter.innerHTML = "<p>Progress: <strong>" + _CURRENT_NUMBER + "</strong> / <strong>" + len + "</strong> (<strong>" + rate + "%</strong>)</p>";
+    progressCounter.innerHTML = "<p>" + cm_str + "Progress: <strong>" + _CURRENT_NUMBER + "</strong> / <strong>" + len + "</strong> (<strong>" + rate + "%</strong>)</p>";
 }
 
 /**

@@ -21,6 +21,11 @@ body {
     text-shadow: 2px 2px 3px #999999;
 }
 
+#_author_{
+    color:#04007c;
+    text-shadow: 0px 0px 3px #15b8ca;
+}
+
 .floatingmenu,
 .content {
     background-color: #fff0cf;
