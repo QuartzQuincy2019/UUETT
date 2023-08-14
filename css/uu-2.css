@@ -1,4 +1,5 @@
 /* uu-2.css */
+/* Midnight */
 body {
     background-color: #000833;
 }
@@ -43,6 +44,7 @@ div span.TTC_correct {
 }
 
 div span.TTC_incorrect {
+    background-color: #ff000040;
     color: #ff0505;
     text-shadow: 2px 2px 10px #f7217e;
 }

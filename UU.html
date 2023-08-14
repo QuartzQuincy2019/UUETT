@@ -1,6 +1,6 @@
 <!--UU.html-->
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width" />
@@ -18,7 +18,8 @@ areaDisplay();
 refreshSkinButtonText();
 setTrlDisplay();
 setBaDisplay();
-refreshFontSizeDisplay();">
+refreshFontSizeDisplay();
+refreshSkinNameText();">
     <div id="menu" class="fixedmenu select_none">
         <div id="TITLEAREA" class="content heads">
             <!--标题-->
@@ -57,8 +58,7 @@ refreshFontSizeDisplay();">
             Switch</button>
         <button class="FunctionButton" onclick="clearInputText();" type="button"
             id="button_clearInputText">Clear</button>
-        <button class="FunctionButton" onclick="launchTask();" type="button"
-            id="button_taskLauncher">Task
+        <button class="FunctionButton" onclick="launchTask();" type="button" id="button_taskLauncher">Task
             Launcher</button>
         <button class="FunctionButton" onclick="timer.restart();" type="button" id="button_restartTimer">Restart
             Timer</button>
@@ -81,7 +81,8 @@ refreshFontSizeDisplay();">
         </div>
         <div id="AUTHORAREA" class="content feet">
             <a href="#" id="_author_" target="_blank"></a>
-            <div id="timerStatusDisplayer" class="floating">TimerStatus</div>
+            <div id="timerStatusDisplayer">TimerStatus</div>
+            <div id="skinNameDisplayer">SkinNameDisplayer</div>
         </div>
     </div>
     <script type="text/javascript" src=".\js\tasks.js"></script>

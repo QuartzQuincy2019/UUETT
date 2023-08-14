@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.6.0";
+var _VERSION = "v7.8.0";
 
 /**
  * 界面语言 v7.5.0
@@ -35,24 +35,36 @@ var __FONT_SIZE_ADJUSTMENT_RANGE = 4;
  * 在这里列举您想要进行练习的文章组名，(v7.6.0)
  * 以装载在tasks.js中您想要进行练习的文章组
  */
-var __ARTICLE_GROUPS = ["名句", "洛夫克拉夫特", "travelchinaguide.com"];
+var __ARTICLE_GROUPS = ["名句集", "洛夫克拉夫特名句集", "travelchinaguide.com选段"];
 
 /**
  * 您选择的__ARTICLE_GROUPS中的文章数组的序列，从0开始（包括0）
  * 若值为以下几种，则自动进入全局随机练习模式：
  * 负数, undefined, NaN, Infinity, 大于等于__ARTICLE_GROUPS长度的数
  */
-var __DEFAULT_AG_NUMBER = 0;
+var __DEFAULT_AG_NUMBER = -1;
 
 /**
  * 最大皮肤ID。
  */
-var MAX_SKIN_ID = 2;
+var MAX_SKIN_ID = 4;
 
 /**
- * CSS文件头名称。
+ * CSS皮肤文件头名称。
  */
 var FILE_HEADER = "uu";//uu-<number>.css
+
+/**
+ * v7.8.0
+ * 顾名思义，皮肤名称
+ */
+var __SKIN_NAMES = [
+    null,
+    "UU经典",
+    "午夜时分",
+    "水色泡泡",
+    "殷红火山"
+];
 
 /**
  * 切换皮肤按钮上显示的文本
@@ -61,6 +73,8 @@ var FILE_HEADER = "uu";//uu-<number>.css
 var __SKIN_HINTS = [
     null,
     "☽",
+    "B",
+    "V",
     "☀"
 ];
 

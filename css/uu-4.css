@@ -1,0 +1,57 @@
+/* uu-4.css */
+/* "Scarlet Volcano" */
+/* Aug. 14 2023 */
+
+body {
+    background-color: #6a0019;
+}
+
+body * {
+    color: #ffeeee;
+    text-shadow: 0px 0px 2px #ffffff;
+}
+
+.FunctionButton {
+    background-color: #b90047;
+    border: 3px solid #ffffff;
+}
+
+.FunctionButton:hover {
+    background-color: #a8139e;
+}
+
+.FunctionButton:active {
+    background-color: #075664;
+}
+
+#displayKey {
+    text-shadow: 2px 2px 3px #864a4a;
+}
+
+#_author_ {
+    color: #ffce52;
+    text-shadow: 0px 0px 3px #ad8114;
+}
+
+.floatingmenu,
+.content {
+    background-color: #a11334;
+    border: 3px solid #ffffff;
+    box-shadow: 0px 0px 12px #4b0213;
+}
+
+div span.TTC_correct {
+    color: #55ec80;
+    text-shadow: 0px 0px 3px #20e458;
+}
+
+div span.TTC_incorrect {
+    background-color: #ff0000a0;
+    color: #ffff00;
+    text-shadow: 1px 1px 8px #ffff00;
+}
+
+div span.TTC_none {
+    color: #8f8f8f;
+    text-shadow: none;
+}

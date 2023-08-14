@@ -118,6 +118,19 @@ function refreshNextDisplay(isCurrentDisplay) {
     return 0;
 }
 
+function refreshSkinNameText() {
+    var id = getCurrentSkinId();
+    var sn = __SKIN_NAMES[id];
+    var _str = "<p>";
+    if (__LANGUAGE == "english") {
+        _str += "Current Skin Name: ";
+    }
+    if (__LANGUAGE == "simplified chinese") {
+        _str += "当前皮肤名称："
+    }
+    skinNameDisplayer.innerHTML = _str + "<strong>" + sn + "</strong></p>";
+}
+
 function refreshLoadingInfoText() {
     if (_SANDBOX_MODE == true) {
         loadingInfo.innerHTML = "<p><strong>" + _txt_SANDBOX_MODE + "</strong></p>";
@@ -194,10 +207,10 @@ function refreshProgressText() {
     determineError(progressCounter, _determineErrorArray);
     if (keyTipArray.length == 0) {
         if (__LANGUAGE == "english") {
-            progressCounter.innerHTML = "<p><strong>" + _txt_NO_TASK_INFO + "</strong>: Progress is invalid</p>";
+            progressCounter.innerHTML = "<p>" + cm_str + "<strong>" + _txt_NO_TASK_INFO + "</strong>: Progress is invalid</p>";
         }
         if (__LANGUAGE == "simplified chinese") {
-            progressCounter.innerHTML = "<p><strong>" + _txt_NO_TASK_INFO + "</strong>：打字进度不可用</p>";
+            progressCounter.innerHTML = "<p>" + cm_str + "<strong>" + _txt_NO_TASK_INFO + "</strong>：打字进度不可用</p>";
         }
         return;
     }
@@ -490,4 +503,5 @@ function adjustIoAreaSize(isAssignment, _SIZE) {
             _ioAreaPara[i].style["font-size"] = _SIZE + "px";
         }
     }
+    refreshFontSizeDisplay();
 }

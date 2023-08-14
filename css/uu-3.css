@@ -1,0 +1,57 @@
+/* uu-3.css */
+/* "Aqua Bubbles" */
+/* Aug. 14 2023 */
+
+body {
+    background-color: #c5fffa;
+}
+
+body * {
+    color: #004046;
+    text-shadow: 0px 0px 3px #e1fffa;
+}
+
+.FunctionButton {
+    background-color: #a7fff8;
+    border: 3px solid #000000;
+}
+
+.FunctionButton:hover {
+    background-color: #3bee9a;
+}
+
+.FunctionButton:active {
+    background-color: #fffa68;
+}
+
+#displayKey {
+    text-shadow: 2px 2px 3px #e1fffa;
+}
+
+#_author_ {
+    color: #0870a8;
+    text-shadow: 0px 0px 3px #e1fffa;
+}
+
+.floatingmenu,
+.content {
+    background-color: #7cffde8b;
+    border: 3px solid #383838;
+    box-shadow: 0px 0px 12px #bcfdff;
+}
+
+div span.TTC_correct {
+    color: #0cce43;
+    text-shadow: 1px 1px 4px #40eb70;
+}
+
+div span.TTC_incorrect {
+    background-color: #ff000030;
+    color: #ff053f;
+    text-shadow: 1px 1px 3px #ff436f;
+}
+
+div span.TTC_none {
+    color: #c7c7c7;
+    text-shadow: none;
+}

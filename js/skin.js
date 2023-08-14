@@ -62,4 +62,5 @@ function moveSkin() {
     //console.log("target="+target);
     changeSkin(target);
     refreshSkinButtonText();
+    refreshSkinNameText();
 }

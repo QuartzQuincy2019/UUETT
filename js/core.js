@@ -49,6 +49,7 @@ var timerElement = document.getElementById("timer");
 var timerStatusDisplayer = document.getElementById("timerStatusDisplayer");
 var speedDisplayer = document.getElementById("speedDisplayer");
 var fontSizeDisplayer = document.getElementById("fontSizeDisplayer");
+var skinNameDisplayer = document.getElementById("skinNameDisplayer");
 
 var button_inputModeSwitch = document.getElementById("button_inputModeSwitch");
 var button_clearInputText = document.getElementById("button_clearInputText");
@@ -800,6 +801,7 @@ function switchClearMode() {//Clear Mode
         _CLEAR_MODE = false;
     }
     setClearModeDisplay();
+    refreshProgressText();
 }
 
 function setClearModeDisplay() {

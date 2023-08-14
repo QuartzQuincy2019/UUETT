@@ -39,7 +39,7 @@
 
 var __task_ArticleGroups = [
     {
-        articleGroupName: "名句",
+        articleGroupName: "名句集",
         articlesArray: [
             "Where there is a will, there is a way.",
             "I came, I saw, I conquered.",
@@ -67,7 +67,7 @@ var __task_ArticleGroups = [
         ]
     },
     {
-        articleGroupName: "洛夫克拉夫特",
+        articleGroupName: "洛夫克拉夫特名句集",
         articlesArray: [
             "The oldest and strongest emotion of mankind is fear, and the oldest and strongest kind of fear is fear of the unknown.",
             "The most merciful thing in the world, I think, is the inability of the human mind to correlate all its contents. We live on a placid island of ignorance in the midst of black seas of the infinity, and it was not meant that we should voyage far.",
@@ -86,7 +86,7 @@ var __task_ArticleGroups = [
         ]
     },
     {
-        articleGroupName: "travelchinaguide.com",
+        articleGroupName: "travelchinaguide.com选段",
         articlesArray: [
             "Being capital of the People's Republic of China, Beijing is the nation's political, economic, and cultural center. Located in north China, close to the port city of Tianjin and partially surrounded by Hebei Province, it also serves as the most important transportation hub and port of entry.<br>As one of the six ancient cities in China, Beijing has been the heart and soul of politics throughout its long history and consequently there is an unparalleled wealth of discovery to delight and intrigue travelers as they explore the city's ancient past and exciting modern development. Now it has become one of the most popular travel destinations in the world, with about 140 million Chinese tourists and 4.4 million international visitors in a year.<br>travelchinaguide.com",
             "Cuisine in China is a harmonious integration of color, redolence, taste, shape and the fineness of the instruments.  For the cooking process, chefs pick choice and various ingredients and seasonings while employing unparalleled complicated skills handed down from their fathers, ever aspiring to their ideal of perfection for all the senses. Among the many cooking methods they use are boiling, stewing, braising, frying, steaming, crisping, baking, and simmering and so on. When they finish their masterpieces they are arranged on a variety of plates and dishes so that they are a real pleasure to view, to smell and ultimately to savor.<br>travelchinaguide.com",

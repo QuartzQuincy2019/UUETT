@@ -36,17 +36,14 @@ var typing = document.addEventListener('keydown', function (event) {
     if (key == __FK_DEFAULT_FONT_SIZE) {
         event.preventDefault();
         adjustIoAreaSize(true, __DEFAULT_IO_FONT_SIZE);
-        refreshFontSizeDisplay();
     }
     if (key == __FK_INCREASE_FONT_SIZE) {
         event.preventDefault();
         adjustIoAreaSize(false, __FONT_SIZE_ADJUSTMENT_RANGE);
-        refreshFontSizeDisplay();
     }
     if (key == __FK_DECREASE_FONT_SIZE) {
         event.preventDefault();
         adjustIoAreaSize(false, -__FONT_SIZE_ADJUSTMENT_RANGE);
-        refreshFontSizeDisplay();
     }
     if (key == __FK_TRL_SWITCH) {
         event.preventDefault();
@@ -59,7 +56,6 @@ var typing = document.addEventListener('keydown', function (event) {
     if (key == __FK_CLEAR_MODE_SWITCH) {
         event.preventDefault();
         switchClearMode();
-        refreshProgressText();
     }
     if (timer.intervalId == null/*未计时*/ && _SANDBOX_MODE == false/*非沙盒模式*/) {
         return;
