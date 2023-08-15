@@ -6,16 +6,18 @@ body {
 }
 
 .FunctionButton {
-    background-color: aliceblue;
+    background-color: #f0f8ff;
     border: 3px solid #000000;
 }
 
 .FunctionButton:hover {
-    box-shadow: 2px 2px 3px #a4a4a4;
+    background-color: #5a6161;
+    color: #ffffff;
 }
 
 .FunctionButton:active {
-    background-color: aqua;
+    background-color: #ffd334;
+    color: #3d2a00;
 }
 
 #displayKey {

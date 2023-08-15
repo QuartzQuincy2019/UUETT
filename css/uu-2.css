@@ -1,12 +1,12 @@
 /* uu-2.css */
 /* Midnight */
 body {
-    background-color: #000833;
+    background-color: #00041b;
 }
 
 body * {
-    color: #c9c9c9;
-    text-shadow: 0px 0px 3px #c9c9c9;
+    color: #dbdbdb;
+    text-shadow: 0px 0px 1px #848484;
 }
 
 .FunctionButton {
@@ -15,7 +15,7 @@ body * {
 }
 
 .FunctionButton:hover {
-    background-color: #414247;
+    background-color: #a0adef;
 }
 
 .FunctionButton:active {
@@ -39,8 +39,8 @@ body * {
 }
 
 div span.TTC_correct {
-    color: #11bc30;
-    text-shadow: 0px 0px 2px #11bc30;
+    color: #2ad449;
+    text-shadow: 0px 0px 2px #2ad449;
 }
 
 div span.TTC_incorrect {
@@ -50,6 +50,6 @@ div span.TTC_incorrect {
 }
 
 div span.TTC_none {
-    color: #4a4a4a;
+    color: #737373;
     text-shadow: none;
 }

@@ -4,6 +4,8 @@
     margin: 0;
     scroll-behavior: smooth;
     /* v3.0.0 新增 */
+    transition: background-color 200ms linear;
+    /* v7.8.1 新增 */
 }
 
 a {
@@ -76,7 +78,7 @@ div p {
     width: 100%;
     border-radius: 5px;
     cursor: pointer;
-    transition-duration: 300ms;
+    transition-duration: 100ms;
     transition-property: all;
     font-size: 16px;
     margin: 2px 2px;
@@ -200,7 +202,7 @@ div p {
 div span.TTC_correct,
 div span.TTC_incorrect,
 div span.TTC_none {
-    transition: all 80ms linear;
+    transition: all 110ms linear;
 }
 
 

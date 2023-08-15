@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.8.0";
+var _VERSION = "v7.8.1";
 
 /**
  * 界面语言 v7.5.0
@@ -35,7 +35,7 @@ var __FONT_SIZE_ADJUSTMENT_RANGE = 4;
  * 在这里列举您想要进行练习的文章组名，(v7.6.0)
  * 以装载在tasks.js中您想要进行练习的文章组
  */
-var __ARTICLE_GROUPS = ["名句集", "洛夫克拉夫特名句集", "travelchinaguide.com选段"];
+var __ARTICLE_GROUPS = ["名句集", "洛夫克拉夫特名句集", "travelchinaguide.com选段", "I have a dream -- Martin Luther King, Jr."];
 
 /**
  * 您选择的__ARTICLE_GROUPS中的文章数组的序列，从0开始（包括0）
