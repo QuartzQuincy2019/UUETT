@@ -22,13 +22,13 @@ UUTT For **PC**
 2. 确保在打开主文件时，所有代码所涉及的所有相对路径及其文件都没有被删除或移动。
 3. 较长的文本加载需要更多时间，但大多都小于2秒，请耐心等待。
 4. 您可以打开`.\js`目录下的`dv.js`进行您的**个性化定制**等。更多信息欢迎光临本仓库[**Wiki**](https://github.com/QuartzQuincy2019/UUTT_HJ105/wiki)。
-## Interface Language
-The default interface language is **Simplified Chinese (简体中文)**. <br>
+## 🌏Interface Language🌏
+The default interface language is **Simplified Chinese (简体中文, zh-CN)**. <br>
 If you want to change it to **English**, please modify—— <br>
 `.\js\dv.js`: <br>
-`var __INTERFACE_LANGUAGE = "简体中文";` ==> `var __INTERFACE_LANGUAGE = "English";` <br>
+`var __INTERFACE_LANGUAGE = "zh-CN";` ==> `var __INTERFACE_LANGUAGE = "English";` <br>
 **Save** the file, and then re-open UU.html with your browser. <br>
- _(So far, UUTT has only two interface languages, **Simplified Chinese** and **English**. Other interface languages please look forward to later updates.)_ <br>
+ _(So far, UUTT has **3** interface languages: **Simplified Chinese**, **English** and **Traditional Chinese**. Other interface languages please look forward to later updates.)_ <br>
 ## 创建日期
 2023年8月2日 / Aug.2, 2023
 
