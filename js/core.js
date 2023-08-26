@@ -24,8 +24,10 @@ var _CHOSEN_ARTICLE_GROUPS = [];//每个元素为ArticleGroup类
  * 被随机抽中的文章组序列与文章号序列组成的数组，具有定位用途
  */
 var _CHOSEN_ARTICLE = [0, 0];
-
-var __LANGUAGE = "";
+/**
+ * 界面语言代码(v7.9.0)
+ */
+var __langcode = "";
 
 var _NEXT_DISPLAY;//element
 
@@ -140,11 +142,14 @@ if (__ARTICLE_GROUPS.every(function (agname) {
     return isArrayAll(ag["articlesArray"], "string");
 }) == false) ERRORS[1203].ErrorStatus = true;
 
-//语言决定
-var __english_l = ["english", "English", "en-US"];
-var __simplified_chinese_l = ["simplified chinese", "简体中文", "简中", "Simplified Chinese", "Chinese(simplified)", "zh-cn"];
-if (__english_l.includes(__INTERFACE_LANGUAGE)) __LANGUAGE = "english";
-if (__simplified_chinese_l.includes(__INTERFACE_LANGUAGE)) __LANGUAGE = "simplified chinese";
+//语言决定(v7.9.0彻底改版)
+console.log("浏览器语言：" + navigator.language);
+var __english_l = ["english", "English", "eng", "en", "en-US"];
+var __simplified_chinese_l = ["simplified chinese", "简体中文", "简中", "Simplified Chinese", "Chinese(simplified)", "zh-cn", "zh-CN"];
+var __traditional_chinese_l = ["traditional chinese", "繁體中文", "繁中", "Traditional Chinese", "Chinese(traditional)", "zh-tw", "zh-TW"];
+if (__english_l.includes(__INTERFACE_LANGUAGE)) __langcode = "en-US";
+if (__simplified_chinese_l.includes(__INTERFACE_LANGUAGE)) __langcode = "zh-CN";
+if (__traditional_chinese_l.includes(__INTERFACE_LANGUAGE)) __langcode = "zh-TW";
 
 
 /**
@@ -243,7 +248,6 @@ function parseArticleGroupByName(agname) {
 //parse v7.6.0
 for (var i = 0; i < __ARTICLE_GROUPS.length; i++) {
     _CHOSEN_ARTICLE_GROUPS.push(parseArticleGroup(i));
-    console.log(_CHOSEN_ARTICLE_GROUPS);
 }
 
 /**
@@ -543,13 +547,7 @@ var timer = {
         if (_sec < 10) {
             isSingle = true;
         }
-        var _txt_time = "";
-        if (__LANGUAGE == "english") {
-            _txt_time = "Time: ";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            _txt_time = "时间：";
-        }
+        var _txt_time = lang[__langcode]["_time"] + lang[__langcode]["colon"] + " ";
         if (isSingle) {
             timerEle.innerHTML = _txt_time + _min + ":0" + _sec;
         } else {
@@ -608,19 +606,9 @@ function clearInputText() {
 
 function inputModeText() {
     if (_SANDBOX_MODE == true) {
-        if (__LANGUAGE == "english") {
-            button_inputModeSwitch.innerHTML = "to Task Mode [" + __FK_MODE_SWITCH + "]";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            button_inputModeSwitch.innerHTML = "切换至任务模式 [" + __FK_MODE_SWITCH + "]";
-        }
+        button_inputModeSwitch.innerHTML = lang[__langcode]["_to_Task_Mode"] + "[" + __FK_MODE_SWITCH + "]";
     } else {
-        if (__LANGUAGE == "english") {
-            button_inputModeSwitch.innerHTML = "to Sandbox Mode [" + __FK_MODE_SWITCH + "]";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            button_inputModeSwitch.innerHTML = "切换至沙盒模式 [" + __FK_MODE_SWITCH + "]";
-        }
+        button_inputModeSwitch.innerHTML = lang[__langcode]["_to_Sandbox_Mode"] + "[" + __FK_MODE_SWITCH + "]"
     }
 }
 
@@ -653,12 +641,7 @@ function clearModeCache(
     }
     inputModeText();
     _TASK_STRING_LENGTH = 0;
-    if (__LANGUAGE == "english") {
-        displayElement.innerHTML = "You are in <strong>Task Mode</strong> but have <strong>not</strong> launched a task yet.<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!<br>Typing is meaningless now.";
-    }
-    if (__LANGUAGE == "simplified chinese") {
-        displayElement.innerHTML = "您现在处于<strong>任务模式</strong>，但<strong>还没有</strong>启动任务。<br>按 <strong>" + __FK_LAUNCH_TASK + "</strong> 键来启动新任务！<br>打字现在无意义。";
-    }
+    displayElement.innerHTML = lang[__langcode]["_mode_Cache_Exist"];
     clearInputText();
     refreshLoadingInfoText();
     refreshProgressText();

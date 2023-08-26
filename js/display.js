@@ -1,14 +1,12 @@
 //display.js
 
 var _txt_SANDBOX_MODE, _txt_NO_TASK_INFO;
-if (__LANGUAGE == "english") {
-    _txt_SANDBOX_MODE = "SANDBOX MODE";
-    _txt_NO_TASK_INFO = "NO TASK INFO";
-}
-if (__LANGUAGE == "simplified chinese") {
-    _txt_SANDBOX_MODE = "沙盒模式";
-    _txt_NO_TASK_INFO = "无任务";
-}
+_txt_SANDBOX_MODE = lang[__langcode]["_sandbox_Mode"];
+_txt_NO_TASK_INFO = lang[__langcode]["_no_Task_Info"];
+var p = "<p>";
+var _p = "</p>";
+var strong = "<strong>";
+var _strong = "</strong>";
 
 function areaDisplay() {
     if (_SANDBOX_MODE == true) {
@@ -44,35 +42,19 @@ var _determineErrorArray = [1201, 1202, 1203];
 
 function refreshTimerStatusText() {
     if (timer.intervalId) {
-        if (__LANGUAGE == "english") {
-            timerStatusDisplayer.innerHTML = "<p>Timer is <strong>running</strong></p>";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            timerStatusDisplayer.innerHTML = "<p>计时器<strong>运行中</strong></p>";
-        }
-    } else {
-        if (__LANGUAGE == "english") {
-            timerStatusDisplayer.innerHTML = "<p>Timer <strong>stopped</strong></p>";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            timerStatusDisplayer.innerHTML = "<p>计时器<strong>已停止</strong></p>";
-        }
+        timerStatusDisplayer.innerHTML = p + lang[__langcode]["_timer_Running"] + _p;
+    }
+    else {
+        timerStatusDisplayer.innerHTML = p + lang[__langcode]["_timer_Stopped"] + _p;
     }
 }
 
 function refreshFontSizeDisplay() {//7.2.1
     var fs = window.getComputedStyle(inputElement).fontSize;
     var _def_str, _min_str, _str;
-    if (__LANGUAGE == "english") {
-        _def_str = "<strong>(Default)</strong>";
-        _min_str = "<strong>(Minimum)</strong>";
-        _str = "IO Area Font Size: <strong>" + fs + "</strong>";
-    }
-    if (__LANGUAGE == "simplified chinese") {
-        _def_str = "<strong>(默认值)</strong>";
-        _min_str = "<strong>(最小值)</strong>";
-        _str = "当前打字区域字体大小：<strong>" + fs + "</strong>";
-    }
+    _def_str = lang[__langcode]["_fontSize_Default"];
+    _min_str = lang[__langcode]["_fontSize_Minimum"];
+    _str = lang[__langcode]["_fontSize_Display"] + strong + fs + strong;
     var isDefault = false;
     var isMinimum = false
     if (fs == __DEFAULT_IO_FONT_SIZE + "px") {
@@ -121,19 +103,14 @@ function refreshNextDisplay(isCurrentDisplay) {
 function refreshSkinNameText() {
     var id = getCurrentSkinId();
     var sn = __SKIN_NAMES[id];
-    var _str = "<p>";
-    if (__LANGUAGE == "english") {
-        _str += "Current Skin Name: ";
-    }
-    if (__LANGUAGE == "simplified chinese") {
-        _str += "当前皮肤名称："
-    }
-    skinNameDisplayer.innerHTML = _str + "<strong>" + sn + "</strong></p>";
+    var _str = p;
+    _str += lang[__langcode]["_current_Skin"];
+    skinNameDisplayer.innerHTML = _str + strong + sn + _strong + _p;
 }
 
 function refreshLoadingInfoText() {
     if (_SANDBOX_MODE == true) {
-        loadingInfo.innerHTML = "<p><strong>" + _txt_SANDBOX_MODE + "</strong></p>";
+        loadingInfo.innerHTML = p + strong + _txt_SANDBOX_MODE + _strong + _p;
         return;
     }
     if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
@@ -142,62 +119,40 @@ function refreshLoadingInfoText() {
     }
     determineError(loadingInfo, _determineErrorArray);
     if (_SANDBOX_MODE == false && keyTipArray.length == 0) {
-        loadingInfo.innerHTML = "<p><strong>" + _txt_NO_TASK_INFO + "</strong></p>";
+        loadingInfo.innerHTML = p + strong + _txt_NO_TASK_INFO + _strong + _p;
         return;
     }
     var str = "";
     if (isArticleGroupRandom()) {
-        if (__LANGUAGE == "english") {
-            str += "<p><strong>**Random Article Group**</strong><br>";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            str += "<p><strong>**随机文章组模式**</strong><br>";
-        }
+        str += p + strong + lang[__langcode]["_random_Article_Group"] + _strong + "<br>";
     } else {
-        str += "<p>";
+        str += p;
     }
     var chosenGroupName = _CHOSEN_ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]]["articleGroupName"];
-    if (__LANGUAGE == "english") {
-        str +=
-            "Selected Article Group: <strong>" + (_CHOSEN_ARTICLE[0] + 1)
-            + "</strong> / <strong>" + (__ARTICLE_GROUPS.length)
-            + "</strong>&nbsp;&nbsp;&nbsp;(<strong>"
-            + chosenGroupName + "</strong>)<br>" +
-            "Selected Article: <strong>" + (_CHOSEN_ARTICLE[1] + 1) +
-            "</strong> / <strong>" + (_CHOSEN_ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]]["articlesArray"].length)
-            + "</strong>";
-    }
-    if (__LANGUAGE == "simplified chinese") {
-        str +=
-            "选中文章组：<strong>" + (_CHOSEN_ARTICLE[0] + 1)
-            + "</strong> / <strong>" + (__ARTICLE_GROUPS.length)
-            + "</strong>&nbsp;&nbsp;&nbsp;(<strong>"
-            + chosenGroupName + "</strong>)<br>" +
-            "选中文章号：<strong>" + (_CHOSEN_ARTICLE[1] + 1) +
-            "</strong> / <strong>" + (_CHOSEN_ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]]["articlesArray"].length)
-            + "</strong>";
-    }
-    str += "</p>";
+
+    str +=
+        lang[__langcode]["_selected_Article_Group"]
+        + strong + (_CHOSEN_ARTICLE[0] + 1) + _strong
+        + " / "
+        + strong + (__ARTICLE_GROUPS.length) + _strong
+        + "&nbsp;&nbsp;&nbsp;("
+        + strong + chosenGroupName + _strong
+        + ")<br>"
+        + lang[__langcode]["_selected_Article"]
+        + strong + (_CHOSEN_ARTICLE[1] + 1) + _strong
+        + " / "
+        + strong + (_CHOSEN_ARTICLE_GROUPS[_CHOSEN_ARTICLE[0]]["articlesArray"].length) + _strong;
+    str += _p;
     loadingInfo.innerHTML = str;
 }
 
 function refreshProgressText() {
     var cm_str = "";
     if (_CLEAR_MODE) {
-        if (__LANGUAGE == "english") {
-            cm_str = "(Clear Mode) ";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            cm_str = "(清净模式) ";
-        }
+        cm_str = lang[__langcode]["_clear_Mode"];
     }
     if (_SANDBOX_MODE == true) {
-        if (__LANGUAGE == "english") {
-            progressCounter.innerHTML = "<p>" + cm_str + "<strong>" + _txt_SANDBOX_MODE + "</strong>: Progress is invalid</p>";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            progressCounter.innerHTML = "<p>" + cm_str + "<strong>" + _txt_SANDBOX_MODE + "</strong>：打字进度不可用</p>";
-        }
+        progressCounter.innerHTML = p + cm_str + strong + _txt_SANDBOX_MODE + _strong + lang[__langcode]["_typing_Progress_Invalid"] + _p;
         return;
     }
     if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
@@ -206,24 +161,22 @@ function refreshProgressText() {
     }
     determineError(progressCounter, _determineErrorArray);
     if (keyTipArray.length == 0) {
-        if (__LANGUAGE == "english") {
-            progressCounter.innerHTML = "<p>" + cm_str + "<strong>" + _txt_NO_TASK_INFO + "</strong>: Progress is invalid</p>";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            progressCounter.innerHTML = "<p>" + cm_str + "<strong>" + _txt_NO_TASK_INFO + "</strong>：打字进度不可用</p>";
-        }
+        progressCounter.innerHTML = p + cm_str + strong + _txt_NO_TASK_INFO + _strong + lang[__langcode]["_typing_Progress_Invalid"] + _p;
         return;
     }
     _CURRENT_NUMBER = getCurrentNumber();
     //console.log(_CURRENT_NUMBER);
     var len = keyTipArray.length;
     var rate = Math.round(_CURRENT_NUMBER / len * 10000) / 100;
-    if (__LANGUAGE == "english") {
-        progressCounter.innerHTML = "<p>" + cm_str + "Progress: <strong>" + _CURRENT_NUMBER + "</strong> / <strong>" + len + "</strong> (<strong>" + rate + "%</strong>)</p>";
-    }
-    if (__LANGUAGE == "simplified chinese") {
-        progressCounter.innerHTML = "<p>" + cm_str + "进度：<strong>" + _CURRENT_NUMBER + "</strong> / <strong>" + len + "</strong> (<strong>" + rate + "%</strong>)</p>";
-    }
+    progressCounter.innerHTML =
+        p + cm_str
+        + lang[__langcode]["_typing_Progress"]
+        + strong + _CURRENT_NUMBER + _strong
+        + " / "
+        + strong + len + _strong +
+        " ("
+        + strong + " " + rate + "%" + _strong + ")"
+        + _p;
 }
 
 /**
@@ -231,12 +184,12 @@ function refreshProgressText() {
  */
 function refreshKeyTip() {
     if (_SANDBOX_MODE == true) {
-        if (__LANGUAGE == "english") {
-            keyTip.innerHTML = "<p><strong>" + _txt_SANDBOX_MODE + "</strong>: Key Tip is invalid</p>";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            keyTip.innerHTML = "<p><strong>" + _txt_SANDBOX_MODE + "</strong>：按键提示不可用</p>";
-        }
+        keyTip.innerHTML =
+            p + strong
+            + _txt_SANDBOX_MODE
+            + _strong
+            + lang[__langcode]["_keyTip_Invalid"]
+            + _p;
         return;
     }
     if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
@@ -245,49 +198,41 @@ function refreshKeyTip() {
     }
     determineError(progressCounter, _determineErrorArray);
     if (keyTipArray.length == 0) {
-        if (__LANGUAGE == "english") {
-            keyTip.innerHTML = "<p><strong>" + _txt_NO_TASK_INFO + "</strong>: KeyTip is empty</p>";
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            keyTip.innerHTML = "<p><strong>" + _txt_NO_TASK_INFO + "</strong>：按键提示为空</p>";
-        }
+        keyTip.innerHTML =
+            p + strong
+            + _txt_NO_TASK_INFO
+            + _strong
+            + lang[__langcode]["_keyTip_Empty"]
+            + _p;
         return;
     }
     _CURRENT_NUMBER = getCurrentNumber();//刷新现在要输入的number
     var idx = _CURRENT_NUMBER;
     setDone();
-    var p = "<p>";
-    var _p = "</p>";
     if (!done) {
         var writeIn = "";
         var target = keyTipArray[idx];
         if (target == " ") {
-            if (__LANGUAGE == "english") {
-                writeIn = "Space";
-            }
-            if (__LANGUAGE == "simplified chinese") {
-                writeIn = "空格键";
-            }
+            writeIn = lang[__langcode]["_space_Key"];
         } else {
             writeIn = target;
         }
-        if (__LANGUAGE == "english") {
-            keyTip.innerHTML = p + "Please press KEY:&nbsp;&nbsp;&nbsp;<strong>" + writeIn + "</strong>" + _p;
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            keyTip.innerHTML = p + "请按键：&nbsp;<strong>" + writeIn + "</strong>" + _p;
-        }
+        keyTip.innerHTML =
+            p
+            + lang[__langcode]["_please_Press_Key"]
+            + strong + writeIn + _strong
+            + _p;
     } else {
         //done
         var date = new Date();
         addTypingRecord(date);
         refreshTrl();
-        if (__LANGUAGE == "english") {
-            keyTip.innerHTML = p + "Nice Job!<br>You completed your task within <strong><em>" + timer.totalTime / 1000 + "</em></strong> seconds!<br>Press <strong>" + __FK_LAUNCH_TASK + "</strong> to launch a new task!" + _p;
-        }
-        if (__LANGUAGE == "simplified chinese") {
-            keyTip.innerHTML = p + "干得漂亮！<br>你用了<strong><em>" + timer.totalTime / 1000 + "</em></strong>秒的时间完成了这段文本！<br>按 <strong>" + __FK_LAUNCH_TASK + "</strong> 键以启动新任务！" + _p;
-        }
+        keyTip.innerHTML = p
+            + lang[__langcode]["_keyTip_Done_1"]
+            + strong + "<em>" + (timer.totalTime / 1000) + "</em>"
+            + _strong
+            + lang[__langcode]["_keyTip_Done_2"]
+            + _p;
         timer.stop();
     }
 }
@@ -298,12 +243,11 @@ function refreshSpeedDisplay(typingCount, _timer) {
     LETTER_PER_SECOND = LETTER_PER_SECOND.toFixed(2);
     var LETTER_PER_MINUTE = LETTER_PER_SECOND * 60;
     LETTER_PER_MINUTE = LETTER_PER_MINUTE.toFixed(0);
-    if (__LANGUAGE == "english") {
-        speedDisplay.innerHTML = LETTER_PER_SECOND + "   letters/s<br>" + LETTER_PER_MINUTE + "   letters/min";
-    }
-    if (__LANGUAGE == "simplified chinese") {
-        speedDisplay.innerHTML = LETTER_PER_SECOND + "   字母/秒<br>" + LETTER_PER_MINUTE + "   字母/分钟";
-    }
+
+    speedDisplay.innerHTML =
+        LETTER_PER_SECOND + lang[__langcode]["_letters_Per_Second"]
+        + "<br>"
+        + LETTER_PER_MINUTE + lang[__langcode]["_letters_Per_Minute"];
     if (LETTER_PER_MINUTE == Infinity || LETTER_PER_SECOND == NaN) {
         speedDisplay.style.display = "none";
     } else {
@@ -331,16 +275,10 @@ function refreshSpeedDisplay(typingCount, _timer) {
 }
 
 function refreshKeyCounterText() {
-    if (__LANGUAGE == "english") {
-        typingCounter.innerHTML = typingCount + " Ltr(s)&Sp(s)";
-        backspaceCounter.innerHTML = backspaceCount + " Backspace(s)";
-        keydownCounter.innerHTML = keydownCount + " Keydown(s)";
-    }
-    if (__LANGUAGE == "simplified chinese") {
-        typingCounter.innerHTML = typingCount + " 次字母与空格";
-        backspaceCounter.innerHTML = backspaceCount + " 次退格";
-        keydownCounter.innerHTML = keydownCount + " 次按键";
-    }
+    typingCounter.innerHTML = typingCount + lang[__langcode]["_counter_Typed"];
+    backspaceCounter.innerHTML = backspaceCount + lang[__langcode]["_counter_Backspace"];
+    keydownCounter.innerHTML = keydownCount + lang[__langcode]["_counter_Keydown"];
+
 }
 
 function refreshTelescope() {

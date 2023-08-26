@@ -5,14 +5,16 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.8.1";
+var _VERSION = "v7.9.0";
 
 /**
- * 界面语言 v7.5.0
- * english / English —— 英文
- * simplified chinese / 简体中文 / 简中 —— 简体中文
+ * ~ LANGUAGE ~
+ * 界面语言 v7.5.0 -> v7.9.0
+ * english : English
+ * simplified chinese : 简体中文
+ * traditional chinese : 繁體中文
  */
-var __INTERFACE_LANGUAGE = "简体中文";
+var __INTERFACE_LANGUAGE = "zh-CN";
 
 /**
  * 自定义光标。
