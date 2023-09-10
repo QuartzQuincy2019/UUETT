@@ -10,7 +10,8 @@ UUTT For **PC**
 ## 重要声明
 1. **本仓库为公共仓库( _Public Repository_ )。未经本仓库所有者或贡献者许可，不允许对本仓库进行添加或删减工作。**
 2. **UUTT只允许、适合在 _电脑(Computer)_ 上使用。所有型号的 _手机_ 都无法使用UUTT。**
-3. **本仓库拥有[**Wiki**](https://github.com/QuartzQuincy2019/UUTT_HJ105/wiki)页面。欲了解更详细的说明，或使用过程中产生问题，请务必先参考Wiki。**
+3. **UUTT的主文件是UU.html。因此，UUTT的打开方式必须为浏览器(browser)。建议使用Microsoft Edge。**
+4. **本仓库拥有[**Wiki**](https://github.com/QuartzQuincy2019/UUTT_HJ105/wiki)页面。欲了解更详细的说明，或使用过程中产生问题，请务必先参考Wiki。**
 ## 下载和使用方法
 1. 点击页面右侧的**Releases**中的**Latest**。或直接进入[**最新发布**](https://github.com/QuartzQuincy2019/UUTT_HJ105/releases/latest)，进入最新发布界面。
 2. 在**Assets**下拉菜单中选择**Source Code (Zip)**，即可进行下载。
