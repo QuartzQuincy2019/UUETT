@@ -1,9 +1,10 @@
-# UUTT_HJ105
-> **UU** English **T**yping **T**rainer —— **UU英文打字练习器**<br>
+# UUETT
+> **UU** **E**nglish **T**yping **T**rainer —— **UU英文打字练习器**<br>
 作者：QuartzQuincy2019 _"Quincy K."_
 
 > _"Where there is a will, there is a way."_
 
+UUETT 简称：**UUTT**<br>
 UUTT For **PC**
 
 ## 重要声明
