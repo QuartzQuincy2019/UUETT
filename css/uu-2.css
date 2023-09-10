@@ -44,9 +44,9 @@ div span.TTC_correct {
 }
 
 div span.TTC_incorrect {
-    background-color: #ff000040;
+    background-color: #f7e521;
     color: #ff0505;
-    text-shadow: 2px 2px 10px #f7217e;
+    text-shadow: 0px 0px 8px #ff0505;
 }
 
 div span.TTC_none {

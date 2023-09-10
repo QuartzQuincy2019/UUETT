@@ -1,7 +1,7 @@
 /* uu-1.css */
 /* "Classic" */
 body {
-    background-color: #fbe5b4;
+    background-color: #f7d791;
     color: #3d2a00;
 }
 
@@ -11,7 +11,7 @@ body {
 }
 
 .FunctionButton:hover {
-    background-color: #5a6161;
+    background-color: #805c10;
     color: #ffffff;
 }
 
@@ -31,7 +31,7 @@ body {
 
 .floatingmenu,
 .content {
-    background-color: #fff0cf;
+    background-color: #edd7a8f8;
     border: 3px solid #000000;
 }
 
@@ -47,5 +47,5 @@ div span.TTC_incorrect {
 }
 
 div span.TTC_none {
-    color: #bbbbbb;
+    color: #b7b1a3;
 }

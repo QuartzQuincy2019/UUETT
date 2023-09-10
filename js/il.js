@@ -4,8 +4,8 @@
 //从display.js和core.js分离
 
 _title_.innerHTML = "★ UUTT " + _VERSION + " ★";
-_author_.innerHTML = "GitHub: QuartzQuincy2019";
-_author_.href = "https://github.com/QuartzQuincy2019";
+_author_.innerHTML = lang[__langcode]["_author_link"];
+_author_.href = "https://github.com/QuartzQuincy2019/UUETT";
 
 clearTrl();
 refreshLoadingInfoText();

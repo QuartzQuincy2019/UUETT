@@ -7,8 +7,8 @@ body {
 }
 
 body * {
-    color: #ffffff;
-    text-shadow: 0px 0px 2px #d9d9d9;
+    color: #e6e1cf;
+    text-shadow: 0px 0px 4px #ffd52d;
 }
 
 .FunctionButton {
@@ -41,8 +41,9 @@ body * {
 }
 
 div span.TTC_correct {
-    color: #55ec80;
-    text-shadow: 0px 0px 3px #20e458;
+    background-color: #33d86120;
+    color: #33d861;
+    text-shadow: 0px 0px 3px #33d861;
 }
 
 div span.TTC_incorrect {
@@ -52,6 +53,6 @@ div span.TTC_incorrect {
 }
 
 div span.TTC_none {
-    color: #8f8f8f;
+    color: #6b6767;
     text-shadow: none;
 }
