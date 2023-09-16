@@ -119,13 +119,13 @@ var ERRORS = {
         ErrorStatus: false,
         ErrorMessage: "ERROR 1200: \"__ARTICLE_GROUPS\" IS EMPTY"
     },
+    1280: {
+        ErrorStatus: false,
+        ErrorMessage: "ERROR 1280: FOUND AN ARTICLE GROUP IS NOT EXIST THROUGH THE NAMES PROVIDED BY \"__ARTICLE_GROUPS\""
+    },
     1201: {
         ErrorStatus: false,
         ErrorMessage: "ERROR 1201: NOT ALL ELEMENTS IN \"__ARTICLE_GROUPS\" ARE STRINGS"
-    },
-    1202: {
-        ErrorStatus: false,
-        ErrorMessage: "ERROR 1202: SOME ARTICLE GROUP NAMES IN \"__ARTICLE_GROUPS\" ARE NOT EXSIT IN TASKS.JS."
     },
     1203: {
         ErrorStatus: false,
@@ -133,10 +133,12 @@ var ERRORS = {
     }
 }
 
+var _determineErrorArray = [1200, 1280, 1201, 1203];
+
 //错误决定
 if (__ARTICLE_GROUPS.length == 0) ERRORS[1200].ErrorStatus = true;
+if (areArticleGroupNameAllExist() == false) ERRORS[1280].ErrorStatus = true;
 if (isArrayAll(__ARTICLE_GROUPS, "string") == false) ERRORS[1201].ErrorStatus = true;
-if (areArticleGroupNameAllExist() == false) ERRORS[1202].ErrorStatus = true;
 if (__ARTICLE_GROUPS.every(function (agname) {
     var ag = parseArticleGroupByName(agname);
     return isArrayAll(ag["articlesArray"], "string");
@@ -294,7 +296,7 @@ String.prototype.getTypingNewArray = function () {
         }
     }
 
-    var reg = [null, /&#\d+;/, /&\w+;/, /<br>/];
+    var reg = [null, /&#\d+;/, /&\w+;/, /<br>/, /<br \\>/];
 
     var reg_startIdx = [null];
     for (var i = 1; i < reg.length; i++) {
@@ -347,6 +349,7 @@ String.prototype.getTypingNewArray = function () {
             restString = restString.slice(END + 1);
         }
     }
+    //console.log(newArray);
     return newArray;
 }
 

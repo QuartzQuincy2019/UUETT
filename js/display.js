@@ -23,6 +23,7 @@ function areaDisplay() {
  */
 function throwErrorMessage(element, errorNumber) {
     element.innerHTML = "<p><strong>" + ERRORS[errorNumber].ErrorMessage + "</strong></p>";
+    throw new Error(ERRORS[errorNumber].ErrorMessage);
 }
 
 /**
@@ -37,8 +38,6 @@ function determineError(element, errorNumberArray) {
         }
     }
 }
-
-var _determineErrorArray = [1201, 1202, 1203];
 
 function refreshTimerStatusText() {
     if (timer.intervalId) {
@@ -214,6 +213,11 @@ function refreshKeyTip() {
         var target = keyTipArray[idx];
         if (target == " ") {
             writeIn = lang[__langcode]["_space_Key"];
+        } else {
+            writeIn = target;
+        }
+        if (target == "Enter") {
+            writeIn = lang[__langcode]["_enter_Key"];
         } else {
             writeIn = target;
         }

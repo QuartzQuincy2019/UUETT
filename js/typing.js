@@ -192,10 +192,6 @@ function launchTask() {
         if (isInArrayMap(CHARACTER, KEY, each, calculatedKey)) {
             displayElement.innerHTML += "<span id=\"TYPING_TASK_CHARACTER_" + i + "\" class=\"TTC_none\">" + each + "</span>";
             keyTipArray.push(calculatedKey);
-        } else {
-            var specKey = extractValue(SPECIAL_LIST_CHARACTER, SPECIAL_LIST_KEY, each);
-            displayElement.innerHTML += "<span id=\"TYPING_TASK_CHARACTER_" + i + "\" class=\"TTC_none\">" + extractValue(KEY, CHARACTER, specKey) + "</span>";
-            keyTipArray.push(specKey);
         }
     }
     //console.log(keyTipArray)
