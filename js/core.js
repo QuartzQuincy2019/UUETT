@@ -21,7 +21,7 @@ var _TYPING_RECORDS = [];
  */
 var _CHOSEN_ARTICLE_GROUPS = [];//每个元素为ArticleGroup类
 /**
- * 被随机抽中的文章组序列与文章号序列组成的数组，具有定位用途
+ * 被随机抽中的文章组序列与文章号序列组成的数组，用于定位
  */
 var _CHOSEN_ARTICLE = [0, 0];
 /**
@@ -29,7 +29,7 @@ var _CHOSEN_ARTICLE = [0, 0];
  */
 var __langcode = "";
 
-var _NEXT_DISPLAY;//element
+var _NEXT_DISPLAY;//element，用于自滚动时的定位
 
 //element variables
 var SKINLINK = document.getElementById("SKINLINK");
@@ -85,8 +85,9 @@ class ArticleGroup {
      * @param {String} articleGroupName 
      * @param {Array} articlesArray 
      */
-    constructor(articleGroupName, articlesArray) {
+    constructor(articleGroupName, articleGroupSequence, articlesArray) {
         this.articleGroupName = articleGroupName;
+        this.articleGroupSequence = articleGroupSequence;
         this.articlesArray = articlesArray;
     }
 }
@@ -113,36 +114,140 @@ class TypingRecord {
     }
 }
 
-//errors
-var ERRORS = {
-    1200: {
-        ErrorStatus: false,
-        ErrorMessage: "ERROR 1200: \"__ARTICLE_GROUPS\" IS EMPTY"
-    },
-    1280: {
-        ErrorStatus: false,
-        ErrorMessage: "ERROR 1280: FOUND AN ARTICLE GROUP IS NOT EXIST THROUGH THE NAMES PROVIDED BY \"__ARTICLE_GROUPS\""
-    },
-    1201: {
-        ErrorStatus: false,
-        ErrorMessage: "ERROR 1201: NOT ALL ELEMENTS IN \"__ARTICLE_GROUPS\" ARE STRINGS"
-    },
-    1203: {
-        ErrorStatus: false,
-        ErrorMessage: "ERROR 1203: NOT ALL ELEMENTS IN THE ARRAY OF EVERY ARTICLE GROUP ARE STRINGS"
+class ArticleGroupSeekMachine {
+    seekArticleGroupByName(articleGroupName) {
+        var tasks = __task_ArticleGroups;
+        for (var i = 0; i < tasks.length; i++) {
+            if (tasks[i]["articleGroupName"] == articleGroupName) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    seekArticleGroupBySequence(articleGroupSequence) {
+        var tasks = __task_ArticleGroups;
+        for (var i = 0; i < tasks.length; i++) {
+            if (tasks[i]["articleGroupSequence"] == articleGroupSequence) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+class ArticleGroupParseMachine {
+    /**
+     * 
+     * @param {number} index 在dv.js中的第几个大括号
+     * @returns {ArticleGroup}
+     */
+    parseArticleGroup(index) {
+        var tasks = __task_ArticleGroups;
+        var result = new ArticleGroup(tasks[index]["articleGroupName"], tasks[index]["articleGroupSequence"], tasks[index]["articlesArray"]);
+        return result;
+    }
+
+    /**
+     * 
+     * @param {string} agname 
+     */
+    parseArticleGroupByName(agname) {
+        var u = new ArticleGroupSeekMachine();
+        var targetIndex = u.seekArticleGroupByName(agname);
+        return this.parseArticleGroup(targetIndex);
+    }
+
+    /**
+     * 
+     * @param {number} agseq
+     */
+    parseArticleGroupBySequence(agseq) {
+        var u = new ArticleGroupSeekMachine();
+        var targetIndex = u.seekArticleGroupBySequence(agseq);
+        return this.parseArticleGroup(targetIndex);
+    }
+
+    parseAll() {
+        _CHOSEN_ARTICLE_GROUPS = [];
+        var groups = __ARTICLE_GROUPS;
+        var res;
+        for (var i = 0; i < groups.length; i++) {
+            if (typeof groups[i] === "number") {
+                res = this.parseArticleGroupBySequence(groups[i]);
+            }
+            if (typeof groups[i] === "string") {
+                res = this.parseArticleGroupByName(groups[i]);
+            }
+            _CHOSEN_ARTICLE_GROUPS.push(res);
+        }
     }
 }
 
-var _determineErrorArray = [1200, 1280, 1201, 1203];
+//errors
+var ERRORS = {
+    701: {
+        ErrorStatus: false,
+        ErrorMessage: "ERROR 701: \"__task_ArticleGroups\" IS EMPTY"
+    },
+    702: {
+        ErrorStatus: false,
+        ErrorMessage: "ERROR 702: \"__ARTICLE_GROUPS\" IS EMPTY"
+    },
+    720: {
+        ErrorStatus: false,
+        ErrorMessage: "ERROR 720: CANNOT FIND ALL ARTICLE GROUPS IN FILE dv.js THROUGH THE NAMES & SEQUENCES PROVIDED BY \"__ARTICLE_GROUPS\""
+    }
+}
+
+var _determineErrorArray = [701, 702, 720];
+
+/**
+ * 
+ * @param {Element} element 
+ * @param {Number} errorNumber 
+ */
+function throwErrorMessage(element, errorNumber) {
+    element.innerHTML = "<p><strong>" + ERRORS[errorNumber].ErrorMessage + "</strong></p>";
+    console.log(ERRORS[errorNumber].ErrorMessage);
+}
+
+function alertErrorMessage() {
+    var errorNumberArray = _determineErrorArray;
+    for (var i = 0; i < errorNumberArray.length; i++) {
+        if (ERRORS[errorNumberArray[i]].ErrorStatus) {
+            alert(ERRORS[errorNumberArray[i]].ErrorMessage);
+        }
+    }
+}
+
+/**
+ * 
+ * @param {Element} element 
+ * @param {Array} errorNumberArray 
+ */
+function determineError(element, errorNumberArray) {
+    for (var i = 0; i < errorNumberArray.length; i++) {
+        if (ERRORS[errorNumberArray[i]].ErrorStatus) {
+            throwErrorMessage(element, errorNumberArray[i]);
+        }
+    }
+}
 
 //错误决定
-if (__ARTICLE_GROUPS.length == 0) ERRORS[1200].ErrorStatus = true;
-if (areArticleGroupNameAllExist() == false) ERRORS[1280].ErrorStatus = true;
-if (isArrayAll(__ARTICLE_GROUPS, "string") == false) ERRORS[1201].ErrorStatus = true;
-if (__ARTICLE_GROUPS.every(function (agname) {
-    var ag = parseArticleGroupByName(agname);
-    return isArrayAll(ag["articlesArray"], "string");
-}) == false) ERRORS[1203].ErrorStatus = true;
+if (getArticleGroupStatus() === -1) {
+    ERRORS[701].ErrorStatus = true;
+}
+if (getArticleGroupStatus() === -2) {
+    ERRORS[702].ErrorStatus = true;
+}
+if (getArticleGroupStatus() === -3) {
+    ERRORS[720].ErrorStatus = true;
+}
+
+alertErrorMessage()
+
+//解析文章组对象 v7.11.0
+var AGPM = new ArticleGroupParseMachine();
+AGPM.parseAll();
 
 //语言决定(v7.9.0彻底改版)
 console.log("浏览器语言：" + navigator.language);
@@ -153,6 +258,7 @@ if (__english_l.includes(__INTERFACE_LANGUAGE)) __langcode = "en-US";
 if (__simplified_chinese_l.includes(__INTERFACE_LANGUAGE)) __langcode = "zh-CN";
 if (__traditional_chinese_l.includes(__INTERFACE_LANGUAGE)) __langcode = "zh-TW";
 
+//----------------------------------------------------------------//
 
 /**
  * 
@@ -174,82 +280,34 @@ function isArrayAll(_arr, _type) {
     })
 }
 
-/**
- * 
- * @param {String} articleGroupName 
- * @returns 
- */
-function findArticleGroupName(articleGroupName) {
-    var tasks = __task_ArticleGroups;
-    for (var i = 0; i < tasks.length; i++) {
-        if (tasks[i]["articleGroupName"] == articleGroupName) {
-            return i;
-        }
-    }
-    return -1;
-}
 
-function getArticleGroupNameStatus(index) {
+function getArticleGroupStatus() {
     var tasks = __task_ArticleGroups;
     var groups = __ARTICLE_GROUPS;
+    var u = new ArticleGroupSeekMachine();
     if (tasks.length == 0) {
         return -1;//无任务
     }
-    var targetIndex = findArticleGroupName(groups[index]);
-    if (targetIndex == -1) {
-        return -2;//任务名在任务数组中不存在
+    if (groups.length == 0) {
+        return -2;//无选中文章组
     }
-    if (typeof tasks[targetIndex]["articleGroupName"] === "string" && Array.isArray(tasks[targetIndex]["articlesArray"])) {
-        return 0;//单任务组格式符合
-    }
-}
-
-function areArticleGroupNameAllExist() {
-    var count = 0;
-    for (var i = 0; i < __ARTICLE_GROUPS.length; i++) {
-        if (getArticleGroupNameStatus(i) == 0) {
-            count++;
+    for (var i = 0; i < groups.length; i++) {
+        if (typeof groups[i] === "number") {
+            if (u.seekArticleGroupBySequence(groups[i]) == -1) {
+                return -3
+            } else {
+                continue;
+            }
+        }
+        if (typeof groups[i] === "string") {
+            if (u.seekArticleGroupByName(groups[i]) == -1) {
+                return -3
+            } else {
+                continue;
+            }
         }
     }
-    if (count == __ARTICLE_GROUPS.length) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function parseArticleGroup(index) {
-    var tasks = __task_ArticleGroups;
-    var groups = __ARTICLE_GROUPS;
-    if (tasks.length == 0) {
-        return -1;
-    }
-    var targetIndex = findArticleGroupName(groups[index]);
-    if (targetIndex == -1) {
-        return -2;
-    }
-    var result = new ArticleGroup(tasks[targetIndex]["articleGroupName"], tasks[targetIndex]["articlesArray"]);
-    return result;
-}
-
-function parseArticleGroupByName(agname) {
-    var tasks = __task_ArticleGroups;
-    var groups = __ARTICLE_GROUPS;
-    if (tasks.length == 0) {
-        return -1;
-    }
-    var targetIndex = findArticleGroupName(agname);
-    if (targetIndex == -1) {
-        return -2;
-    }
-    var result = new ArticleGroup(tasks[targetIndex]["articleGroupName"], tasks[targetIndex]["articlesArray"]);
-    return result;
-}
-
-
-//parse v7.6.0
-for (var i = 0; i < __ARTICLE_GROUPS.length; i++) {
-    _CHOSEN_ARTICLE_GROUPS.push(parseArticleGroup(i));
+    return 0;
 }
 
 /**

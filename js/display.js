@@ -16,29 +16,6 @@ function areaDisplay() {
     }
 }
 
-/**
- * 
- * @param {Element} element 
- * @param {Number} errorNumber 
- */
-function throwErrorMessage(element, errorNumber) {
-    element.innerHTML = "<p><strong>" + ERRORS[errorNumber].ErrorMessage + "</strong></p>";
-    throw new Error(ERRORS[errorNumber].ErrorMessage);
-}
-
-/**
- * 
- * @param {Element} element 
- * @param {Array} errorNumberArray 
- */
-function determineError(element, errorNumberArray) {
-    for (var i = 0; i < errorNumberArray.length; i++) {
-        if (ERRORS[errorNumberArray[i]].ErrorStatus) {
-            throwErrorMessage(element, errorNumberArray[i]);
-        }
-    }
-}
-
 function refreshTimerStatusText() {
     if (timer.intervalId) {
         timerStatusDisplayer.innerHTML = p + lang[__langcode]["_timer_Running"] + _p;
@@ -112,8 +89,8 @@ function refreshLoadingInfoText() {
         loadingInfo.innerHTML = p + strong + _txt_SANDBOX_MODE + _strong + _p;
         return;
     }
-    if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
-        throwErrorMessage(loadingInfo, 1200);
+    if (_SANDBOX_MODE == false && ERRORS[701].ErrorStatus) {
+        throwErrorMessage(loadingInfo, 701);
         return;
     }
     determineError(loadingInfo, _determineErrorArray);
@@ -154,10 +131,10 @@ function refreshProgressText() {
         progressCounter.innerHTML = p + cm_str + strong + _txt_SANDBOX_MODE + _strong + lang[__langcode]["_typing_Progress_Invalid"] + _p;
         return;
     }
-    if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
-        throwErrorMessage(progressCounter, 1200);
-        return;
-    }
+    // if (_SANDBOX_MODE == false && ERRORS[701].ErrorStatus) {
+    //     throwErrorMessage(progressCounter, 701);
+    //     return;
+    // }
     determineError(progressCounter, _determineErrorArray);
     if (keyTipArray.length == 0) {
         progressCounter.innerHTML = p + cm_str + strong + _txt_NO_TASK_INFO + _strong + lang[__langcode]["_typing_Progress_Invalid"] + _p;
@@ -191,8 +168,8 @@ function refreshKeyTip() {
             + _p;
         return;
     }
-    if (_SANDBOX_MODE == false && ERRORS[1200].ErrorStatus) {
-        throwErrorMessage(keyTip, 1200);
+    if (_SANDBOX_MODE == false && ERRORS[701].ErrorStatus) {
+        throwErrorMessage(keyTip, 701);
         return;
     }
     determineError(progressCounter, _determineErrorArray);

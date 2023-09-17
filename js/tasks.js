@@ -1,6 +1,7 @@
 //tasks.js
 
 //v7.1.0
+//v7.11.0
 //Some special character that listed 
 //in INCORRECT_SET in database.js will
 //be replaced to inputable characters automatically.
@@ -10,35 +11,9 @@
 //you are free to choose the Article Groups you want
 //to practice with in dv.js.
 
-/*
- * 格式：
- * 一个大括号内表示一个文章组，
- * 每个文章组包括文章组名(articleGroupName)和任务文本数组(articlesArray)
- * 两者缺一不可。
- * var __task_ArticleGroups = [ 
-    { 
-        articleGroupName:"Your Name",
-        articlesArray: ["para1", "para2", "para3"]
-    },
-    { 
-        articleGroupName:"His Name",
-        articlesArray: ["para4", "para5", "para6"]
-    },
-    { 
-        articleGroupName:"Her Name",
-        articlesArray: ["para7", "para8", "para9"]
-    }]; 
- * 大体是这样的：
- * var __task_ArticleGroups = [{...}, {...}, {...}, ... , {...}];
- * 每一个文章组有：
- * {
- *     articleGroupName: "...",
- *     articlesArray: ["...", "...", "...", "..."]
- * }
- */
-
 var __task_ArticleGroups = [
     {
+        articleGroupSequence: 10001,
         articleGroupName: "名句集",
         articlesArray: [
             "Where there is a will, there is a way.",
@@ -67,6 +42,7 @@ var __task_ArticleGroups = [
         ]
     },
     {
+        articleGroupSequence: 10002,
         articleGroupName: "洛夫克拉夫特名句集",
         articlesArray: [
             "The oldest and strongest emotion of mankind is fear, and the oldest and strongest kind of fear is fear of the unknown.",
@@ -86,6 +62,7 @@ var __task_ArticleGroups = [
         ]
     },
     {
+        articleGroupSequence: 10003,
         articleGroupName: "travelchinaguide.com选段",
         articlesArray: [
             "Being capital of the People's Republic of China, Beijing is the nation's political, economic, and cultural center. Located in north China, close to the port city of Tianjin and partially surrounded by Hebei Province, it also serves as the most important transportation hub and port of entry.<br>As one of the six ancient cities in China, Beijing has been the heart and soul of politics throughout its long history and consequently there is an unparalleled wealth of discovery to delight and intrigue travelers as they explore the city's ancient past and exciting modern development. Now it has become one of the most popular travel destinations in the world, with about 140 million Chinese tourists and 4.4 million international visitors in a year.<br>travelchinaguide.com",
@@ -102,6 +79,7 @@ var __task_ArticleGroups = [
         ]
     },
     {
+        articleGroupSequence: 10004,
         articleGroupName: "I have a dream -- Martin Luther King, Jr.",
         articlesArray: [
             "1. I am happy to join with you today in what will go down in history as the greatest demonstration for freedom in the history of our nation.",
