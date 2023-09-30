@@ -345,17 +345,37 @@ Array.prototype.allGreaterThan = function (start, num) {
 String.prototype.getTypingNewArray = function () {
     var newArray = [];
     var restString = this;
+    // 纠正集作用
     for (var i = 0; i < restString.length; i++) {
         if (INCORRECT_SET.includes(restString.charAt(i))) {
             var value = extractValue(INCORRECT_SET, CORRECT_SET, restString.charAt(i));
-            console.log(value);
+            //console.log(value);
             restString = replaceCharAndShift(restString, i, value);
             continue;
         }
     }
+    // v7.12.0
+    // 多样性->统一性
+    // 顺序不可颠倒：先替换整体，后替换单体，其中单体替换有限制（先行断言和后行断言）
+    restString = restString
+        .replace(/<br \\>|<br>/g, "<br>")
+        .replace(/&#62;|&gt;|((?<!<br)(?<!<br \\)>)/g, "&gt;")
+        .replace(/&#60;|&lt;|(<(?!br>)(?!br \\>))/g, "&lt;")
+        .replace(/&#160;|&nbsp;| /g, "&nbsp;")
+        .replace(/&#34;|&quot;|\"/g, "&quot;")
+        .replace(/&#39;|&apos;|'|\'/g, "&apos;")
+        .replace(/&#38;|&amp;|(&(?!\w)(?!#\d))/g, "&amp;");
+    // 统一集字符串 转 正则表达式集
+    var U_SET = [];
+    for (var i = 0; i < UNIFIED_SET.length; i++) {
+        U_SET.push(UNIFIED_SET[i]);
+        const _val = new RegExp(U_SET[i]);
+        U_SET[i] = _val;
+    }
+    var reg = [null];
+    reg = reg.concat(U_SET);//正则表达式集
 
-    var reg = [null, /&#\d+;/, /&\w+;/, /<br>/, /<br \\>/];
-
+    // 预备工作
     var reg_startIdx = [null];
     for (var i = 1; i < reg.length; i++) {
         reg_startIdx.push(-100);
@@ -370,39 +390,42 @@ String.prototype.getTypingNewArray = function () {
     }
     var matches = [null];
     for (var i = 1; i < reg.length; i++) {
-        reg_switch.push(null);
+        matches.push(null);
     }
-
     while (restString.length > 0) {
         var START = 0;
         var END = 0;
+        //索引映射处理
         for (var j = 1; j < reg.length; j++) {
             matches[j] = reg[j].exec(restString);
+            //console.log(matches[j]);
             if (matches[j]) {
-                reg_startIdx[j] = matches[j].index;
-                reg_endIdx[j] = reg_startIdx[j] + matches[j][0].length - 1;
+                reg_startIdx[j] = matches[j].index;//令第j个reg_startIdx的值为匹配到字符串的起始索引
+                reg_endIdx[j] = reg_startIdx[j] + matches[j][0].length - 1;//令第j个reg_endIdx的值为匹配到字符串的末位置索引
             } else {
+                //若没找到匹配对象，则令第j个索引映射集为-1
                 reg_startIdx[j] = -1;
                 reg_endIdx[j] = -1;
             }
         }
-        if ((!reg_startIdx.includes(0))) {
-            newArray.push(restString[0]);//录入
-            restString = restString.slice(1);//删除
-        } else {
-            /*console.log("reg_startIdx: " + reg_startIdx+"\nreg_endIdx: " + reg_endIdx);*/
+        //新数组录入处理
+        if ((!reg_startIdx.includes(0))) {//若起始索引数组中的元素不含0，即剩余字符串的第一个字符不是特殊字符的开头
+            newArray.push(restString[0]);//录入剩余字符串的第一个字符
+            restString = restString.slice(1);//缩减剩余字符串，数组重新映射
+        } else {//剩余字符串的第一个字符是特殊字符串的开头
+            //console.log("reg_startIdx: " + reg_startIdx + "\nreg_endIdx: " + reg_endIdx);
             //包括0
             var __MODE = -1;//判断到了表达式的序号
-            //寻找第几项不是0
+            //在reg_startIdx中寻找第n（几）项不是0。这一项为0，代表着剩余字符串的开头是正则表达式中的第n项
             for (var j = 1; j < reg_startIdx.length; j++) {
                 if (reg_startIdx[j] == 0) {
                     __MODE = j;
                 }
             }
             //项已确认，开始处理
-            START = reg_startIdx[__MODE];
+            START = 0;
             END = reg_endIdx[__MODE];
-            var result = restString.slice(START, END + 1);
+            var result = restString.slice(START, END + 1);//获取特殊字符串整体
             newArray.push(result);
             restString = restString.slice(END + 1);
         }

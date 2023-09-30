@@ -190,10 +190,7 @@ function refreshKeyTip() {
         var target = keyTipArray[idx];
         if (target == " ") {
             writeIn = lang[__langcode]["_space_Key"];
-        } else {
-            writeIn = target;
-        }
-        if (target == "Enter") {
+        } else if (target == "Enter") {
             writeIn = lang[__langcode]["_enter_Key"];
         } else {
             writeIn = target;
@@ -282,7 +279,7 @@ function refreshTelescope() {
             var thisChar = inputElement.children[i].innerHTML;
             if (thisChar == "<br>") {
                 writeIn = __TELESCOPE_BREAKLINE;
-            } else if (thisChar == " " || thisChar == "&nbsp;") {
+            } else if (thisChar == "&nbsp;") {
                 writeIn = __TELESCOPE_SPACE;
             } else {
                 writeIn = thisChar;
@@ -295,7 +292,7 @@ function refreshTelescope() {
             var thisChar = inputElement.children[i].innerHTML;
             if (thisChar == "<br>") {
                 writeIn = __TELESCOPE_BREAKLINE;
-            } else if (thisChar == " " || thisChar == "&nbsp;") {
+            } else if (thisChar == "&nbsp;") {
                 writeIn = __TELESCOPE_SPACE;
             } else {
                 writeIn = thisChar;
@@ -315,7 +312,14 @@ function refreshTelescope() {
             //console.log(telescope.children[j].id);
             I_id = T_id;
             //console.log("j=" + j + ", I_id=" + I_id);
-            T_key = extractValue(CHARACTER, KEY, inputElement.children[I_id].innerHTML);//获取当前对应的key
+            //console.log(inputElement.children[I_id].innerHTML);
+            if (inputElement.children[I_id].innerHTML == "<br>") {
+                T_key = "Enter";
+            } else if (TRANSFORMED_UNIFIED_SET.includes(inputElement.children[I_id].innerHTML)) {
+                T_key = inputElement.children[I_id].innerHTML;
+            } else {
+                T_key = extractValue(CHARACTER, KEY, inputElement.children[I_id].innerHTML);//获取当前对应的key
+            }
             //console.log("j=" + j + ", T_key=" + T_key);
             D_key = keyTipArray[I_id];
             //console.log("j=" + j + ", D_key=" + D_key);
