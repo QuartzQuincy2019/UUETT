@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.12.2";
+var _VERSION = "v7.12.3";
 
 /**
  * ~ LANGUAGE ~
@@ -38,7 +38,7 @@ var __FONT_SIZE_ADJUSTMENT_RANGE = 4;
  * 以装载在tasks.js中您想要进行练习的文章组
  * v7.11.0
  */
-var __ARTICLE_GROUPS = [10001, 10002, 10003, 10004];
+var __ARTICLE_GROUPS = [10001, 10002, 10003, 10004, 10005];
 
 /**
  * 您选择的__ARTICLE_GROUPS中的文章数组的序列，从0开始（包括0）
