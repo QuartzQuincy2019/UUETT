@@ -428,3 +428,24 @@ function adjustIoAreaSize(isAssignment, _SIZE) {
     }
     refreshFontSizeDisplay();
 }
+
+function refreshFontDisplay() {
+    var written = "";
+    if (_chosen_font == 0) {
+        written = lang[__langcode]["_default"];
+    } else {
+        written = _FONT_FAMILIES[_chosen_font];
+    }
+    button_font.innerHTML = lang[__langcode]["_button_Font"] + written;
+}
+
+function changeFont() {
+    var maxFontIndex = _FONT_FAMILIES.length - 1;
+    if (_chosen_font == maxFontIndex) {
+        _chosen_font = 0;
+    } else {
+        _chosen_font += 1;
+    }
+    TYPINGAREA.style["font-family"] = _FONT_FAMILIES[_chosen_font];
+    refreshFontDisplay();
+}

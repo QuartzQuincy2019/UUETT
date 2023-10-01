@@ -29,6 +29,8 @@ var _CHOSEN_ARTICLE = [0, 0];
  */
 var __langcode = "";
 
+var _chosen_font = 0;
+
 var _NEXT_DISPLAY;//element，用于自滚动时的定位
 
 //element variables
@@ -60,6 +62,7 @@ var button_restartTimer = document.getElementById("button_restartTimer");
 var button_changeSkin = document.getElementById("button_changeSkin");
 var button_defaultFontSize = document.getElementById("button_defaultFontSize");
 var button_trl = document.getElementById("button_trl");
+var button_font = document.getElementById("button_font");
 
 var menu = document.getElementById("menu");
 var footer = document.getElementById("footer");
@@ -77,6 +80,35 @@ var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
 
 var _author_ = document.getElementById("_author_");
 var _title_ = document.getElementById("_title_");
+
+var _FONT_FAMILIES = [
+    __DEFAULT_FONT_TYPING,
+    "Helvetica",
+    "Calibri",
+    "Bahnschrift",
+    "Consolas",
+    "Trebuchet MS",
+    "Tahoma",
+    "Lucida Sans",
+    "Georgia",
+    "Garamond",
+    "Cambria",
+    "Book Antiqua",
+    "Agency FB",
+    "Rockwell",
+    "Lucida Calligraphy",
+    "Comic Sans MS",
+    "MS Serif",
+    "Papyrus",
+    "Imprint MT Shadow",
+    "Ink Free",
+    "Jokerman",
+    "Segoe Script",
+    "Old English Text MT",
+    "Symbol",
+    "Wingdings",
+    "Webdings"
+]
 
 //基本文章组类
 class ArticleGroup {

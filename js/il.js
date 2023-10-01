@@ -11,6 +11,7 @@ clearTrl();
 refreshLoadingInfoText();
 refreshProgressText();
 refreshKeyTip();
+refreshFontDisplay();
 
 //位置固定
 trl.style.left = "5px";
@@ -29,8 +30,6 @@ setInterval(function () {
 setInterval(() => {
     refreshTimerStatusText();
 }, 200);
-
-
 
 
 //设置字体大小

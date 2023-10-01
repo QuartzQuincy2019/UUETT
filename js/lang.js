@@ -4,6 +4,7 @@ var lang = {
         "languageName": "English",
         "colon": ":",
         "_time": "Time",
+        "_default": "Default",
         "_author_link": "~ GitHub UUTT Instructions & Wiki ~",
         "_to_Task_Mode": "To Task Mode",
         "_to_Sandbox_Mode": "To Sandbox Mode",
@@ -40,6 +41,7 @@ var lang = {
         "_button_Change_Skin": "Change Skin ",
         "_button_Default_FontSize": "Default Font Size ",
         "_button_Trl": "Typing Record List (TRL) ",
+        "_button_Font": "Current Typing Font: ",
         "instructions":
             "Welcome to <strong>UU E</strong>nglish <strong>T</strong>yping <strong>T</strong>rainer (UUETT)!"
             + "<br>***Your keyboard input has been restricted on this page and you cannot enter any characters other than English (and punctuation)."
@@ -64,6 +66,7 @@ var lang = {
         "languageName": "简体中文",
         "colon": "：",
         "_time": "时间",
+        "_default": "默认值",
         "_author_link": "~ GitHub UUTT 使用说明与Wiki ~",
         "_to_Task_Mode": "切换至任务模式",
         "_to_Sandbox_Mode": "切换至沙盒模式",
@@ -100,6 +103,7 @@ var lang = {
         "_button_Change_Skin": "切换皮肤 ",
         "_button_Default_FontSize": "恢复默认字体大小 ",
         "_button_Trl": "显示/隐藏打字记录列表 ",
+        "_button_Font": "打字区域当前字体：",
         "instructions":
             "欢迎使用<strong>UU英文打字练习器</strong> (UUETT)！"
             + "<br>***您在本页上的键盘输入已被限制，您不能输入除英文(和标点符号)以外的任何字符。"
@@ -124,6 +128,7 @@ var lang = {
         "languageName": "繁體中文",
         "colon": "：",
         "_time": "時間",
+        "_default": "默認值",
         "_author_link": "~ GitHub UUTT 使用説明與Wiki ~",
         "_to_Task_Mode": "切換至任務模式",
         "_to_Sandbox_Mode": "切換至沙盒模式",
@@ -160,6 +165,7 @@ var lang = {
         "_button_Change_Skin": "切換皮膚 ",
         "_button_Default_FontSize": "恢復默認字體大小 ",
         "_button_Trl": "顯示/隱藏打字記錄列表 ",
+        "_button_Font": "打字區域當前字體：",
         "instructions":
             "歡迎使用<strong>UU英文打字練習器</strong> (UUETT)！"
             + "<br>***您在本頁上的鍵盤輸入已被限制，您不能輸入除英文(和標點符號)以外的任何字符。"
