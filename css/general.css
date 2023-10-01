@@ -69,6 +69,11 @@ div p {
     text-align: center;
 }
 
+#_title_ {
+    animation: shiningstrongly 4s linear infinite;
+    animation-direction: reverse;
+}
+
 #_author_ {
     font-size: 20px;
 }
@@ -226,5 +231,57 @@ div span.TTC_none {
 
     100% {
         background-position: 0% 0%;
+    }
+}
+
+@keyframes shining {
+    0% {
+        text-shadow: none;
+    }
+
+    50% {
+        text-shadow: 0px 0px 18px#ffffff;
+    }
+
+    100% {
+        text-shadow: none;
+    }
+}
+
+@keyframes shiningstrongly {
+    0% {
+        text-shadow: -1.4px 1.4px 3px#cecece;
+    }
+
+    12.5% {
+        text-shadow: 0px 2px 3px#cecece;
+    }
+
+    25% {
+        text-shadow: 1.4px 1.4px 3px#cecece;
+    }
+
+    37.5% {
+        text-shadow: 2px 0px 3px#cecece;
+    }
+
+    50% {
+        text-shadow: 1.4px -1.4px 3px#cecece;
+    }
+
+    62.5% {
+        text-shadow: 0px -2px 3px#cecece;
+    }
+
+    75% {
+        text-shadow: -1.4px -1.4px 3px#cecece;
+    }
+
+    87.5% {
+        text-shadow: -2px 0px 3px#cecece;
+    }
+
+    100% {
+        text-shadow: -1.4px 1.4px 3px#cecece;
     }
 }

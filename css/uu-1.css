@@ -20,6 +20,12 @@ body {
     color: #3d2a00;
 }
 
+#inputElement {
+    animation: shining infinite;
+    animation-duration: 4s;
+    animation-timing-function: linear;
+}
+
 #displayKey {
     text-shadow: 2px 2px 3px #999999;
 }
