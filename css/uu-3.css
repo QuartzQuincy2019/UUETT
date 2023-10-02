@@ -41,14 +41,11 @@ body * {
 }
 
 div span.TTC_correct {
-    color: #0cce43;
-    text-shadow: 1px 1px 4px #40eb70;
+    animation: CorrectShining 2s linear infinite;
 }
 
 div span.TTC_incorrect {
-    background-color: #ff000030;
-    color: #ff053f;
-    text-shadow: 1px 1px 3px #ff436f;
+    animation: RedErrorShining 1s linear infinite;
 }
 
 div span.TTC_none {
