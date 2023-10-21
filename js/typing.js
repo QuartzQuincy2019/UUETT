@@ -1,5 +1,26 @@
 //typing.js
 
+
+function correct() {
+    var inputLen = inputElement.children.length - 1;
+    var current = inputLen - 1;//光标前的索引
+    if (displayElement.innerHTML == "") {
+        return;
+    }
+    for (var i = 0; i < displayElement.children.length; i++) {
+        if (i <= current) {
+            //console.log(displayElement.children[i].innerHTML + " " + inputed.charAtTyping(i));
+            if (displayElement.children[i].innerHTML == inputElement.children[i].innerHTML) {
+                displayElement.children[i].className = "TTC_correct";
+            } else {
+                displayElement.children[i].className = "TTC_incorrect";
+            }
+        } else {
+            displayElement.children[i].className = "TTC_none";
+        }
+    }
+}
+
 var typing = document.addEventListener('keydown', function (event) {
     var key = event.key + "";//小写
     console.log("按键：" + key);
@@ -31,6 +52,7 @@ var typing = document.addEventListener('keydown', function (event) {
     if (key == __FK_TIMER_TOGGLE) {
         event.preventDefault();
         timer.toggle();//暂停或开始计时
+        refreshTimerStatusText();
         return;
     }
     if (key == __FK_DEFAULT_FONT_SIZE) {
@@ -90,9 +112,10 @@ var typing = document.addEventListener('keydown', function (event) {
     refreshKeyCounterText();
     refreshProgressText();
     refreshTelescope();
+    correct();
 });
 
-var windowScroller = document.addEventListener("keydown", function (event) {
+var windowScroller = document.addEventListener("keydown", function () {
     if (_SANDBOX_MODE == false) {
         if (keyTipArray.length == 0) {
             return -1;
@@ -132,28 +155,7 @@ var windowScroller = document.addEventListener("keydown", function (event) {
         var targetY = _CURRENT_TO_TOP - (_INNER_HEIGHT - _HEIGHT) / 2;
         window.scrollTo(targetX, targetY);
     }
-})
-
-function correct() {
-    var inputLen = inputElement.children.length - 1;
-    var current = inputLen - 1;//光标前的索引
-    if (displayElement.innerHTML == "") {
-        return;
-    }
-    for (var i = 0; i < displayElement.children.length; i++) {
-        if (i <= current) {
-            //console.log(displayElement.children[i].innerHTML + " " + inputed.charAtTyping(i));
-            if (displayElement.children[i].innerHTML == inputElement.children[i].innerHTML) {
-                displayElement.children[i].className = "TTC_correct";
-            } else {
-                displayElement.children[i].className = "TTC_incorrect";
-            }
-        } else {
-            displayElement.children[i].className = "TTC_none";
-        }
-    }
-}
-var _interval_correction = setInterval(correct, 100);
+});
 
 /**
  * @returns {Array}
@@ -184,8 +186,7 @@ function launchTask() {
     displayElement.innerHTML = "";//请勿忘记
     var _TASK_STRING = str.getTypingNewArray();//事先准备好新数组，减少运算次数
     _TASK_STRING_LENGTH = _TASK_STRING.length;//事先准备好数组长度，减少运算次数
-    var each;
-    var calculatedKey;
+    var each, calculatedKey;
     for (var i = 0; i < _TASK_STRING_LENGTH; i++) {
         each = _TASK_STRING[i];//直接访问新数组，而不是重新运算，解决了卡顿问题
         calculatedKey = extractValue(CHARACTER, KEY, each);

@@ -329,16 +329,13 @@ div span.TTC_none {
 @keyframes CorrectShining {
     0% {
         color: #009200;
-        text-shadow: 1px 1px 2px #009200;
     }
 
     50% {
-        color: #26d326;
-        text-shadow: 0px 0px 2px #91fa91;
+        color: #3ae33a;
     }
 
     100% {
         color: #009200;
-        text-shadow: 1px 1px 2px #009200;
     }
 }

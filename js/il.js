@@ -16,17 +16,20 @@ refreshFontDisplay();
 //位置固定
 trl.style.left = "5px";
 BUTTONAREA.style.right = "5px";
+
 setInterval(function () {
     TYPINGAREA.style.top = menu.offsetHeight + 5 + "px";
     trl.style.bottom = footer.offsetHeight + 5 + "px";
     BUTTONAREA.style.bottom = footer.offsetHeight + 5 + "px";
 }, 100);
 
+//刷新计时器和速度文本
 setInterval(function () {
     timer.writeInTimer();
     refreshSpeedDisplay(typingCount, timer);
 }, 100);
 
+//刷新计时器状态文本
 setInterval(() => {
     refreshTimerStatusText();
 }, 200);
@@ -86,3 +89,6 @@ button_trl.innerHTML = lang[__langcode]["_button_Trl"] + "[" + __FK_TRL_SWITCH +
 
 //显示进入网页的说明
 inputElement.innerHTML = lang[__langcode]["instructions"];
+
+//按钮悬停说明
+button_font.title = lang[__langcode]["_button_Font_Title"];

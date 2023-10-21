@@ -42,6 +42,7 @@ var lang = {
         "_button_Default_FontSize": "Default Font Size ",
         "_button_Trl": "Typing Record List (TRL) ",
         "_button_Font": "Current Typing Font: ",
+        "_button_Font_Title": "Click the button to change the Typing Font.",
         "instructions":
             "Welcome to <strong>UU E</strong>nglish <strong>T</strong>yping <strong>T</strong>rainer (UUETT)!"
             + "<br>***Your keyboard input has been restricted on this page and you cannot enter any characters other than English (and punctuation)."
@@ -104,6 +105,7 @@ var lang = {
         "_button_Default_FontSize": "恢复默认字体大小 ",
         "_button_Trl": "显示/隐藏打字记录列表 ",
         "_button_Font": "打字区域当前字体：",
+        "_button_Font_Title": "点击按钮以切换打字区域字体",
         "instructions":
             "欢迎使用<strong>UU英文打字练习器</strong> (UUETT)！"
             + "<br>***您在本页上的键盘输入已被限制，您不能输入除英文(和标点符号)以外的任何字符。"
@@ -166,6 +168,7 @@ var lang = {
         "_button_Default_FontSize": "恢復默認字體大小 ",
         "_button_Trl": "顯示/隱藏打字記錄列表 ",
         "_button_Font": "打字區域當前字體：",
+        "_button_Font_Title": "點擊按鈕以切換打字區域字體",
         "instructions":
             "歡迎使用<strong>UU英文打字練習器</strong> (UUETT)！"
             + "<br>***您在本頁上的鍵盤輸入已被限制，您不能輸入除英文(和標點符號)以外的任何字符。"
