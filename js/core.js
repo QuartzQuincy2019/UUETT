@@ -78,6 +78,8 @@ var TELESCOPEAREA = document.getElementById("TELESCOPEAREA");
 var LISTAREA = document.getElementById("LISTAREA");
 var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
 
+var bg2 = document.getElementById("bg2");
+
 var _author_ = document.getElementById("_author_");
 var _title_ = document.getElementById("_title_");
 

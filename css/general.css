@@ -17,6 +17,31 @@ div p {
     font-size: 22px;
 }
 
+#bg1,
+#bg2 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    /* v7.13.2 */
+}
+
+#bg1 {
+    z-index: -2;
+}
+
+#bg1 {
+    background-color: #ffffff20;
+}
+
+#bg2 {
+    background-size: 200% 200%;
+    animation: BackgroundMovement 60s ease-in-out infinite;
+    /* v7.13.2 */
+}
+
 #TYPINGAREA {
     width: auto;
     margin: 10px;
@@ -337,5 +362,19 @@ div span.TTC_none {
 
     100% {
         color: #009200;
+    }
+}
+
+@keyframes BackgroundMovement {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    100% {
+        background-position: 0% 0%;
     }
 }

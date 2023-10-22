@@ -38,6 +38,33 @@ setInterval(() => {
 //设置字体大小
 adjustIoAreaSize(true, __DEFAULT_IO_FONT_SIZE);
 
+//设置bg2样式
+function getBg2CSS(separateCoe) {
+    var _dark = "#6666660e", _light = "#0000000e";
+    var output = "linear-gradient(-60deg, ";
+    var progress = [];
+    for (var i = 0; i <= separateCoe; i++) {
+        progress.push(100 / separateCoe * i);
+    }
+    var current = _dark;//0为dark
+    for (var i = 0; i < separateCoe; i++) {
+        if (current == _dark) {
+            output += _dark + " " + progress[i] + "%, ";
+            output += _dark + " " + progress[i + 1] + "%";
+            current = _light;
+        }
+        else if (current == _light) {
+            output += _light + " " + progress[i] + "%, ";
+            output += _light + " " + progress[i + 1] + "%";
+            current = _dark;
+        }
+        if (i < separateCoe - 1) output += ", ";
+    }
+    output += ")";
+    return output;
+}
+bg2.style.backgroundImage = getBg2CSS(15);
+
 //望远镜弹性宽度显示功能 v7.0.0
 telescope.style["font-size"] = __DEFAULT_TELESCOPE_FONT_SIZE + "px";
 var telescopeFlexibleWidthAdjuster = setInterval(function () {
