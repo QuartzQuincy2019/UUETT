@@ -151,7 +151,7 @@ function refreshProgressText() {
         + " / "
         + strong + len + _strong +
         " ("
-        + strong + " " + rate + "%" + _strong + ")"
+        + strong + " " + rate + "%" + _strong + " )"
         + _p;
 }
 
