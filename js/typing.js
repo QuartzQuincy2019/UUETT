@@ -89,6 +89,12 @@ var typing = document.addEventListener('keydown', function (event) {
                 typingCount++;
             }
             event.preventDefault(); //阻止默认按键行为
+            _displayBg.animate([
+                { boxShadow: "0px 0px 20px #ffffffd0", offset: 0 },
+                { boxShadow: "0px 0px 15px #ffffff80", offset: 1 }],
+                {
+                    duration: 500
+                });//v7.13.4
             var character = extractValue(KEY, CHARACTER, key);
             deleteCharacter(1);
             appendCharacter(character);

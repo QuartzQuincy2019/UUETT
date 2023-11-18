@@ -32,8 +32,15 @@ setInterval(function () {
 //刷新计时器状态文本
 setInterval(() => {
     refreshTimerStatusText();
-}, 200);
+}, 100);
 
+setInterval(() => {
+    if(displayElement.children.length == 0) {
+        _displayBg.style.display = "none";
+    }else{
+        _displayBg.style.display = "";
+    }
+}, 100);
 
 //设置字体大小
 adjustIoAreaSize(true, __DEFAULT_IO_FONT_SIZE);

@@ -77,6 +77,7 @@ var TYPINGAREA = document.getElementById("TYPINGAREA");
 var TELESCOPEAREA = document.getElementById("TELESCOPEAREA");
 var LISTAREA = document.getElementById("LISTAREA");
 var _ioAreaPara = document.getElementsByClassName("ioAreaPara");
+var _displayBg = document.getElementById("displayBg");
 
 var bg2 = document.getElementById("bg2");
 
@@ -741,7 +742,8 @@ function clearModeCache(
     _clearArticleData,
     _clearCount,
     _clearKeyTip,
-    _resetDone) {
+    _resetDone,
+    _toSandbox) {
     areaDisplay();
     if (_clearArticleData) {
         _CHOSEN_ARTICLE = [0, 0];
@@ -759,7 +761,11 @@ function clearModeCache(
     }
     inputModeText();
     _TASK_STRING_LENGTH = 0;
-    displayElement.innerHTML = lang[__langcode]["_mode_Cache_Exist"];
+    if (!_toSandbox) {
+        displayElement.innerHTML = lang[__langcode]["_mode_Cache_Exist"];
+    } else {
+        displayElement.innerHTML = "";
+    }//7.13.5
     clearInputText();
     refreshLoadingInfoText();
     refreshProgressText();
@@ -770,12 +776,15 @@ function inputModeSwitch() {
     if (timer.intervalId) {
         timer.restart();
     }
+    var _toSandbox;
     if (_SANDBOX_MODE == true) {
         _SANDBOX_MODE = false;
+        _toSandbox = false;
     } else {
         _SANDBOX_MODE = true;
+        _toSandbox = true;
     }
-    clearModeCache(true, true, true, true);
+    clearModeCache(true, true, true, true, _toSandbox);
 }
 
 function deleteCharacter(count) {
