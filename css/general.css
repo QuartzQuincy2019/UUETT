@@ -4,8 +4,6 @@
     margin: 0;
     scroll-behavior: smooth;
     /* v3.0.0 新增 */
-    transition: background-color 200ms linear;
-    /* v7.8.1 新增 */
 }
 
 a {
@@ -53,6 +51,12 @@ div p {
     white-space: nowrap;
 }
 
+#TYPINGAREA *::selection {
+    background-color: #ffffff;
+    color: #000000;
+    text-shadow: 0px 0px 6px #999999;
+}
+
 .ioAreaBg {
     padding: 5px;
 }
@@ -98,6 +102,12 @@ div p {
     overflow-y: scroll;
 }
 
+#typingRecordList *::selection {
+    background-color: #ffffff;
+    color: #000000;
+    text-shadow: 0px 0px 5px #999999;
+}
+
 #_author_,
 #_title_ {
     display: block;
@@ -122,6 +132,12 @@ div p {
     transition-property: all;
     font-size: 16px;
     margin: 2px 2px;
+}
+
+.floatingmenu>*,
+.fixedmenu>* {
+    transition-duration: 500ms;
+    transition-property: all;
 }
 
 .floatingmenu {

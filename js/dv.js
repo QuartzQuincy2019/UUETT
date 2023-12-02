@@ -5,7 +5,7 @@
 /**
  * 当前版本。只有贡献者对此有解释权。
  */
-var _VERSION = "v7.13.5";
+var _VERSION = "v7.13.6";
 
 /**
  * ~ LANGUAGE ~
