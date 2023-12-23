@@ -11,6 +11,7 @@ UUTT For **PC**
 [**资源获取：最新发布页面**](https://github.com/QuartzQuincy2019/UUETT/releases/latest)
 
 ## 重要声明
+> **2023年12月23日起，UUETT不再更新。** <br>
 1. **本仓库为公共仓库( _Public Repository_ )。未经本仓库所有者或贡献者许可，不允许对本仓库进行添加或删减工作。**
 2. **UUTT只允许、适合在 _电脑(Computer)_ 上使用。所有型号的 _手机_ 都无法使用UUTT。**
 3. **UUTT的主文件是UU.html。因此，UUTT的打开方式必须为浏览器(browser)。建议使用Microsoft Edge。**
